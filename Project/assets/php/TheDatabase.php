@@ -21,19 +21,22 @@ class TheDatabase
 
     /**
      * TheDatabase constructor.
+     * @param $DBHostName
+     * @param $DBUserName
+     * @param $DBPassword
+     * @param $DBName
      */
-    public function __construct()
+    public function __construct($DBHostName, $DBUserName, $DBPassword, $DBName)
     {
+        $this->DBHostName = $DBHostName;
+        $this->DBUserName = $DBUserName;
+        $this->DBPassword = $DBPassword;
+        $this->DBName = $DBName;
     }
 
     public function connect()
     {
         global $DBHostName, $DBUserName, $DBPassword, $connection, $DBName;
-
-        $DBHostName = "///////////";
-        $DBUserName = "///////////";
-        $DBPassword = "///////////";
-        $DBName = "///////////////";
 
         $conn = mysqli_connect($DBHostName, $DBUserName, $DBPassword)
             or die ('Error connecting to mysql');
@@ -54,7 +57,7 @@ class TheDatabase
         return mysqli_close($connection);
     }
 
-    public function getInfoSpecific($query)
+    public function getInfo($query)
     {
         global $connection;
 
@@ -64,7 +67,7 @@ class TheDatabase
         return $result;
     }
 
-    public function updateInfoSpecific($query)
+    public function updateInfo($query)
     {
         global $connection;
 
@@ -72,6 +75,21 @@ class TheDatabase
             or die ('Error setting the info: ' . mysqli_error($connection));
 
     }
+
+    public function getData($query) {
+        $toReturn = [];
+
+        $result = $this->getInfo($query);
+
+        while ($row = mysqli_fetch_assoc($result))
+            $toReturn = $row;
+
+        return $toReturn;
+    }
+
+
+    //Getters and setters
+
 
     /**
      * @return string
