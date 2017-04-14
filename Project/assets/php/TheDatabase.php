@@ -35,7 +35,8 @@ class TheDatabase
         $DBPassword = "///////////";
         $DBName = "///////////////";
 
-        $conn = mysqli_connect($DBHostName, $DBUserName, $DBPassword) or die ('Error connecting to mysql');
+        $conn = mysqli_connect($DBHostName, $DBUserName, $DBPassword)
+            or die ('Error connecting to mysql');
 
         if (!$conn)
             return false;
@@ -51,33 +52,6 @@ class TheDatabase
         global $connection;
 
         return mysqli_close($connection);
-    }
-
-    public function getInfo($type)
-    {
-        global $connection;
-
-        $result = mysqli_query($connection,
-            "SELECT idmanga, title, chaptitle, chaplink, image, chapdate, chapdesc, new FROM manga WHERE ma='$type';")
-        or die ('Error getting all the info: ' . mysqli_error($connection));
-
-        return $result;
-    }
-
-    public function updateInfo($title, $link, $date, $description, $id)
-    {
-        global $connection;
-
-        return mysqli_query($connection, "UPDATE manga SET chaptitle = '$title', chaplink = '$link', chapdate = '$date', chapdesc = '$description', new = 'y' WHERE idmanga = '$id';")
-            or die ('Error setting all the info: ' . mysqli_error($connection));
-    }
-
-    public function insertInfo($title, $keyword, $link, $image, $type)
-    {
-        global $connection;
-
-        return mysqli_query($connection, "INSERT INTO manga (title, keyword, link, image, ma) VALUES ('$title', '$keyword', '$link', '$image', '$type');")
-            or die ('Error inserting info: ' . mysqli_error($connection));
     }
 
     public function getInfoSpecific($query)
