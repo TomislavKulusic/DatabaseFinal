@@ -15,6 +15,7 @@ class Movies implements InterfaceClass
     private $categoryID;
     private $directorID;
     private $releaseDate;
+    private $database;
 
     /**
      * Movies constructor.
@@ -25,7 +26,7 @@ class Movies implements InterfaceClass
      * @param $directorID
      * @param $releaseDate
      */
-    public function __construct($movieID, $movieTitle, $description, $categoryID, $directorID, $releaseDate)
+    public function __construct($movieID, $movieTitle, $description, $categoryID, $directorID, $releaseDate, $database)
     {
         $this->movieID = $movieID;
         $this->movieTitle = $movieTitle;
@@ -33,6 +34,7 @@ class Movies implements InterfaceClass
         $this->categoryID = $categoryID;
         $this->directorID = $directorID;
         $this->releaseDate = $releaseDate;
+        $this->database = $database;
     }
 
     public function fetch()
