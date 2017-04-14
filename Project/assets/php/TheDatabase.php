@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Class TheDatabase
  *
@@ -10,7 +9,10 @@
  *  - https://www.w3schools.com/php/php_mysql_prepared_statements.asp
  *
  * The goal is to make this class same as the one that we did in our Java homework
+ *
+ * Usefull link http://php.net/manual/en/pdostatement.fetchall.php
  */
+
 class TheDatabase
 {
     private $DBHostName;
@@ -36,17 +38,16 @@ class TheDatabase
 
     public function connect()
     {
-        global $DBHostName, $DBUserName, $DBPassword, $connection, $DBName;
+        global $DBHostName, $DBUserName, $DBPassword, $DBName;
 
-        $conn = mysqli_connect($DBHostName, $DBUserName, $DBPassword)
-            or die ('Error connecting to mysql');
-
-        if (!$conn)
-            return false;
-        else {
-            $connection = $conn;
-            mysqli_select_db($connection, $DBName);
+        try {
+            $this->connection = new PDO('mysql:dbname=' . $DBName . ';host=' . $DBHostName, $DBUserName, $DBPassword);
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return true;
+        } catch (PDOException $e) {
+            //TODO Handle the exception
+
+            return false;
         }
     }
 
@@ -54,38 +55,38 @@ class TheDatabase
     {
         global $connection;
 
-        return mysqli_close($connection);
+        return $connection = null;
     }
 
-    public function getInfo($query)
-    {
-        global $connection;
-
-        $result = mysqli_query($connection, $query)
-            or die ('Error getting info: ' . mysqli_error($connection));
-
-        return $result;
-    }
-
-    public function updateInfo($query)
-    {
-        global $connection;
-
-        return mysqli_query($connection, $query)
-            or die ('Error setting the info: ' . mysqli_error($connection));
-
-    }
+    //TODO Try catch
 
     public function getData($query) {
-        $toReturn = [];
+        $statement = $this->connection->prepare($query);
 
-        $result = $this->getInfo($query);
-
-        while ($row = mysqli_fetch_assoc($result))
-            $toReturn = $row;
-
-        return $toReturn;
+        return $statement.fetchAll();
     }
+
+    /**
+     * @param $query
+     * @param $className
+     * @return string Returns objects of the class specified
+     */
+    public function getDataClass($query, $className) {
+        $statement = $this->connection->prepare($query);
+
+        return $statement.fetchAll(PDO::FETCH_CLASS, $className);
+    }
+
+    /**
+     * @param $query Example: "INSERT INTO fruit(name, colour) VALUES (?, ?)"
+     * @param $values Example: array('apple', 'green')
+     */
+    public function setData($query, $values) {
+        $insert = $this->connection->prepare($query);
+
+        $insert->execute($values);
+    }
+
 
 
     //Getters and setters
