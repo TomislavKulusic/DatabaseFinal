@@ -3,7 +3,7 @@
 /**
  * Class TheDatabase
  *
- * This is the class I used for my personal project. TODO We need to modify this class so it has PHP PDO
+ * This is the class I used for my personal project.
  * Here are some links for how to do it:
  *  - http://php.net/manual/en/book.pdo.php
  *  - https://www.w3schools.com/php/php_mysql_prepared_statements.asp
@@ -11,6 +11,7 @@
  * The goal is to make this class same as the one that we did in our Java homework
  *
  * Usefull link http://php.net/manual/en/pdostatement.fetchall.php
+ * http://php.net/manual/en/function.syslog.php
  */
 
 class TheDatabase
@@ -108,7 +109,6 @@ class TheDatabase
         $insert->execute($values);
     }
 
-    //TODO Test this
     public function startTransaction() {
         global $connection;
 
@@ -121,7 +121,7 @@ class TheDatabase
         $connection->rollBack();
     }
 
-    public function commit() {
+    public function endTransaction() {
         global $connection;
 
         $connection->commit();

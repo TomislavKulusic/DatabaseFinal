@@ -31,4 +31,3 @@ if ($database->connect()) {
         echo "<br><br>Closed";
     }
 }
-
