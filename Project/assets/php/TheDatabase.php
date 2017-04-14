@@ -108,7 +108,24 @@ class TheDatabase
         $insert->execute($values);
     }
 
+    //TODO Test this
+    public function startTransaction() {
+        global $connection;
 
+        $connection->beginTransaction();
+    }
+
+    public function rollback() {
+        global $connection;
+
+        $connection->rollBack();
+    }
+
+    public function commit() {
+        global $connection;
+
+        $connection->commit();
+    }
 
     //Getters and setters
 
