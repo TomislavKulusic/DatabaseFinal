@@ -97,8 +97,8 @@ class TheDatabase
     }
 
     /**
-     * @param $query Example: "INSERT INTO fruit(name, colour) VALUES (?, ?)"
-     * @param $values Example: array('apple', 'green')
+     * @param $query string Example: "INSERT INTO fruit(name, colour) VALUES (?, ?)"
+     * @param $values array Example: array('apple', 'green')
      */
     public function setData($query, $values) {
         global $connection;
