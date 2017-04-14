@@ -16,6 +16,8 @@ class Renter implements InterfaceClass
     private $cardNo;
     private $dateJoined;
     private $lastLogin;
+    private $database;
+    private $rentedMovies;
 
     /**
      * Renter constructor.
@@ -27,7 +29,7 @@ class Renter implements InterfaceClass
      * @param $dateJoined
      * @param $lastLogin
      */
-    public function __construct($renterID, $firstName, $lastName, $email, $cardNo, $dateJoined, $lastLogin)
+    public function __construct($renterID, $firstName, $lastName, $email, $cardNo, $dateJoined, $lastLogin, $database)
     {
         $this->renterID = $renterID;
         $this->firstName = $firstName;
@@ -36,6 +38,7 @@ class Renter implements InterfaceClass
         $this->cardNo = $cardNo;
         $this->dateJoined = $dateJoined;
         $this->lastLogin = $lastLogin;
+        $this->database = $database;
     }
 
     public function __construct1($renterID) {
@@ -60,5 +63,15 @@ class Renter implements InterfaceClass
     public function delete()
     {
         // TODO: Implement delete() method.
+    }
+
+    public function setRentedMovies() {
+        global $database;
+
+        $query = "SELECT * FROM Movie_Renter LEFT JOIN Renter ON Render_ID WHERE Movie_Renter.Render_ID = ?;";
+
+        $result = $database.getData($query, array($this->renterID));
+
+        //TODO Finish this
     }
 }

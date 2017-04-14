@@ -69,13 +69,16 @@ class TheDatabase
         }
     }
 
-    public function getData($query) {
+    public function getData($query, $values) {
         global $connection;
 
         try {
             $statement = $connection->prepare($query);
 
-            $statement->execute();
+            if ($values === null)
+                $statement->execute();
+            else
+                $statement->execute($values);
 
             return $statement->fetchAll();
         } catch (PDOException $e) {
