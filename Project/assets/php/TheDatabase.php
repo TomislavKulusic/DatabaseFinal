@@ -38,14 +38,16 @@ class TheDatabase
 
     public function connect()
     {
-        global $DBHostName, $DBUserName, $DBPassword, $DBName;
+        global $connection;
 
         try {
-            $this->connection = new PDO('mysql:dbname=' . $DBName . ';host=' . $DBHostName, $DBUserName, $DBPassword);
-            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $connection = new PDO('mysql:dbname=' . $this->DBName . ';host=' . $this->DBHostName, $this->DBUserName, $this->DBPassword);
+            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
             return true;
         } catch (PDOException $e) {
             //TODO Handle the exception
+            echo "Error: " . $e->getMessage();
 
             return false;
         }
@@ -55,15 +57,30 @@ class TheDatabase
     {
         global $connection;
 
-        return $connection = null;
+        try {
+            $connection = null;
+
+            return true;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+
+            return false;
+        }
     }
 
-    //TODO Try catch
-
     public function getData($query) {
-        $statement = $this->connection->prepare($query);
+        global $connection;
 
-        return $statement.fetchAll();
+        try {
+            $statement = $connection->prepare($query);
+
+            $statement->execute();
+
+            return $statement->fetchAll();
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
     }
 
     /**
@@ -72,7 +89,9 @@ class TheDatabase
      * @return string Returns objects of the class specified
      */
     public function getDataClass($query, $className) {
-        $statement = $this->connection->prepare($query);
+        global $connection;
+
+        $statement = $connection->prepare($query);
 
         return $statement.fetchAll(PDO::FETCH_CLASS, $className);
     }
@@ -82,7 +101,9 @@ class TheDatabase
      * @param $values Example: array('apple', 'green')
      */
     public function setData($query, $values) {
-        $insert = $this->connection->prepare($query);
+        global $connection;
+
+        $insert = $connection->prepare($query);
 
         $insert->execute($values);
     }
