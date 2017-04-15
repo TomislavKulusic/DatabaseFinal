@@ -9,6 +9,11 @@
 include_once("../assets/php/TheDatabase.php");
 include_once("../assets/php/Renter.php");
 
+$page = "Test";
+$path = "../";
+
+include ("../assets/includes/header.php");
+
 $database = new TheDatabase("localhost", "root", "root", "mydb");
 
 if ($database->connect()) {
@@ -18,11 +23,13 @@ if ($database->connect()) {
 
     $renter->fetch();
 
-    $renter->setRentedMovies();
+    $renter->setRentedMovies(true);
 
-    var_dump($renter->getRentedMovies());
+    print_r($renter->getRentedMovies());
 
     if ($database->close()) {
         echo "<br><br>Closed";
     }
 }
+
+include ('../assets/includes/footer.php');

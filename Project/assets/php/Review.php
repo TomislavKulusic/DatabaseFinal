@@ -1,5 +1,7 @@
 <?php
 
+include_once ('InterfaceClass.php');
+
 /**
  * Created by IntelliJ IDEA.
  * User: Frano Nola
@@ -38,7 +40,7 @@ class Review implements InterfaceClass
 
         $query = "SELECT * FROM reviews WHERE review_id = ?;";
 
-        $result = $database->getData($query, array($this->review_id));
+        $result = $database->getData($query, array($this->review_id)[0]);
 
         $this->review_id = $result['review_id'];
         $this->movie_id = $result['movie_id'];

@@ -1,5 +1,7 @@
 <?php
 
+include_once ('InterfaceClass.php');
+
 /**
  * Created by IntelliJ IDEA.
  * User: Frano Nola
@@ -35,7 +37,7 @@ class Actor implements InterfaceClass
 
         $query = "SELECT * FROM actors WHERE actor_id = ?;";
 
-        $result = $database->getData($query, array($this->actor_id));
+        $result = $database->getData($query, array($this->actor_id))[0];
 
         $this->actor_id = $result['actor_id'];
         $this->first_name = $result['first_name'];
@@ -67,5 +69,69 @@ class Actor implements InterfaceClass
         $query = "DELETE FROM actors WHERE last_name = ?;";
 
         $database->setData($query, array($this->last_name));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActorId()
+    {
+        return $this->actor_id;
+    }
+
+    /**
+     * @param mixed $actor_id
+     */
+    public function setActorId($actor_id)
+    {
+        $this->actor_id = $actor_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstName()
+    {
+        return $this->first_name;
+    }
+
+    /**
+     * @param mixed $first_name
+     */
+    public function setFirstName($first_name)
+    {
+        $this->first_name = $first_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return $this->last_name;
+    }
+
+    /**
+     * @param mixed $last_name
+     */
+    public function setLastName($last_name)
+    {
+        $this->last_name = $last_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDatabase()
+    {
+        return $this->database;
+    }
+
+    /**
+     * @param mixed $database
+     */
+    public function setDatabase($database)
+    {
+        $this->database = $database;
     }
 }

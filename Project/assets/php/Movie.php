@@ -115,17 +115,21 @@ class Movie implements InterfaceClass
     public function setReviews() {
         global $database;
 
-        $query = "";
+        $query = "SELECT * FROM reviews WHERE movie_id = ?;";
 
-        $this->reviews = $database->getDataClass($query, null, 'Review');
+        $array = array("", "", "", "", $database);
+
+        $this->reviews = $database->getDataClass($query, array($this->movie_id), 'Review', $array);
     }
     
     public function setDirectors() {
         global $database;
         
-        $queary = "";
-        
-        $this->directors = $database->getDataClass($queary, null, 'Director');
+        $queary = "SELECT * FROM movie_directors LEFT JOIN directors ON movie_directors.director_id = directors.director_id WHERE movie_id = ?;";
+
+        $array = array("", "", "", $database);
+
+        $this->directors = $database->getDataClass($queary, array($this->movie_id), 'Director', $array);
     }
 
     public function setAll() {

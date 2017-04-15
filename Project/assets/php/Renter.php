@@ -2,6 +2,8 @@
 
 include_once("InterfaceClass.php");
 include_once("Actor.php");
+include_once("Review.php");
+include_once("Director.php");
 
 /**
  * Created by IntelliJ IDEA.
@@ -82,7 +84,7 @@ class Renter implements InterfaceClass
         $database->setData($query, array($this->renterID));
     }
 
-    public function setRentedMovies()
+    public function setRentedMovies($updateAll)
     {
         global $database;
 
@@ -93,10 +95,10 @@ class Renter implements InterfaceClass
 
         $this->rentedMovies = $database->getDataClass($query, array($this->renterID), 'Movie', $array);
 
-        foreach ($this->rentedMovies as $asd) {
-            $asd->setCategories();
-            $asd->setActors();
-        }
+        if ($updateAll)
+            foreach ($this->rentedMovies as $asd) {
+                $asd->setAll();
+            }
     }
 
     /**

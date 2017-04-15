@@ -1,5 +1,7 @@
 <?php
 
+include_once ('InterfaceClass.php');
+
 /**
  * Created by IntelliJ IDEA.
  * User: Frano Nola
