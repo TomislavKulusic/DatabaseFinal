@@ -1,183 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="mydb@localhost">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.1">
     <root id="1"/>
     <schema id="2" parent="1" name="mydb">
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
-    <schema id="3" parent="1" name="dbvjezba"/>
-    <schema id="4" parent="1" name="information_schema"/>
-    <schema id="5" parent="1" name="mysql"/>
-    <schema id="6" parent="1" name="performance_schema"/>
-    <schema id="7" parent="1" name="serenity"/>
-    <schema id="8" parent="1" name="sys"/>
-    <schema id="9" parent="1" name="vewer"/>
-    <table id="10" parent="2" name="actors"/>
-    <table id="11" parent="2" name="category"/>
-    <table id="12" parent="2" name="directors"/>
-    <table id="13" parent="2" name="movie_actors"/>
-    <table id="14" parent="2" name="movies"/>
-    <table id="15" parent="2" name="renter"/>
-    <column id="16" parent="10" name="actor_id">
+    <schema id="3" parent="1" name="book"/>
+    <schema id="4" parent="1" name="frano"/>
+    <schema id="5" parent="1" name="information_schema"/>
+    <schema id="6" parent="1" name="jobs"/>
+    <schema id="7" parent="1" name="mysql"/>
+    <schema id="8" parent="1" name="nola_acmeonline"/>
+    <schema id="9" parent="1" name="performance_schema"/>
+    <schema id="10" parent="1" name="sys"/>
+    <schema id="11" parent="1" name="test"/>
+    <schema id="12" parent="1" name="travel"/>
+    <schema id="13" parent="1" name="vewer"/>
+    <table id="14" parent="2" name="category"/>
+    <table id="15" parent="2" name="directors"/>
+    <table id="16" parent="2" name="movie_directors"/>
+    <column id="17" parent="14" name="category_id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="17" parent="10" name="first_name">
+    <column id="18" parent="14" name="category_name">
       <Position>2</Position>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="18" parent="10" name="last_name">
-      <Position>3</Position>
-      <DataType>varchar(45)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <key id="19" parent="10" name="PRIMARY">
-      <ColNames>actor_id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="20" parent="11" name="category_id">
-      <Position>1</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-    </column>
-    <column id="21" parent="11" name="category_name">
-      <Position>2</Position>
-      <DataType>varchar(45)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <key id="22" parent="11" name="PRIMARY">
+    <key id="19" parent="14" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>category_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="23" parent="12" name="director_id">
+    <column id="20" parent="15" name="director_id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="24" parent="12" name="first_name">
+    <column id="21" parent="15" name="first_name">
       <Position>2</Position>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="25" parent="12" name="last_name">
+    <column id="22" parent="15" name="last_name">
       <Position>3</Position>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="26" parent="12" name="PRIMARY">
+    <key id="23" parent="15" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>director_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="27" parent="13" name="movie_id">
+    <column id="24" parent="16" name="director_id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="28" parent="13" name="actor_id">
+    <column id="25" parent="16" name="movie_id">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="29" parent="13" name="actor_id">
-      <ColNames>actor_id</ColNames>
+    <index id="26" parent="16" name="movie_id">
+      <ColNames>movie_id</ColNames>
     </index>
-    <key id="30" parent="13" name="PRIMARY">
-      <ColNames>movie_id
-actor_id</ColNames>
+    <key id="27" parent="16" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>director_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="31" parent="13" name="movie_id">
+    <foreign-key id="28" parent="16" name="director_id">
+      <ColNames>director_id</ColNames>
+      <RefSchemaName>mydb</RefSchemaName>
+      <RefTableName>directors</RefTableName>
+      <RefColNames>director_id</RefColNames>
+    </foreign-key>
+    <foreign-key id="29" parent="16" name="movie_id">
       <ColNames>movie_id</ColNames>
       <RefSchemaName>mydb</RefSchemaName>
       <RefTableName>movies</RefTableName>
       <RefColNames>movie_id</RefColNames>
-      <OnUpdate>no-action</OnUpdate>
-      <OnDelete>no-action</OnDelete>
     </foreign-key>
-    <foreign-key id="32" parent="13" name="actor_id">
-      <ColNames>actor_id</ColNames>
-      <RefSchemaName>mydb</RefSchemaName>
-      <RefTableName>actors</RefTableName>
-      <RefColNames>actor_id</RefColNames>
-      <OnUpdate>no-action</OnUpdate>
-      <OnDelete>no-action</OnDelete>
-    </foreign-key>
-    <column id="33" parent="14" name="movie_id">
-      <Position>1</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-    </column>
-    <column id="34" parent="14" name="movie_title">
-      <Position>2</Position>
-      <DataType>varchar(45)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="35" parent="14" name="movie_description">
-      <Position>3</Position>
-      <DataType>varchar(1000)|0</DataType>
-    </column>
-    <column id="36" parent="14" name="category_id">
-      <Position>4</Position>
-      <DataType>int(11)|0</DataType>
-    </column>
-    <column id="37" parent="14" name="director_id">
-      <Position>5</Position>
-      <DataType>int(11)|0</DataType>
-    </column>
-    <column id="38" parent="14" name="release_date">
-      <Position>6</Position>
-      <DataType>date|0</DataType>
-    </column>
-    <index id="39" parent="14" name="category_id">
-      <ColNames>category_id</ColNames>
-    </index>
-    <key id="40" parent="14" name="PRIMARY">
-      <ColNames>movie_id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="41" parent="14" name="category_id">
-      <ColNames>category_id</ColNames>
-      <RefSchemaName>mydb</RefSchemaName>
-      <RefTableName>category</RefTableName>
-      <RefColNames>category_id</RefColNames>
-      <OnUpdate>no-action</OnUpdate>
-      <OnDelete>no-action</OnDelete>
-    </foreign-key>
-    <column id="42" parent="15" name="renter_id">
-      <Position>1</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-    </column>
-    <column id="43" parent="15" name="first_name">
-      <Position>2</Position>
-      <DataType>varchar(45)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="44" parent="15" name="last_name">
-      <Position>3</Position>
-      <DataType>varchar(45)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="45" parent="15" name="email">
-      <Position>4</Position>
-      <DataType>varchar(45)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="46" parent="15" name="card_no">
-      <Position>5</Position>
-      <DataType>int(16)|0</DataType>
-    </column>
-    <key id="47" parent="15" name="PRIMARY">
-      <ColNames>renter_id</ColNames>
-      <Primary>1</Primary>
-    </key>
   </database-model>
 </dataSource>

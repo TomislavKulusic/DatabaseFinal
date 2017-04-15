@@ -15,7 +15,13 @@ class Movie implements InterfaceClass
     private $categoryID;
     private $directorID;
     private $releaseDate;
+
+    private $rentalDate;
+    private $dueDate;
+    private $returned;
+
     private $database;
+
     private $categories;
     private $reviews;
     private $actors;
@@ -29,6 +35,7 @@ class Movie implements InterfaceClass
      * @param $categoryID
      * @param $directorID
      * @param $releaseDate
+     * @param $database
      */
     public function __construct($movieID, $movieTitle, $description, $categoryID, $directorID, $releaseDate, $database)
     {
@@ -43,22 +50,46 @@ class Movie implements InterfaceClass
 
     public function fetch()
     {
+        global $database;
 
+        $query = "SELECT * FROM Movies WHERE movie_id = ?;";
+
+        $result = $database->getData($query, array($this->movieID));
+
+        $this->movieTitle = $result['movie_title'];
+        $this->description = $result['movie_description'];
+        $this->categoryID = $result['category_id'];
+        $this->directorID = $result['director_id'];
+        $this->releaseDate = $result['release_date'];
     }
 
     public function put()
     {
-        // TODO: Implement put() method.
+        global $database;
+
+        $query = "UPDATE movies SET movie_title = ?, description = ?, category_id = ?, director_id = ?, release_date = ? WHERE movie_id = ?;";
+
+        $database->setData($query, array($this->movieTitle, $this->description, $this->categoryID,
+            $this->directorID, $this->releaseDate, $this->movieID));
     }
 
     public function post()
     {
-        // TODO: Implement post() method.
+        global $database;
+
+        $query = "INSERT INTO movies (movie_id, movie_title, description, category_id, director_id, release_date) VALUE (?, ?, ?, ?, ?, ?);";
+
+        $database->setData($query, array($this->movieID, $this->movieTitle, $this->description, $this->categoryID,
+            $this->directorID, $this->releaseDate));
     }
 
     public function delete()
     {
-        // TODO: Implement delete() method.
+        global $database;
+
+        $query = "DELETE FROM movies WHERE movie_id = ?;";
+
+        $database->setData($query, array($this->movieID));
     }
 
     public function setCategories() {
@@ -66,7 +97,7 @@ class Movie implements InterfaceClass
 
         $query = "SELECT * FROM Category LEFT JOIN Movies ON category.category_id = movies.category_id;";
 
-        $this->categories = $database.getData($query, null);
+        $this->categories = $database->getData($query, null);
     }
 
     public function setActors() {
@@ -74,7 +105,7 @@ class Movie implements InterfaceClass
 
         $query = "SELECT * FROM Movie_Actors LEFT JOIN Movies ON movie_id WHERE Movies.movie_id = ?;";
 
-        $this->actors = $database.getDataClass($query, array($this->movieID), 'Actor');
+        $this->actors = $database->getDataClass($query, array($this->movieID), 'Actor');
     }
 
     public function setReviews() {
@@ -82,7 +113,7 @@ class Movie implements InterfaceClass
 
         $query = "";
 
-        $this->reviews = $database.getDataClass($query, null, 'Review');
+        $this->reviews = $database->getDataClass($query, null, 'Review');
     }
     
     public function setDirectors() {
@@ -90,7 +121,7 @@ class Movie implements InterfaceClass
         
         $queary = "";
         
-        $this->directors = $database.getDataClass($queary, null, 'Director');
+        $this->directors = $database->getDataClass($queary, null, 'Director');
     }
 
     public function setAll() {
@@ -195,5 +226,71 @@ class Movie implements InterfaceClass
     {
         $this->releaseDate = $releaseDate;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRentalDate()
+    {
+        return $this->rentalDate;
+    }
+
+    /**
+     * @param mixed $rentalDate
+     */
+    public function setRentalDate($rentalDate)
+    {
+        $this->rentalDate = $rentalDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDueDate()
+    {
+        return $this->dueDate;
+    }
+
+    /**
+     * @param mixed $dueDate
+     */
+    public function setDueDate($dueDate)
+    {
+        $this->dueDate = $dueDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReturned()
+    {
+        return $this->returned;
+    }
+
+    /**
+     * @param mixed $returned
+     */
+    public function setReturned($returned)
+    {
+        $this->returned = $returned;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDatabase()
+    {
+        return $this->database;
+    }
+
+    /**
+     * @param mixed $database
+     */
+    public function setDatabase($database)
+    {
+        $this->database = $database;
+    }
+
+
 
 }
