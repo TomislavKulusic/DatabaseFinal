@@ -92,10 +92,15 @@ class TheDatabase
      * @param $className
      * @return string Returns objects of the class specified
      */
-    public function getDataClass($query, $className) {
+    public function getDataClass($query, $values, $className) {
         global $connection;
 
         $statement = $connection->prepare($query);
+
+        if ($values === null)
+            $statement->execute();
+        else
+            $statement->execute($values);
 
         return $statement.fetchAll(PDO::FETCH_CLASS, $className);
     }

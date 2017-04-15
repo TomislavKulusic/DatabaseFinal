@@ -6,7 +6,7 @@
  * Date: 14. 4. 2017.
  * Time: 10:33 PM
  */
-class Movies implements InterfaceClass
+class Movie implements InterfaceClass
 {
 
     private $movieID;
@@ -16,6 +16,10 @@ class Movies implements InterfaceClass
     private $directorID;
     private $releaseDate;
     private $database;
+    private $categories;
+    private $reviews;
+    private $actors;
+    private $directors;
 
     /**
      * Movies constructor.
@@ -55,6 +59,45 @@ class Movies implements InterfaceClass
     public function delete()
     {
         // TODO: Implement delete() method.
+    }
+
+    public function setCategories() {
+        global $database;
+
+        $query = "SELECT * FROM Category LEFT JOIN Movies ON category.category_id = movies.category_id;";
+
+        $this->categories = $database.getData($query, null);
+    }
+
+    public function setActors() {
+        global $database;
+
+        $query = "SELECT * FROM Movie_Actors LEFT JOIN Movies ON movie_id WHERE Movies.movie_id = ?;";
+
+        $this->actors = $database.getDataClass($query, array($this->movieID), 'Actor');
+    }
+
+    public function setReviews() {
+        global $database;
+
+        $query = "";
+
+        $this->reviews = $database.getDataClass($query, null, 'Review');
+    }
+    
+    public function setDirectors() {
+        global $database;
+        
+        $queary = "";
+        
+        $this->directors = $database.getDataClass($queary, null, 'Director');
+    }
+
+    public function setAll() {
+        $this->setActors();
+        $this->setCategories();
+        $this->setReviews();
+        $this->setDirectors();
     }
 
     /**
