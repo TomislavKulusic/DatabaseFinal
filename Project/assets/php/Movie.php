@@ -1,5 +1,7 @@
 <?php
 
+include_once ('InterfaceClass.php');
+
 /**
  * Created by IntelliJ IDEA.
  * User: Frano
@@ -9,15 +11,15 @@
 class Movie implements InterfaceClass
 {
 
-    private $movieID;
-    private $movieTitle;
-    private $description;
-    private $categoryID;
-    private $directorID;
-    private $releaseDate;
+    private $movie_id;
+    private $movie_title;
+    private $movie_description;
+    private $category_id;
+    private $director_id;
+    private $release_date;
 
-    private $rentalDate;
-    private $dueDate;
+    private $rental_date;
+    private $due_date;
     private $returned;
 
     private $database;
@@ -29,23 +31,23 @@ class Movie implements InterfaceClass
 
     /**
      * Movies constructor.
-     * @param $movieID
-     * @param $movieTitle
-     * @param $description
-     * @param $categoryID
-     * @param $directorID
-     * @param $releaseDate
+     * @param $movie_id
+     * @param $movie_title
+     * @param $movie_description
+     * @param $category_id
+     * @param $director_id
+     * @param $release_date
      * @param $database
      */
-    public function __construct($movieID, $movieTitle, $description, $categoryID, $directorID, $releaseDate, $database)
+    public function __construct($movie_id, $movie_title, $movie_description, $category_id, $director_id, $release_date, $database)
     {
-        $this->movieID = $movieID;
-        $this->movieTitle = $movieTitle;
-        $this->description = $description;
-        $this->categoryID = $categoryID;
-        $this->directorID = $directorID;
-        $this->releaseDate = $releaseDate;
-        $this->database = $database;
+            $this->movie_id = $movie_id;
+            $this->movie_title = $movie_title;
+            $this->movie_description = $movie_description;
+            $this->category_id = $category_id;
+            $this->director_id = $director_id;
+            $this->release_date = $release_date;
+            $this->database = $database;
     }
 
     public function fetch()
@@ -54,33 +56,33 @@ class Movie implements InterfaceClass
 
         $query = "SELECT * FROM Movies WHERE movie_id = ?;";
 
-        $result = $database->getData($query, array($this->movieID));
+        $result = $database->getData($query, array($this->movie_id))[0];
 
-        $this->movieTitle = $result['movie_title'];
-        $this->description = $result['movie_description'];
-        $this->categoryID = $result['category_id'];
-        $this->directorID = $result['director_id'];
-        $this->releaseDate = $result['release_date'];
+        $this->movie_title = $result['movie_title'];
+        $this->movie_description = $result['movie_movie_description'];
+        $this->category_id = $result['category_id'];
+        $this->director_id = $result['director_id'];
+        $this->release_date = $result['release_date'];
     }
 
     public function put()
     {
         global $database;
 
-        $query = "UPDATE movies SET movie_title = ?, description = ?, category_id = ?, director_id = ?, release_date = ? WHERE movie_id = ?;";
+        $query = "UPDATE movies SET movie_title = ?, movie_description = ?, category_id = ?, director_id = ?, release_date = ? WHERE movie_id = ?;";
 
-        $database->setData($query, array($this->movieTitle, $this->description, $this->categoryID,
-            $this->directorID, $this->releaseDate, $this->movieID));
+        $database->setData($query, array($this->movie_title, $this->movie_description, $this->category_id,
+            $this->director_id, $this->release_date, $this->movie_id));
     }
 
     public function post()
     {
         global $database;
 
-        $query = "INSERT INTO movies (movie_id, movie_title, description, category_id, director_id, release_date) VALUE (?, ?, ?, ?, ?, ?);";
+        $query = "INSERT INTO movies (movie_id, movie_title, movie_description, category_id, director_id, release_date) VALUE (?, ?, ?, ?, ?, ?);";
 
-        $database->setData($query, array($this->movieID, $this->movieTitle, $this->description, $this->categoryID,
-            $this->directorID, $this->releaseDate));
+        $database->setData($query, array($this->movie_id, $this->movie_title, $this->movie_description, $this->category_id,
+            $this->director_id, $this->release_date));
     }
 
     public function delete()
@@ -89,23 +91,25 @@ class Movie implements InterfaceClass
 
         $query = "DELETE FROM movies WHERE movie_id = ?;";
 
-        $database->setData($query, array($this->movieID));
+        $database->setData($query, array($this->movie_id));
     }
 
     public function setCategories() {
         global $database;
 
-        $query = "SELECT * FROM Category LEFT JOIN Movies ON category.category_id = movies.category_id;";
+        $query = "SELECT * FROM Category WHERE category_id = ?;";
 
-        $this->categories = $database->getData($query, null);
+        $this->categories = $database->getData($query, array($this->category_id));
     }
 
     public function setActors() {
         global $database;
 
-        $query = "SELECT * FROM Movie_Actors LEFT JOIN Movies ON movie_id WHERE Movies.movie_id = ?;";
+        $query = "SELECT * FROM Movie_Actors LEFT JOIN actors ON movie_actors.actor_id = actors.actor_id WHERE movie_actors.movie_id = ?;";
 
-        $this->actors = $database->getDataClass($query, array($this->movieID), 'Actor');
+        $array = array("", "", "", $database);
+
+        $this->actors = $database->getDataClass($query, array($this->movie_id), 'Actor', $array);
     }
 
     public function setReviews() {
@@ -136,15 +140,15 @@ class Movie implements InterfaceClass
      */
     public function getMovieID()
     {
-        return $this->movieID;
+        return $this->movie_id;
     }
 
     /**
-     * @param mixed $movieID
+     * @param mixed $movie_id
      */
-    public function setMovieID($movieID)
+    public function setMovieID($movie_id)
     {
-        $this->movieID = $movieID;
+        $this->movie_id = $movie_id;
     }
 
     /**
@@ -152,15 +156,15 @@ class Movie implements InterfaceClass
      */
     public function getMovieTitle()
     {
-        return $this->movieTitle;
+        return $this->movie_title;
     }
 
     /**
-     * @param mixed $movieTitle
+     * @param mixed $movie_title
      */
-    public function setMovieTitle($movieTitle)
+    public function setMovieTitle($movie_title)
     {
-        $this->movieTitle = $movieTitle;
+        $this->movie_title = $movie_title;
     }
 
     /**
@@ -168,15 +172,15 @@ class Movie implements InterfaceClass
      */
     public function getDescription()
     {
-        return $this->description;
+        return $this->movie_description;
     }
 
     /**
-     * @param mixed $description
+     * @param mixed $movie_description
      */
-    public function setDescription($description)
+    public function setDescription($movie_description)
     {
-        $this->description = $description;
+        $this->movie_description = $movie_description;
     }
 
     /**
@@ -184,15 +188,15 @@ class Movie implements InterfaceClass
      */
     public function getCategoryID()
     {
-        return $this->categoryID;
+        return $this->category_id;
     }
 
     /**
-     * @param mixed $categoryID
+     * @param mixed $category_id
      */
-    public function setCategoryID($categoryID)
+    public function setCategoryID($category_id)
     {
-        $this->categoryID = $categoryID;
+        $this->category_id = $category_id;
     }
 
     /**
@@ -200,15 +204,15 @@ class Movie implements InterfaceClass
      */
     public function getDirectorID()
     {
-        return $this->directorID;
+        return $this->director_id;
     }
 
     /**
-     * @param mixed $directorID
+     * @param mixed $director_id
      */
-    public function setDirectorID($directorID)
+    public function setDirectorID($director_id)
     {
-        $this->directorID = $directorID;
+        $this->director_id = $director_id;
     }
 
     /**
@@ -216,15 +220,15 @@ class Movie implements InterfaceClass
      */
     public function getReleaseDate()
     {
-        return $this->releaseDate;
+        return $this->release_date;
     }
 
     /**
-     * @param mixed $releaseDate
+     * @param mixed $release_date
      */
-    public function setReleaseDate($releaseDate)
+    public function setReleaseDate($release_date)
     {
-        $this->releaseDate = $releaseDate;
+        $this->release_date = $release_date;
     }
 
     /**
@@ -232,15 +236,15 @@ class Movie implements InterfaceClass
      */
     public function getRentalDate()
     {
-        return $this->rentalDate;
+        return $this->rental_date;
     }
 
     /**
-     * @param mixed $rentalDate
+     * @param mixed $rental_date
      */
-    public function setRentalDate($rentalDate)
+    public function setRentalDate($rental_date)
     {
-        $this->rentalDate = $rentalDate;
+        $this->rental_date = $rental_date;
     }
 
     /**
@@ -248,15 +252,15 @@ class Movie implements InterfaceClass
      */
     public function getDueDate()
     {
-        return $this->dueDate;
+        return $this->due_date;
     }
 
     /**
-     * @param mixed $dueDate
+     * @param mixed $due_date
      */
-    public function setDueDate($dueDate)
+    public function setDueDate($due_date)
     {
-        $this->dueDate = $dueDate;
+        $this->due_date = $due_date;
     }
 
     /**

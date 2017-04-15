@@ -46,7 +46,7 @@ class Actor implements InterfaceClass
     {
         global $database;
 
-        $query = "UPDATE actors SET first_name = ?, last_name = ? WHERE actors = ?;";
+        $query = "UPDATE actors SET first_name = ?, last_name = ? WHERE actor_id = ?;";
 
         $database->setData($query, array($this->first_name, $this->last_name, $this->actor_id));
     }

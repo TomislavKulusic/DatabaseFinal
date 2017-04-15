@@ -1,5 +1,7 @@
 <?php
 
+include_once('Movie.php');
+
 /**
  * Class TheDatabase
  *
@@ -13,7 +15,6 @@
  * Usefull link http://php.net/manual/en/pdostatement.fetchall.php
  * http://php.net/manual/en/function.syslog.php
  */
-
 class TheDatabase
 {
     private $DBHostName;
@@ -69,7 +70,8 @@ class TheDatabase
         }
     }
 
-    public function getData($query, $values) {
+    public function getData($query, $values)
+    {
         global $connection;
 
         try {
@@ -80,7 +82,7 @@ class TheDatabase
             else
                 $statement->execute($values);
 
-            return $statement->fetchAll();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
             return false;
@@ -89,47 +91,67 @@ class TheDatabase
 
     /**
      * @param $query
+     * @param $values
      * @param $className
      * @return string Returns objects of the class specified
      */
-    public function getDataClass($query, $values, $className) {
+    public function getDataClass($query, $values, $className, $classValues)
+    {
         global $connection;
 
-        $statement = $connection->prepare($query);
+        try {
 
-        if ($values === null)
-            $statement->execute();
-        else
-            $statement->execute($values);
+            $statement = $connection->prepare($query);
 
-        return $statement.fetchAll(PDO::FETCH_CLASS, $className);
+            if ($values === null)
+                $statement->execute();
+            else
+                $statement->execute($values);
+
+            return $statement->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $className, $classValues);
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+
+            return false;
+        }
     }
 
     /**
      * @param $query string Example: "INSERT INTO fruit(name, colour) VALUES (?, ?)"
      * @param $values array Example: array('apple', 'green')
      */
-    public function setData($query, $values) {
+    public function setData($query, $values)
+    {
         global $connection;
 
-        $insert = $connection->prepare($query);
+        try {
 
-        $insert->execute($values);
+            $insert = $connection->prepare($query);
+
+            $insert->execute($values);
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
     }
 
-    public function startTransaction() {
+    public function startTransaction()
+    {
         global $connection;
 
         $connection->beginTransaction();
     }
 
-    public function rollback() {
+    public function rollback()
+    {
         global $connection;
 
         $connection->rollBack();
     }
 
-    public function endTransaction() {
+    public function endTransaction()
+    {
         global $connection;
 
         $connection->commit();
