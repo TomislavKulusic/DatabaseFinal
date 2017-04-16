@@ -48,9 +48,7 @@ class TheDatabase
 
             return true;
         } catch (PDOException $e) {
-            //TODO Handle the exception
-            echo "Error: " . $e->getMessage();
-
+            error_log("Error connecting: " . $e->getMessage() . "!\r\n", 3, "errors.log");
             return false;
         }
     }
@@ -64,7 +62,7 @@ class TheDatabase
 
             return true;
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            error_log("Error closing: " . $e->getMessage() . "!\r\n", 3, "errors.log");
 
             return false;
         }
@@ -84,7 +82,8 @@ class TheDatabase
 
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            error_log("Error getting data: " . $e->getMessage() . "!\r\n", 3, "errors.log");
+
             return false;
         }
     }
@@ -111,7 +110,7 @@ class TheDatabase
             return $statement->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $className, $classValues);
 
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            error_log("Error getting data as class: " . $e->getMessage() . "!\r\n", 3, "errors.log");
 
             return false;
         }
@@ -120,6 +119,7 @@ class TheDatabase
     /**
      * @param $query string Example: "INSERT INTO fruit(name, colour) VALUES (?, ?)"
      * @param $values array Example: array('apple', 'green')
+     * @return bool
      */
     public function setData($query, $values)
     {
@@ -131,8 +131,10 @@ class TheDatabase
 
             $insert->execute($values);
 
+            return true;
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            error_log("Error setting data: " . $e->getMessage() . "!\r\n", 3, "errors.log");
+            return false;
         }
     }
 

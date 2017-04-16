@@ -8,6 +8,7 @@
 
 include_once("../assets/php/TheDatabase.php");
 include_once("../assets/php/Renter.php");
+include_once ("../assets/php/User.php");
 
 $page = "Test";
 $path = "../";
@@ -19,13 +20,20 @@ $database = new TheDatabase("localhost", "root", "root", "mydb");
 if ($database->connect()) {
     echo "Connected<br><br>";
 
-    $renter = new Renter('1', '', '', '', '', $database);
+/*    $renter = new Renter('1', '', '', '', '', $database);
 
     $renter->fetch();
 
     $renter->setRentedMovies(true);
 
-    print_r($renter->getRentedMovies());
+    print_r($renter->getRentedMovies());*/
+
+    $user = new User("Pero", "Peric", "", $database);
+
+    if ($user->login())
+        echo "Ok";
+    else
+        echo "Error";
 
     if ($database->close()) {
         echo "<br><br>Closed";
