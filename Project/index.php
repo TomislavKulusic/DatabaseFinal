@@ -15,6 +15,8 @@ include($path . 'assets/includes/header.php');
 
 <!--HTML code-->
 
+<!-- Event card -->
+
 <?php
 
 include($path . 'assets/includes/footer.php');

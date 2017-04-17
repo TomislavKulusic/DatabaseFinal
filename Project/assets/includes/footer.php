@@ -7,7 +7,6 @@
  */
 
 ?>
-
     </body>
     <script src="<?php echo $path; ?>assets/js/script.js\"></script>
 </html>
