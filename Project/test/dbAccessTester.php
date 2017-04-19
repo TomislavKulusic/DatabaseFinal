@@ -8,12 +8,12 @@
 
 include_once("../assets/php/TheDatabase.php");
 include_once("../assets/php/Renter.php");
-include_once ("../assets/php/User.php");
+include_once("../assets/php/User.php");
 
 $page = "Test";
 $path = "../";
 
-include ("../assets/includes/header.php");
+include("../assets/includes/header.php");
 
 $database = new TheDatabase("localhost", "root", "root", "mydb");
 
@@ -40,4 +40,4 @@ if ($database->connect()) {
     }
 }
 
-include ('../assets/includes/footer.php');
+include('../assets/includes/footer.php');
