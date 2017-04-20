@@ -11,8 +11,10 @@ interface InterfaceClass
 
     /**
      * This method should get information from database and update all the variables
+     * @param $id int ID of a row
+     * @return
      */
-    public function fetch();
+    public function fetch($id);
 
     /**
      * This method should update rows

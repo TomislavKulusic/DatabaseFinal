@@ -1,6 +1,6 @@
 <?php
 
-include_once('InterfaceClass.php');
+include_once ('InterfaceClass.php');
 
 /**
  * Created by IntelliJ IDEA.
@@ -50,14 +50,18 @@ class Movie implements InterfaceClass
             $this->database = $database;
     }
 
-    public function fetch()
+    public function fetch($id)
     {
         global $database;
 
+        if ($id = '')
+            $id = $this->movie_id;
+
         $query = "SELECT * FROM Movies WHERE movie_id = ?;";
 
-        $result = $database->getData($query, array($this->movie_id))[0];
+        $result = $database->getData($query, array($id))[0];
 
+        $this->movie_id = $result['movie_id'];
         $this->movie_title = $result['movie_title'];
         $this->movie_description = $result['movie_movie_description'];
         $this->category_id = $result['category_id'];

@@ -1,6 +1,6 @@
 <?php
 
-include_once('InterfaceClass.php');
+include_once ('InterfaceClass.php');
 
 /**
  * Created by IntelliJ IDEA.
@@ -31,13 +31,16 @@ class Actor implements InterfaceClass
         $this->database = $database;
     }
 
-    public function fetch()
+    public function fetch($id)
     {
         global $database;
 
+        if ($id = '')
+            $id = $this->actor_id;
+
         $query = "SELECT * FROM actors WHERE actor_id = ?;";
 
-        $result = $database->getData($query, array($this->actor_id))[0];
+        $result = $database->getData($query, array($id))[0];
 
         $this->actor_id = $result['actor_id'];
         $this->first_name = $result['first_name'];

@@ -42,14 +42,18 @@ class Renter implements InterfaceClass
         $this->database = $database;
     }
 
-    public function fetch()
+    public function fetch($id)
     {
         global $database;
 
+        if ($id = '')
+            $id = $this->renterID;
+
         $query = "SELECT * FROM renter WHERE renter_id = ?;";
 
-        $result = $database->getData($query, array($this->renterID))[0];
+        $result = $database->getData($query, array($id))[0];
 
+        $this->renterID = $result['renter_id'];
         $this->firstName = $result['first_name'];
         $this->lastName = $result['last_name'];
         $this->email = $result['email'];

@@ -1,6 +1,6 @@
 <?php
 
-include_once('InterfaceClass.php');
+include_once ('InterfaceClass.php');
 
 /**
  * Created by IntelliJ IDEA.
@@ -31,14 +31,18 @@ class Director implements InterfaceClass
         $this->database = $database;
     }
 
-    public function fetch()
+    public function fetch($id)
     {
         global $database;
 
+        if ($id = '')
+            $id = $this->director_id;
+
         $query = "SELECT * FROM directors WHERE director_id = ?;";
 
-        $result = $database->getData($query, array($this->director_id));
+        $result = $database->getData($query, array($id));
 
+        $this->director_id = $result['director_id'];
         $this->first_name = $result['first_name'];
         $this->last_name = $result['last_name'];
     }

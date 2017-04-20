@@ -1,6 +1,6 @@
 <?php
 
-include_once('InterfaceClass.php');
+include_once ('InterfaceClass.php');
 
 /**
  * Created by IntelliJ IDEA.
@@ -34,13 +34,16 @@ class Review implements InterfaceClass
         $this->database = $database;
     }
 
-    public function fetch()
+    public function fetch($id)
     {
         global $database;
 
+        if ($id = '')
+            $id = $this->review_id;
+
         $query = "SELECT * FROM reviews WHERE review_id = ?;";
 
-        $result = $database->getData($query, array($this->review_id)[0]);
+        $result = $database->getData($query, array($id)[0]);
 
         $this->review_id = $result['review_id'];
         $this->movie_id = $result['movie_id'];
