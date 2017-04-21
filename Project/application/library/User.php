@@ -5,14 +5,13 @@
  * User: Frano
  * Date: 16. 4. 2017.
  * Time: 04:56 PM
- *
- * TODO ROLES
  */
 class User
 {
     protected $username;
     protected $password;
     protected $email;
+    protected $role_name;
     private $database;
 
     /**
@@ -20,13 +19,15 @@ class User
      * @param $username
      * @param $password
      * @param $email
+     * @param $role_name
      * @param $database
      */
-    public function __construct($username, $password, $email, $database)
+    public function __construct($username, $password, $email, $role_name, $database)
     {
         $this->username = $username;
         $this->password = hash('md5', $password);
         $this->email = $email;
+        $this->role_name = $role_name;
         $this->database = $database;
     }
 
@@ -69,7 +70,10 @@ class User
     {
         global $database;
 
-        $query = "SELECT * FROM users WHERE username = ? AND password = ?";
+        $query = "SELECT users.username, password, email, role_name FROM users 
+                    LEFT JOIN user_roles ON users.username = user_roles.username
+                    LEFT JOIN roles ON user_roles.role_id = roles.role_id
+                     WHERE users.username = ? AND password = ? GROUP BY users.username;";
 
         $array = array($this->username, $this->password);
 
@@ -82,6 +86,7 @@ class User
 
         if ($this->checkUsername($result['username']) && $this->checkPassword($result['password'])) {
             $this->email = $result['email'];
+            $this->role_name = $result['role_name'];
 
             return true;
         } else {
@@ -113,5 +118,12 @@ class User
         return $this->email;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getRole_name()
+    {
+        return $this->role_name;
+    }
 
 }

@@ -30,7 +30,7 @@ if ($database->connect()) {
 
         print_r($renter->getRentedMovies());
 
-        $user = new User("Pero", "Peric", "", $database);
+        $user = new User("Pero", "Peric", "", "", $database);
 
         if ($user->login())
             echo "Ok";
