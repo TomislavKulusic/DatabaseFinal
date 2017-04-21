@@ -8,5 +8,5 @@
 
 ?>
     </body>
-    <script src="<?php echo $path; ?>assets/js/script.js\"></script>
+    <script src="js/script.js\"></script>
 </html>

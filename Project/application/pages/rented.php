@@ -5,13 +5,9 @@
  * Date: 14. 4. 2017.
  * Time: 11:14 AM
  */
-
-$page = 'Rented Movies';
-$path = '../';
-
-include($path . 'assets/includes/header.php');
-include($path . 'assets/includes/navigation.php');
+include(TEMPLATES_PATH . 'navigation.php');
 ?>
+
 <main class="mdl-layout__content">
     <h3>Rented Movies</h3>
     <div class="mdl-grid">
@@ -39,8 +35,3 @@ include($path . 'assets/includes/navigation.php');
     </div>
 </main>
 </div>
-<?php
-
-include($path . 'assets/includes/footer.php');
-
-?>

@@ -11,10 +11,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><?php echo $page ?></title>
+    <title><?php echo $page?></title>
 
-    <link rel="stylesheet" href="<?php echo $path; ?>assets/css/style.css">
-    <link rel="stylesheet" href="<?php echo $path; ?>assets/css/queries.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/queries.css">
 
     <!--The MDL-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">

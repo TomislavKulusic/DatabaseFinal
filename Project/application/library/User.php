@@ -5,6 +5,8 @@
  * User: Frano
  * Date: 16. 4. 2017.
  * Time: 04:56 PM
+ *
+ * TODO ROLES
  */
 class User
 {

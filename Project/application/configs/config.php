@@ -10,4 +10,10 @@ $config = array(
 );
 
 defined("LIBRARY_PATH")
-    or define("LIBRARY_PATH", realpath('../application/library'));
+    or define("LIBRARY_PATH", '../application/library/');
+
+defined("TEMPLATES_PATH")
+or define("TEMPLATES_PATH", '../application/templates/');
+
+defined("PAGES_PATH")
+or define("PAGES_PATH", '../application/pages/');
