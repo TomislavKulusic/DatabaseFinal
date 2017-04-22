@@ -19,7 +19,7 @@ class Privileges
      */
     public function __construct($role_name, $privilege_desc)
     {
-        $this->privilege_desc = explode(" ", $privilege_desc);
+        $this->privilege_desc = explode("|", $privilege_desc);
     }
 
     function checkPrivilege($desc) {

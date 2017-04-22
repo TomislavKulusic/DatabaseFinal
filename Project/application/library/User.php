@@ -1,5 +1,7 @@
 <?php
 
+include_once ('Privileges.php');
+
 /**
  * Created by IntelliJ IDEA.
  * User: Frano
@@ -11,7 +13,7 @@ class User
     protected $username;
     protected $password;
     protected $email;
-    protected $role_name;
+    protected $role;
     private $database;
 
     /**
@@ -19,15 +21,15 @@ class User
      * @param $username
      * @param $password
      * @param $email
-     * @param $role_name
+     * @param $role
      * @param $database
      */
-    public function __construct($username, $password, $email, $role_name, $database)
+    public function __construct($username, $password, $email, $role, $database)
     {
         $this->username = $username;
         $this->password = hash('md5', $password);
         $this->email = $email;
-        $this->role_name = $role_name;
+        $this->role = $role;
         $this->database = $database;
     }
 
@@ -70,10 +72,18 @@ class User
     {
         global $database;
 
-        $query = "SELECT users.username, password, email, role_name FROM users 
+        $query = "SELECT
+                    users.username,
+                    password,
+                    email,
+                    role_name,
+                    GROUP_CONCAT(privileges.privilege_desc SEPARATOR '|') AS 'Privilege'
+                  FROM users
                     LEFT JOIN user_roles ON users.username = user_roles.username
                     LEFT JOIN roles ON user_roles.role_id = roles.role_id
-                     WHERE users.username = ? AND password = ? GROUP BY users.username;";
+                    LEFT JOIN role_privileges ON roles.role_id = role_privileges.role_id
+                    LEFT JOIN privileges ON role_privileges.priviledge_id = privileges.privilege_id
+                  WHERE users.username = ? AND PASSWORD = ? GROUP BY users.username;";
 
         $array = array($this->username, $this->password);
 
@@ -86,7 +96,7 @@ class User
 
         if ($this->checkUsername($result['username']) && $this->checkPassword($result['password'])) {
             $this->email = $result['email'];
-            $this->role_name = $result['role_name'];
+            $this->role = new Privileges($result['role_name'], $result['Privilege']);
 
             return true;
         } else {
@@ -121,9 +131,9 @@ class User
     /**
      * @return mixed
      */
-    public function getRole_name()
+    public function getRole()
     {
-        return $this->role_name;
+        return $this->role;
     }
 
 }
