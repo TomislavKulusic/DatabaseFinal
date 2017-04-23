@@ -6,6 +6,16 @@ h3 {
     color: white;
     font-weight: 300 !important;
 }
+
+.flex {
+    display: flex;
+}
+
+.flex hr {
+    width: 50%;
+    margin-right: 10px;
+}
+
 /**
  * LOGIN
  */
@@ -27,6 +37,38 @@ h3 {
     background: whitesmoke;
     height: 500px;
     width: 430px;
+}
+
+#box {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 50vh;
+    transform: translate(0, -50%);
+}
+
+#text {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 20px;
+}
+
+#text p {
+    /*text-align: justify;*/
+    color: rgba(255,255,255,0.8);
+}
+
+#text h6 {
+    color: rgba(255,255,255,0.9);
+}
+
+#text h1 {
+    margin: 5px 0;
+}
+
+#text {
+    width: 500px;
 }
 
 /**
@@ -76,34 +118,6 @@ h3 {
 /**
  *
  */
-
-#box {
-    color: white;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 50vh;
-    transform: translate(0, -50%);
-}
-
-#text {
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: 20px;
-}
-
-#text p {
-    text-align: justify;
-    color: rgba(255,255,255,0.8);
-}
-
-#text h5 {
-    color: rgba(255,255,255,0.9);
-}
-
-#text {
-    width: 500px;
-}
 
 .vignette {
     position: absolute;
