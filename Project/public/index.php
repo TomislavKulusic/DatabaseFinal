@@ -19,10 +19,10 @@ if (isset($_SESSION['login_user']))
             include(PAGES_PATH . 'addMovie.php');
             break;
         default:
-            include(PAGES_PATH . 'login.php');
+            include(PAGES_PATH . 'rented.php');
     }
 else
-    include(PAGES_PATH . 'login.php');
+    include(PAGES_PATH . 'rented.php');
 
 include(TEMPLATES_PATH . 'footer.php');
 

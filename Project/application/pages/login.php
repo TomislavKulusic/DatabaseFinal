@@ -25,7 +25,7 @@ if (isset($_POST['login'])) {
             } else {
 
                 //TODO HANDLE
-                echo "Failed to login";
+
             }
 
             $database->close();
@@ -47,9 +47,8 @@ if (isset($_POST['login'])) {
             <hr>
             <p>Lorem ipsum dolor sit amet, enim eiusmod commodo vel metus, vitae nec, tellus eros porta consectetuer.
                 Nascetur et rutrum nunc nascetur dictumst est, consequat nulla. Cursus et adipiscing eu, adipiscing
-                proin a ᵔᴥᵔ
-                ut nunc. Wisi risus, eget sed neque libero. Volutpat lorem sed turpis vestibulum, venenatis eu et luctus
-                auctor nulla, sollicitudin orci.</p>
+                proin a ᵔᴥᵔ ut nunc. Wisi risus, eget sed neque libero. Volutpat lorem sed turpis vestibulum, venenatis
+                eu et luctus auctor nulla, sollicitudin orci.</p>
         </div>
     </div>
     <div id="login" class="mdl-card mdl-shadow--6dp">
@@ -63,7 +62,8 @@ if (isset($_POST['login'])) {
             <div class="mdl-tabs__panel is-active" id="login-panel">
                 <form id="loginForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="usernameIn" name="username" pattern="^[a-zA-Z0-9_]*$">
+                        <input class="mdl-textfield__input" type="text" id="usernameIn" name="username"
+                               pattern="^[a-zA-Z0-9_]*$">
                         <label class="mdl-textfield__label" for="usernameIn">Username</label>
                         <span class="mdl-textfield__error">Only letters and numbers!</span>
                     </div>

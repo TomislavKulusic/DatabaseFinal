@@ -1,3 +1,20 @@
+<?php
+
+if (isset($_POST['movie'])) {
+//TODO
+} else if (isset($_POST['delete'])) {
+//TODO
+} else if (isset($_POST['director'])) {
+//TODO
+} else if (isset($_POST['category'])) {
+//TODO
+} else if (isset($_POST['actor'])) {
+//TODO
+}
+
+?>
+
+
 <div id="addMovieForm">
     <div class="mdl-grid">
         <form class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
@@ -11,10 +28,11 @@
                 <input class="mdl-textfield__input" type="text" id="sample6">
                 <label class="mdl-textfield__label" for="sample6">Movie Description</label>
             </div>
-            <button class="mdl-button mdl-js-button mdl-button--primary">
+            <button class="mdl-button mdl-js-button mdl-button--primary" name="director">
                 Add
             </button>
         </form>
+
         <form class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
             <h3>Category</h3>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -26,10 +44,11 @@
                 <input class="mdl-textfield__input" type="text" id="sample8">
                 <label class="mdl-textfield__label" for="sample8">Category Name</label>
             </div>
-            <button class="mdl-button mdl-js-button mdl-button--primary">
+            <button class="mdl-button mdl-js-button mdl-button--primary" name="category">
                 Add
             </button>
         </form>
+
         <form class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
             <h3>Actor</h3>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -45,10 +64,11 @@
                 <input class="mdl-textfield__input" type="text" id="sample11">
                 <label class="mdl-textfield__label" for="sample11">Last Name</label>
             </div>
-            <button class="mdl-button mdl-js-button mdl-button--primary">
+            <button class="mdl-button mdl-js-button mdl-button--primary" name="actor">
                 Add
             </button>
         </form>
+
         <form class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
             <h3>Movie</h3>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -96,10 +116,11 @@
                     <i class="material-icons">add_circe_outline</i>
                 </button>
             </label>
-            <button class="mdl-button mdl-js-button mdl-button--primary">
+            <button class="mdl-button mdl-js-button mdl-button--primary" name="movie">
                 Add
             </button>
         </form>
+
         <form class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
             <h3>Delete Movie</h3>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -107,7 +128,7 @@
                 <label class="mdl-textfield__label" for="sample30">Movie ID</label>
                 <span class="mdl-textfield__error">Input is not a number!</span>
             </div>
-            <button class="mdl-button mdl-js-button mdl-button--primary">
+            <button class="mdl-button mdl-js-button mdl-button--primary" name="delete">
                 Delete
             </button>
         </form>
