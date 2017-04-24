@@ -5,8 +5,8 @@ if (isset($_POST['login'])) {
     if (empty($_POST['username']) || empty($_POST['password'])) {
 
     } else {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        $username = $mysqli->real_escape_string(htmlentities(strip_tags(trim($_POST['username'])));
+        $password = $mysqli->real_escape_string(htmlentities(strip_tags(trim($_POST['password'])));
 
         //TODO SANITIZE
 
