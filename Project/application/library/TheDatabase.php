@@ -149,6 +149,13 @@ class TheDatabase
         $connection->commit();
     }
 
+    public function getLastID() {
+
+        global $connection;
+
+        return $connection->lastInsertId();
+    }
+
     //Getters and setters
 
 

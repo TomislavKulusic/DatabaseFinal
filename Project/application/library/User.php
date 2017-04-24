@@ -58,11 +58,38 @@ class User
     {
         global $database;
 
+        $database->startTransaction();
+
         $query = "INSERT INTO users (username, password, email) VALUES(?, ?, ?);";
 
         $array = array($this->username, $this->password, $this->email);
 
-        return $database->setData($query, $array);
+        $result = $database->setData($query, $array);
+
+
+        $query = "INSERT INTO renter (username, email) VALUES(?, ?);";
+
+        $array = array($this->username, $this->email);
+
+        $result = $database->setData($query, $array) && $result;
+
+
+        $query = "INSERT INTO user_roles (username, role_id) VALUES(?, ?);";
+
+        $array = array($this->username, 2);
+
+        $result = $database->setData($query, $array) && $result;
+
+
+        $query = "INSERT INTO user_roles (username, role_id) VALUES(?, ?);";
+
+        $array = array($this->username, 3);
+
+        $result = $database->setData($query, $array) && $result;
+
+        $database->endTransaction();
+
+        return $result; //TODO ROLLBACK
     }
 
     /**

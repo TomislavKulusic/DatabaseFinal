@@ -54,7 +54,7 @@ class Movie implements InterfaceClass
         if ($id = '')
             $id = $this->movie_id;
 
-        $query = "SELECT * FROM Movies WHERE movie_id = ?;";
+        $query = "SELECT * FROM movies WHERE movie_id = ?;";
 
         $result = $database->getData($query, array($id))[0];
 
@@ -142,6 +142,22 @@ class Movie implements InterfaceClass
         $this->setCategories();
         $this->setReviews();
         $this->setDirectors();
+    }
+
+    public function printMovie()
+    {
+        //<img src='img/movie-images/" . preg_replace("/[^ \w]+/", "", $this->movie_title) . "/cover/image-cover-s.jpg'/>
+        echo
+            "<div class=\"mdl-cell mdl-cell--4-col demo-card-image mdl-card mdl-shadow--4dp\" style=\"background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $this->movie_title) . "/cover/image-cover-s.jpg') center / cover;\">
+                <div class=\"vignette\"></div>
+                <div class=\"mdl-card__title mdl-card--expand\"></div>
+                <div class=\"mdl-card__actions\">
+                    <span class=\"demo-card-image__filename\">" . $this->movie_title . "</span>
+                </div>
+                <button class=\"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-button--mini-fab img-button mdl-shadow--8dp\" onclick='addToCart(" . $this->movie_id . ")'>
+                    <i class=\"material-icons\">add_shopping_cart</i>
+                </button>
+            </div>";
     }
 
     /**

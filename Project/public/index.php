@@ -18,8 +18,14 @@ if (isset($_SESSION['login_user']))
         case 'AddMovie':
             include(PAGES_PATH . 'addMovie.php');
             break;
+        case 'Login':
+            include(PAGES_PATH . 'login.php');
+            break;
+        case 'All Movies':
+            include(PAGES_PATH . 'allMovies.php');
+            break;
         default:
-            include(PAGES_PATH . 'rented.php');
+            include(PAGES_PATH . 'login.php');
     }
 else
     include(PAGES_PATH . 'rented.php');

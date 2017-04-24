@@ -17,14 +17,69 @@ h3 {
 }
 
 /**
+ * Movies
+ */
+
+.img-button {
+    position: absolute !important;
+    right: -14px;
+    bottom: 12px;
+}
+
+img {
+    object-fit: cover;
+}
+
+.demo-card-image.mdl-card {
+    width: 200px;
+    height: 256px;
+    cursor: pointer;
+    overflow: visible !important;
+    margin-right: 30px;
+}
+
+/*.demo-card-image.mdl-card:nth-child(1) {
+    background: url('https://images-na.ssl-images-amazon.com/images/M/MV5BMTUwMjAxMjA4Nl5BMl5BanBnXkFtZTcwMzkyNzYwNw@@.jpg') center / cover;
+}
+
+.demo-card-image.mdl-card:nth-child(2) {
+    background: url('https://images-na.ssl-images-amazon.com/images/M/MV5BNTUwOWJkZmQtMmNmZS00Y2NhLWFhMmYtY2Y1YjllNzhkYjdjXkEyXkFqcGdeQXVyMDMxMjQwMw@@.jpg') center / cover;
+}
+
+.demo-card-image.mdl-card:nth-child(3) {
+    background: url('https://images-na.ssl-images-amazon.com/images/M/MV5BMTcxNzUwNDk2NF5BMl5BanBnXkFtZTgwMjUwNTQ3MTE@.jpg') center / cover;
+}*/
+
+.demo-card-image > .mdl-card__actions {
+    height: 52px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    bottom: 0;
+}
+
+.demo-card-image__filename {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/**
  * LOGIN
  */
 
-#loginForm {
+#loginForm, #registerForm {
     position: absolute;
     transform: translate(-50%, -50%);
     left: 50%;
+}
+
+#loginForm {
     top: 70%;
+}
+
+#registerForm {
+    top: 73%;
 }
 
 #img1 {
@@ -156,34 +211,4 @@ h3 {
 
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover {
     background: none !important;
-}
-
-.demo-card-image.mdl-card {
-    width: 200px;
-    height: 256px;
-    cursor: pointer;
-}
-
-.demo-card-image.mdl-card:nth-child(1) {
-    background: url('https://images-na.ssl-images-amazon.com/images/M/MV5BMTUwMjAxMjA4Nl5BMl5BanBnXkFtZTcwMzkyNzYwNw@@.jpg') center / cover;
-}
-
-.demo-card-image.mdl-card:nth-child(2) {
-    background: url('https://images-na.ssl-images-amazon.com/images/M/MV5BNTUwOWJkZmQtMmNmZS00Y2NhLWFhMmYtY2Y1YjllNzhkYjdjXkEyXkFqcGdeQXVyMDMxMjQwMw@@.jpg') center / cover;
-}
-
-.demo-card-image.mdl-card:nth-child(3) {
-    background: url('https://images-na.ssl-images-amazon.com/images/M/MV5BMTcxNzUwNDk2NF5BMl5BanBnXkFtZTgwMjUwNTQ3MTE@.jpg') center / cover;
-}
-
-.demo-card-image > .mdl-card__actions {
-    height: 52px;
-    padding: 16px;
-    background: rgba(0, 0, 0, 0.2);
-}
-
-.demo-card-image__filename {
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
 }
