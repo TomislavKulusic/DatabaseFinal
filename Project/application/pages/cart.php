@@ -26,7 +26,7 @@ include(TEMPLATES_PATH . "navigation.php");
         x += '<div class="item">' +
                 '<div class="img'+(i+1)+'">' +
                 '</div>' +
-            '</div>'
+            '</div>';
 
     }
 
