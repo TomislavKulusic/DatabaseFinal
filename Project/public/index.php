@@ -4,8 +4,6 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'Login';
 
 include('../application/configs/config.php');
 
-include(LIBRARY_PATH . "jwt/JWT.php");
-
 include(LIBRARY_PATH . "User.php");
 include(TEMPLATES_PATH . 'header.php');
 

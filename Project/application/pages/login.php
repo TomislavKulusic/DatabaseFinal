@@ -1,41 +1,7 @@
 <?php
 include(LIBRARY_PATH . "TheDatabase.php");
 
-if (isset($_POST['login'])) {
-    if (empty($_POST['username']) || empty($_POST['password'])) {
-        //TODO HANDLE
-    } else {
-        $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'],
-            $config['db']['dbName']);
-
-        if ($database->connect()) {
-
-            $username = htmlentities(strip_tags(trim($_POST['username'])));
-            $password = htmlentities(strip_tags(trim($_POST['password'])));
-
-            $user = new User($username, $password, "", "", $database);
-
-            if ($user->login()) {
-
-                $token = array();
-                $token['id'] = $user->getUsername();
-
-                JWT::encode($token, 'this_is_secret_server_key');
-
-                header("location: index.php?page=Rented Movies");
-
-            } else {
-
-                //TODO HANDLE
-
-            }
-
-            $database->close();
-        } else {
-            //TODO HANDLE
-        }
-    }
-} else if (isset($_POST['register'])) {
+if (isset($_POST['register'])) {
     if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
         //TODO HANDLE IT
     } else {
@@ -88,7 +54,7 @@ if (isset($_POST['login'])) {
             </div>
 
             <div class="mdl-tabs__panel is-active" id="login-panel">
-                <form id="loginForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="">
+                <form id="loginForm">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" id="usernameIn" name="username"
                                pattern="^[a-zA-Z0-9_]*$">
@@ -128,3 +94,16 @@ if (isset($_POST['login'])) {
             </div>
         </div>
     </div>
+    <script>
+        $("#loginForm").submit(function (e) {
+            e.preventDefault();
+            $.post('../application/pages/check.php?action=login', $("#loginForm").serialize(), function (data) {
+                alert(data);
+                var data = jQuery.parseJSON(data);
+                alert(data);
+                document.cookie = "tokanVal=" + data['resp']['jwt'];
+
+                window.location.reload(true);
+            });
+        });
+    </script>
