@@ -122,7 +122,7 @@ class Movie implements InterfaceClass
 	
         $this->category = $database->getDataClass($query, array($this->category_id), 'Category', $array);
         
-     //   $this->categories = $database->getData($query, array($this->category_id));
+     //   $this->categories = $database->getData($query, array($this->category_id)); old code
     }
 
     public function setActors()
