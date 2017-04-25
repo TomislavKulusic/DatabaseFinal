@@ -7,7 +7,7 @@ if (isset($_POST['movie'])) {
 	//Getting the input from the input box in the HTML name:inputDelete
 	$movie_id =  $_POST['inputDelete'];
 	
-	//Connecting to a database
+	//Connecting to a databasee
 	$database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
 	
 	//Creating a movie with a id from the input
