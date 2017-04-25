@@ -119,8 +119,10 @@ class Movie implements InterfaceClass
         global $database;
 
         $query = "SELECT * FROM Category WHERE category_id = ?;";
-
-        $this->categories = $database->getData($query, array($this->category_id));
+	
+        $this->category = $database->getDataClass($query, array($this->category_id), 'Category', $array);
+        
+     //   $this->categories = $database->getData($query, array($this->category_id));
     }
 
     public function setActors()
