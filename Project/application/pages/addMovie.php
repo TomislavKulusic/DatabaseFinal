@@ -4,7 +4,7 @@ if (isset($_POST['movie'])) {
 //TODO
 } else if (isset($_POST['delete'])) {
 	
-	//Getting the input from the input box in the HTML name:inputDelete
+	//Getting the input from the input box in the HTML name:inputDeletee
 	$movie_id =  $_POST['inputDelete'];
 	
 	//Connecting to a databasee
