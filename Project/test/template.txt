@@ -1,0 +1,39 @@
+
+
+//Make sure that you check the ID of the move, becuase I'm not sure hot auto increment will work for you (TEST THIS)
+
+
+INSERT INTO movies (movie_id, movie_title,movie_description,release_date)
+VALUES (2,"Furious 7", "Deckard Shaw seeks revenge against Dominic Toretto and his family for his comatose brother.",
+  "2015-04-03");
+
+//ALSO WHEN YOU ADD THE ACTOR MAKE SURE TO CHECK THE ID OR CHECK THE AUTO INCREMENT. (If you want to test the auto-increment just remove the 
+actor_id from the fist bracket.
+
+INSERT INTO actors (actor_id, first_name, last_name)
+    VALUES (3, "Vin", "Diesel");
+
+
+//CONNECT THE RIGHT ACTOR WITH THE RIGHT MOVIE (As you can see movie id is 2(Furious 7) and actor_id is 3 (Because Vin Diesel is acting in Furious 7)
+
+INSERT INTO movie_actors (movie_id, actor_id)
+    VALUES (2,3);
+    
+ //Same as on the top be careful with connecting the directors with the movies, first add director then connect it with the movie via the    
+ movie_directors table.
+
+INSERT INTO directors (director_id, first_name, last_name)
+VALUES (2,"James","Wan");
+
+INSERT INTO movie_directors (director_id, movie_id)
+    VALUES(2,2);
+    
+//Category we have to see what catergories should be added to movies, like 10 default ones so we can skip this step.    
+
+INSERT INTO category (category_id, category_name)
+    VALUES (2,"Action, Crime, Thriller");
+    
+// You can copy the first review from IMDB just make it shorter.   
+
+INSERT INTO reviews (review_id, movie_id, rating, review)
+    VALUES (2,2,7,"Worst movie ever");
