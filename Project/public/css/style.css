@@ -11,9 +11,28 @@ h3 {
     display: flex;
 }
 
+.column {
+    flex-direction: column;
+}
+
 .flex hr {
     width: 50%;
     margin-right: 10px;
+}
+/**
+ * Cart
+ */
+
+#items {
+    height: 100%;
+    width: 40vw;
+    background: white;
+}
+
+#checkout {
+    height: 500px;
+    width: 100%;
+    background: gray;
 }
 
 /**
@@ -211,4 +230,12 @@ img {
 
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover {
     background: none !important;
+}
+
+.img1 {
+    background: url("../img/movie-images/Wings/image-1.jpg") center / cover;
+}
+
+.img2 {
+    background: url("../img/movie-images/Wings/image-2.jpg") center / cover;
 }

@@ -10,7 +10,7 @@ include('../application/configs/config.php');
 include(LIBRARY_PATH . "User.php");
 include(TEMPLATES_PATH . 'header.php');
 
-if (isset($_SESSION['login_user']))
+//if (isset($_SESSION['login_user']))
     switch ($page) {
         case 'Rented Movies':
             include(PAGES_PATH . 'rented.php');
@@ -24,11 +24,14 @@ if (isset($_SESSION['login_user']))
         case 'All Movies':
             include(PAGES_PATH . 'allMovies.php');
             break;
+        case 'Cart':
+            include(PAGES_PATH . 'cart.php');
+            break;
         default:
             include(PAGES_PATH . 'login.php');
     }
-else
-    include(PAGES_PATH . 'rented.php');
+//else
+//    include(PAGES_PATH . 'cart.php');
 
 include(TEMPLATES_PATH . 'footer.php');
 
