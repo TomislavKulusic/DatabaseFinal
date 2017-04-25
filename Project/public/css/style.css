@@ -15,6 +15,10 @@ h3 {
     flex-direction: column;
 }
 
+.spaceBetween {
+    justify-content: space-between;
+}
+
 .flex hr {
     width: 50%;
     margin-right: 10px;
@@ -22,6 +26,15 @@ h3 {
 /**
  * Cart
  */
+
+.item .spaceBetween {
+    width: 100%;
+}
+
+.item .spaceBetween button {
+    margin: auto 0;
+    color: whitesmoke;
+}
 
 .cart #text, .cart #price, .cart h4 {
     color: whitesmoke;
@@ -34,7 +47,7 @@ h3 {
 
 .item .img {
     height: 100%;
-    width: 98px;
+    min-width: 100px;
     margin-left: 5px;
     box-shadow:  0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12), 0 3px 5px -1px rgba(0,0,0,.2), 0 0 68px rgba(0,0,0,0.3) inset;
 }

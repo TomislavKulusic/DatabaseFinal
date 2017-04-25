@@ -17,4 +17,19 @@ function addToCart(movieTitle) {
     }
 }
 
+function removeCart(movieTitle) {
+    if (localStorage.movies) {
+        movies = JSON.parse(localStorage.getItem("movies"));
+    }
+
+    movies.splice(movies.indexOf(movieTitle), 1);
+
+    localStorage.setItem("movies", JSON.stringify(movies));
+
+    document.getElementById(movieTitle).remove();
+    cart.setAttribute("data-badge", movies.length.toString());
+
+    document.getElementsByTagName("h3")[0].innerHTML = "Cart (" + movies.length + ")";
+}
+
 cart.setAttribute("data-badge", movies.length.toString());

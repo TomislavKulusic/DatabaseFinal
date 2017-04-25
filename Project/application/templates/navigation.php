@@ -14,7 +14,17 @@
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation -->
             <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href=""><i class="material-icons">search</i></a>
+                <form action="#">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+                        <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+                            <i class="material-icons">search</i>
+                        </label>
+                        <div class="mdl-textfield__expandable-holder">
+                            <input class="mdl-textfield__input" type="text" id="sample6">
+                            <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+                        </div>
+                    </div>
+                </form>
                 <a class="mdl-navigation__link" href="index.php?page=Cart"><div id="cartN" class="material-icons mdl-badge mdl-badge--overlap">shopping_cart</div></a>
             </nav>
         </div>

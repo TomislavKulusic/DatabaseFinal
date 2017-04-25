@@ -33,10 +33,13 @@ include(TEMPLATES_PATH . "navigation.php");
     var x = "";
 
     for (var i = 0; i < movies.length; i++) {
-        x += '<div class="item flex">' +
+        x += '<div class="item flex" id="' + movies[i] + '">' +
             '<div class="img img1">' +
             '</div>' +
-            '<div class="title">' + movies[i] + '</div>' +
+            '<div class="flex spaceBetween"><div class="title">' + movies[i] + '</div>' +
+            '<button class="mdl-button mdl-js-button mdl-button--icon" onclick="removeCart(\'' + movies[i] + '\')">' +
+            '<i class="material-icons">clear</i>' +
+            '</button></div>' +
             '</div>';
     }
 
