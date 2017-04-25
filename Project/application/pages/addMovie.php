@@ -41,7 +41,7 @@ if (isset($_POST['movie'])) {
 	$category_name =  $_POST['categoryNAME'];
 	
 	
-	//Connecting to a database
+	//Connecting to a databasee
 	$database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
 	
 	//Creating a actor from input
