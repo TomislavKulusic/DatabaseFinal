@@ -14,18 +14,18 @@
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation -->
             <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href="">Search</a>
-                <a class="mdl-navigation__link" href="">Cart</a>
+                <a class="mdl-navigation__link" href=""><i class="material-icons">search</i></a>
+                <a class="mdl-navigation__link" href="index.php?page=Cart"><div id="cartN" class="material-icons mdl-badge mdl-badge--overlap">shopping_cart</div></a>
             </nav>
         </div>
     </header>
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Title</span>
         <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="<?php echo $path . 'pages/rented.php'?>">Rented Movies</a>
-            <a class="mdl-navigation__link" href="">All Movies</a>
-            <a class="mdl-navigation__link" href="">Watch Later</a>
-            <a class="mdl-navigation__link" href="">History</a>
+            <a class="mdl-navigation__link" href="index.php?page=Rented Movies">Rented Movies</a>
+            <a class="mdl-navigation__link" href="index.php?page=All Movies">All Movies</a>
+            <a class="mdl-navigation__link" href="index.php?page=Watch Later">Watch Later</a>
+            <a class="mdl-navigation__link" href="index.php?page=History">History</a>
         </nav>
     </div>
 

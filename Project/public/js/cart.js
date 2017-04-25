@@ -1,6 +1,10 @@
-function addToCart(movieTitle) {
-    var movies = [];
+var movies = [];
+var cart = document.getElementById("cartN");
 
+if (localStorage.movies)
+    movies = JSON.parse(localStorage.getItem("movies"));
+
+function addToCart(movieTitle) {
     if (localStorage.movies) {
         movies = JSON.parse(localStorage.getItem("movies"));
     }
@@ -9,5 +13,8 @@ function addToCart(movieTitle) {
         movies.push(movieTitle);
 
         localStorage.setItem("movies", JSON.stringify(movies));
+        cart.setAttribute("data-badge", movies.length.toString());
     }
 }
+
+cart.setAttribute("data-badge", movies.length.toString());

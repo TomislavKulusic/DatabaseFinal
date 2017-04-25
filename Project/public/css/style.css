@@ -23,6 +23,15 @@ h3 {
  * Cart
  */
 
+.cart #text, .cart #price, .cart h4 {
+    color: whitesmoke;
+}
+
+.cart #checkout button {
+    width: 100%;
+    margin-top: 50px;
+}
+
 .item .img {
     height: 100%;
     width: 98px;
@@ -47,13 +56,12 @@ h3 {
 #items {
     height: 500px;
     width: 100%;
-    margin-right: 20px;
+    margin-right: 65px;
 }
 
 #checkout {
     height: 500px;
-    width: 500px;
-    background: gray;
+    width: 275px;
     margin-right: 20px;
 }
 
