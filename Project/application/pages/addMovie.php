@@ -3,13 +3,41 @@
 if (isset($_POST['movie'])) {
 //TODO
 } else if (isset($_POST['delete'])) {
-//TODO
+	
+	//Getting the input from the input box in the HTML name:inputDelete
+	$movie_id =  $_POST['inputDelete'];
+	
+	//Connecting to a database
+	$database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
+	
+	//Creating a movie with a id from the input
+	$movie = new Movie($movie_id, "", "", "","", $database);
+	
+	//Deleting a movie.
+	$movie->delete();
+	
+	
+	
 } else if (isset($_POST['director'])) {
 //TODO
 } else if (isset($_POST['category'])) {
 //TODO
 } else if (isset($_POST['actor'])) {
-//TODO
+
+	
+	$actor_id =  $_POST['actorID'];
+	$actor_fn =  $_POST['actorFN'];
+	$actor_ln =  $_POST['actorLN'];
+	
+	//Connecting to a database
+	$database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
+	
+	//Creating a actor from input
+	$actor = new Actor($actor_id, $actor_fn, $actor_ln, $database);
+	
+	//Deleting a movie.
+	$actor->post();
+	
 }
 
 ?>
@@ -49,19 +77,21 @@ if (isset($_POST['movie'])) {
             </button>
         </form>
 
+		<!--  ACTOR  -->
+
         <form class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
             <h3>Actor</h3>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample9">
+                <input name="actorID" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample9">
                 <label class="mdl-textfield__label" for="sample9">Actor ID</label>
                 <span class="mdl-textfield__error">Input is not a number!</span>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="sample10">
+                <input name="actorFN" class="mdl-textfield__input" type="text" id="sample10">
                 <label class="mdl-textfield__label" for="sample10">First Name</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="sample11">
+                <input name="actorLN" class="mdl-textfield__input" type="text" id="sample11">
                 <label class="mdl-textfield__label" for="sample11">Last Name</label>
             </div>
             <button class="mdl-button mdl-js-button mdl-button--primary" name="actor">
@@ -124,7 +154,7 @@ if (isset($_POST['movie'])) {
         <form class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
             <h3>Delete Movie</h3>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample30">
+                <input name="inputDelete" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample30">
                 <label class="mdl-textfield__label" for="sample30">Movie ID</label>
                 <span class="mdl-textfield__error">Input is not a number!</span>
             </div>
