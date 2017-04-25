@@ -30,5 +30,6 @@ foreach ($result as $movie)
 
 ?>
     </div>
+
 </main>
 </div>

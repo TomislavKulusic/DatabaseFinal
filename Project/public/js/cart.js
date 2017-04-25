@@ -1,8 +1,6 @@
-function addToCart(movieId) {
-    if (localStorage.movies)
-        localStorage.movies += "|";
-    else
-        localStorage.movies = "";
+var movies = [];
 
-    localStorage.movies += movieId;
+function addToCart(movieId) {
+    movies.push(movieId);
+    localStorage.setItem("movies", movies);
 }
