@@ -89,9 +89,29 @@ class Movie implements InterfaceClass
     {
         global $database;
 
+        $database->startTransaction();
+
         $query = "DELETE FROM movies WHERE movie_id = ?;";
 
         $database->setData($query, array($this->movie_id));
+
+        $query = "DELETE FROM movie_renter WHERE movie_id = ?;";
+
+        $database->setData($query, array($this->movie_id));
+
+        $query = "DELETE FROM reviews WHERE movie_id = ?;";
+
+        $database->setData($query, array($this->movie_id));
+
+        $query = "DELETE FROM movie_actors WHERE movie_id = ?;";
+
+        $database->setData($query, array($this->movie_id));
+
+        $query = "DELETE FROM movie_directors WHERE movie_id = ?;";
+
+        $database->setData($query, array($this->movie_id));
+
+        $database->connect();
     }
 
     public function setCategories()

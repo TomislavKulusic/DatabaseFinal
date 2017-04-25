@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>95fdbb09-f08b-46c9-8c13-257536acd7c5</OriginalElement>
+  <nodes>
+    <node x="285.0" y="0.0">95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.category</node>
+    <node x="520.755319148936" y="191.41016548463358">95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.movie_directors</node>
+    <node x="341.875" y="671.0">95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.role_privileges</node>
+    <node x="618.1842494089835" y="395.6583924349882">95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.movie_actors</node>
+    <node x="-162.52009456264778" y="467.9964539007093">95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.users</node>
+    <node x="756.4669030732863" y="177.76595744680844">95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.actors</node>
+    <node x="232.0" y="535.0">95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.roles</node>
+    <node x="105.15329491725765" y="359.9621749408983">95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.movie_renter</node>
+    <node x="344.806146572104" y="388.0921985815603">95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.reviews</node>
+    <node x="401.0" y="535.0">95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.privileges</node>
+    <node x="0.0" y="125.0">95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.renter</node>
+    <node x="275.0791962174941" y="115.13593380614657">95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.movies</node>
+    <node x="553.7553191489361" y="30.6193853427896">95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.directors</node>
+    <node x="91.625" y="671.0">95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.user_roles</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.movie_renter" target="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.renter">
+      <point x="-55.75" y="-70.5" />
+      <point x="130.15625" y="318.0" />
+      <point x="121.5" y="318.0" />
+      <point x="0.0" y="81.5" />
+    </edge>
+    <edge source="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.movie_actors" target="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.actors">
+      <point x="40.5" y="-37.0" />
+      <point x="680.386377068558" y="512.3652482269505" />
+      <point x="842.7706855791961" y="506.8747044917259" />
+      <point x="0.0" y="48.5" />
+    </edge>
+    <edge source="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.reviews" target="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.movies">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.movies" target="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.category">
+      <point x="0.0" y="-70.5" />
+      <point x="0.0" y="37.5" />
+    </edge>
+    <edge source="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.movie_directors" target="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.movies">
+      <point x="-43.0" y="-37.0" />
+      <point x="562.6572104018913" y="306.90189125295507" />
+      <point x="460.0791962174941" y="308.0" />
+      <point x="74.0" y="70.5" />
+    </edge>
+    <edge source="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.role_privileges" target="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.roles">
+      <point x="-37.25" y="-37.0" />
+      <point x="379.125" y="646.0" />
+      <point x="343.75" y="646.0" />
+      <point x="37.25" y="37.5" />
+    </edge>
+    <edge source="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.movie_directors" target="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.directors">
+      <point x="43.0" y="-37.0" />
+      <point x="0.0" y="48.5" />
+    </edge>
+    <edge source="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.role_privileges" target="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.privileges">
+      <point x="37.25" y="-37.0" />
+      <point x="453.625" y="646.0" />
+      <point x="489.0" y="646.0" />
+      <point x="0.0" y="37.5" />
+    </edge>
+    <edge source="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.movie_actors" target="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.movies">
+      <point x="-40.5" y="-37.0" />
+      <point x="439.0625" y="318.0" />
+      <point x="388.27541371158395" y="318.0" />
+      <point x="0.0" y="70.5" />
+    </edge>
+    <edge source="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.movie_renter" target="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.movies">
+      <point x="55.75" y="-70.5" />
+      <point x="274.5995124113475" y="319.0981087470449" />
+      <point x="300.0" y="318.0" />
+      <point x="-74.0" y="70.5" />
+    </edge>
+    <edge source="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.user_roles" target="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.users">
+      <point x="-48.0" y="-37.0" />
+      <point x="139.625" y="646.0" />
+      <point x="106.0" y="646.0" />
+      <point x="0.0" y="48.5" />
+    </edge>
+    <edge source="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.renter" target="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.users">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.user_roles" target="95fdbb09-f08b-46c9-8c13-257536acd7c5.TABLE:mydb.roles">
+      <point x="48.0" y="-37.0" />
+      <point x="235.625" y="646.0" />
+      <point x="269.25" y="646.0" />
+      <point x="-37.25" y="37.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.9106566200215285" x="514.5933806146572" y="474.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+  </Categories>
+</Diagram>
+
