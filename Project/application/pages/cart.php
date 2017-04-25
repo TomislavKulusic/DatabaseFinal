@@ -21,31 +21,39 @@ include(TEMPLATES_PATH . "navigation.php");
             </button>
         </div>
     </div>
+    <div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
 </main>
 
 <script>
-    var items = document.getElementById("items");
-    var price = document.getElementById("price");
-    var movies = [];
-    if (localStorage.movies)
-        movies = JSON.parse(localStorage.getItem("movies"));
+    function fillCart(){
+        var items = document.getElementById("items");
+        var price = document.getElementById("price");
+        var movies = [];
+        if (localStorage.movies)
+            movies = JSON.parse(localStorage.getItem("movies"));
 
-    var x = "";
+        var x = "";
 
-    for (var i = 0; i < movies.length; i++) {
-        x += '<div class="item flex" id="' + movies[i] + '">' +
-            '<div class="img img1">' +
-            '</div>' +
-            '<div class="flex spaceBetween"><div class="title">' + movies[i] + '</div>' +
-            '<button class="mdl-button mdl-js-button mdl-button--icon" onclick="removeCart(\'' + movies[i] + '\')">' +
-            '<i class="material-icons">clear</i>' +
-            '</button></div>' +
-            '</div>';
+        for (var i = 0; i < movies.length; i++) {
+            x += '<div class="item flex" id="' + movies[i] + '">' +
+                '<div class="img img1">' +
+                '</div>' +
+                '<div class="flex spaceBetween"><div class="title">' + movies[i] + '</div>' +
+                '<button class="mdl-button mdl-js-button mdl-button--icon" onclick="removeCart(\'' + movies[i] + '\')">' +
+                '<i class="material-icons">clear</i>' +
+                '</button></div>' +
+                '</div>';
+        }
+
+        items.innerHTML = x;
+        price.innerHTML = movies.length * 10 + "$";
+        document.getElementsByTagName("h3")[0].innerHTML = "Cart (" + movies.length + ")";
     }
+    fillCart();
 
-    items.innerHTML = x;
-    price.innerHTML = movies.length * 10 + "$";
-    document.getElementsByTagName("h3")[0].innerHTML += " (" + movies.length + ")";
 </script>
 
 </div>
