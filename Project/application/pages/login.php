@@ -17,7 +17,11 @@ if (isset($_POST['login'])) {
 
             if ($user->login()) {
 
-                $_SESSION['login_user'] = $user; //TODO TEST THIS. If this doesn't work just store id
+                $token = array();
+                $token['id'] = $user->getUsername();
+
+                JWT::encode($token, 'this_is_secret_server_key');
+
                 header("location: index.php?page=Rented Movies");
 
             } else {

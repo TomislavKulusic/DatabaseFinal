@@ -38,7 +38,7 @@ class TheDatabase
 
             return true;
         } catch (PDOException $e) {
-            error_log("Error connecting: " . $e->getMessage() . "!\r\n", 3, "errors.log");
+            error_log("Error connecting: " . $e->getMessage() . "!\r\n", 3, "../data/log/errors.log");
             return false;
         }
     }
@@ -52,7 +52,7 @@ class TheDatabase
 
             return true;
         } catch (PDOException $e) {
-            error_log("Error closing: " . $e->getMessage() . "!\r\n", 3, "errors.log");
+            error_log("Error closing: " . $e->getMessage() . "!\r\n", 3, "../data/log/errors.log");
 
             return false;
         }
@@ -72,7 +72,7 @@ class TheDatabase
 
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            error_log("Error getting data: " . $e->getMessage() . "!\r\n", 3, "errors.log");
+            error_log("Error getting data: " . $e->getMessage() . "!\r\n", 3, "../data/log/errors.log");
 
             return false;
         }
@@ -100,7 +100,7 @@ class TheDatabase
             return $statement->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $className, $classValues);
 
         } catch (PDOException $e) {
-            error_log("Error getting data as class: " . $e->getMessage() . "!\r\n", 3, "errors.log");
+            error_log("Error getting data as class: " . $e->getMessage() . "!\r\n", 3, "../data/log/errors.log");
 
             return false;
         }
@@ -123,7 +123,7 @@ class TheDatabase
 
             return true;
         } catch (PDOException $e) {
-            error_log("Error setting data: " . $e->getMessage() . "!\r\n", 3, "errors.log");
+            error_log("Error setting data: " . $e->getMessage() . "!\r\n", 3, "../data/log/errors.log");
             return false;
         }
     }
