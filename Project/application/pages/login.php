@@ -1,7 +1,6 @@
 <?php
-include(LIBRARY_PATH . "TheDatabase.php");
-
-if (isset($_POST['register'])) {
+include_once(LIBRARY_PATH . 'check.php');
+/*if (isset($_POST['register'])) {
     if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
         //TODO HANDLE IT
     } else {
@@ -29,7 +28,7 @@ if (isset($_POST['register'])) {
             //TODO HANDLE
         }
     }
-}
+}*/
 
 ?>
 
@@ -54,7 +53,7 @@ if (isset($_POST['register'])) {
             </div>
 
             <div class="mdl-tabs__panel is-active" id="login-panel">
-                <form id="loginForm">
+                <form id="loginForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" id="usernameIn" name="username"
                                pattern="^[a-zA-Z0-9_]*$">
@@ -95,7 +94,7 @@ if (isset($_POST['register'])) {
         </div>
     </div>
     <script>
-        $("#loginForm").submit(function (e) {
+/*        $("#loginForm").submit(function (e) {
             e.preventDefault();
             $.post('../application/pages/check.php?action=login', $("#loginForm").serialize(), function (data) {
                 alert(data);
@@ -105,5 +104,5 @@ if (isset($_POST['register'])) {
 
                 window.location.reload(true);
             });
-        });
+        });*/
     </script>

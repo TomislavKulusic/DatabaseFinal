@@ -43,7 +43,7 @@ class Review implements InterfaceClass
 
         $query = "SELECT * FROM reviews WHERE review_id = ?;";
 
-        $result = $database->getData($query, array($id)[0]);
+        $result = $database->getData($query, array($id))[0];
 
         $this->review_id = $result['review_id'];
         $this->movie_id = $result['movie_id'];

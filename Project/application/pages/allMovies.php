@@ -1,7 +1,5 @@
 <?php
 
-include('../application/configs/config.php');
-
 include_once(LIBRARY_PATH . "TheDatabase.php");
 include_once(LIBRARY_PATH . "Movie.php");
 
@@ -16,20 +14,23 @@ $result = $database->getDataClass("SELECT * FROM movies;", null, "Movie", $class
 
 $database->close();
 
-include (TEMPLATES_PATH . "navigation.php");
+include(TEMPLATES_PATH . "navigation.php");
 
 ?>
 
 <main class="mdl-layout__content">
     <h3>All Movies</h3>
     <div class="mdl-grid">
-<?php
+        <?php
 
-foreach ($result as $movie)
-    $movie->printMovie();
+        foreach ($result as $movie)
+            $movie->printMovie();
 
-?>
+        ?>
     </div>
-
+    <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
 </main>
 </div>

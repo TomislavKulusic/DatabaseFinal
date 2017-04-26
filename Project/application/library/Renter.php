@@ -15,6 +15,7 @@ class Renter implements InterfaceClass
 {
 
     private $renterID;
+    private $username;
     private $firstName;
     private $lastName;
     private $email;
@@ -32,9 +33,10 @@ class Renter implements InterfaceClass
      * @param $cardNo
      * @param $database
      */
-    public function __construct($renterID, $firstName, $lastName, $email, $cardNo, $database)
+    public function __construct($renterID, $username, $firstName, $lastName, $email, $cardNo, $database)
     {
         $this->renterID = $renterID;
+        $this->username = $username;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
@@ -46,12 +48,29 @@ class Renter implements InterfaceClass
     {
         global $database;
 
-        if ($id = '')
+        if (empty($id))
             $id = $this->renterID;
 
         $query = "SELECT * FROM renter WHERE renter_id = ?;";
 
         $result = $database->getData($query, array($id))[0];
+
+        $this->renterID = $result['renter_id'];
+        $this->firstName = $result['first_name'];
+        $this->lastName = $result['last_name'];
+        $this->email = $result['email'];
+        $this->cardNo = $result['card_no'];
+    }
+
+    public function fetchU($username) {
+        global $database;
+
+        if (empty($username))
+            $username = $this->username;
+
+        $query = "SELECT * FROM renter WHERE username = ?;";
+
+        $result = $database->getData($query, array($username))[0];
 
         $this->renterID = $result['renter_id'];
         $this->firstName = $result['first_name'];
@@ -92,8 +111,7 @@ class Renter implements InterfaceClass
     {
         global $database;
 
-        $query = "SELECT * FROM " .
-            "Movie_Renter LEFT JOIN movies ON movie_renter.movie_id = movies.movie_id WHERE movie_renter.movie_id = ?;";
+        $query = "SELECT * FROM Movie_Renter LEFT JOIN movies ON movie_renter.movie_id = movies.movie_id WHERE movie_renter.renter_id = ?;";
 
         $array = array('', '', '', '', '', '', $database);
 
@@ -204,5 +222,10 @@ class Renter implements InterfaceClass
     public function getRentedMovies()
     {
         return $this->rentedMovies;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
     }
 }

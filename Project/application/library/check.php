@@ -1,20 +1,18 @@
 <?php
-include_once("../library/jwt/JWT.php");
-include("../library/User.php");
-include("../library/TheDatabase.php");
-include("../configs/config.php");
+include_once(LIBRARY_PATH . "jwt/JWT.php");
 
-$action = $_REQUEST['action'];
-define('SECRET_KEY', 'Your-Secret-Key');  /// secret key can be a random string and keep in secret from anyone
-define('ALGORITHM', 'HS256');   // Algorithm used to sign the token, see
+include_once (LIBRARY_PATH . "TheDatabase.php");
 
-if (!empty($_POST['username']) && !empty($_POST['password']) && $action === 'login') {
+$decodedData;
+
+echo !empty($_POST['login']) && !empty($_POST['username']) && !empty($_POST['password']);
+
+if (!empty($_POST['username']) && !empty($_POST['password']) && isset($_POST['login'])) {
 
     $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'],
         $config['db']['dbName']);
 
     if ($database->connect()) {
-
         $username = htmlentities(strip_tags(trim($_POST['username'])));
         $password = htmlentities(strip_tags(trim($_POST['password'])));
 
@@ -22,7 +20,7 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && $action === 'log
 
         if ($user->login()) {
 
-            $tokenId = base64_encode(mcrypt_create_iv(32));
+            $tokenId = base64_encode(random_bytes(32));
             $issuedAt = time();
             $notBefore = $issuedAt + 10;  //Adding 10 seconds
             $expire = $notBefore + 7200; // Adding 60 seconds
@@ -35,41 +33,43 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && $action === 'log
                 'nbf' => $notBefore,        // Not before
                 'exp' => $expire,           // Expire
                 'data' => [                 // Data related to the logged user you can set your required data
-                    'username' => $user->getUsername(),       // id from the users table
+                    'username' => $user->getUsername(),
                 ]
             ];
 
             $secretKey = base64_decode(SECRET_KEY);
 
             $jwt = JWT::encode(
-                $data, //Data to be encoded in the JWT
-                $secretKey, // The signing key
+                $data,
+                $secretKey,
                 ALGORITHM
             );
 
-            $unencodedArray = ['jwt' => $jwt];
+            $_SESSION["user"] = $jwt;
 
-            echo '{"status" : "success","resp":' . json_encode($unencodedArray) . '}';
-
+            header("location:index.php?page=All Movies");
         } else {
-            echo '{"status" : "fail" ,"msg":"Invalid email or passowrd"}';
+            echo "FAIL LOGIN";
+            //TODO HANDLE
         }
 
         $database->close();
     } else {
-        //TODO HANDLE
+        error_log("Error connecting to DB! Time: " . time() . "\r\n", "3", "../data/log/errors.log");
     }
-} else if ($action == 'authenticate') {
-    try {
-        $secretKey = base64_decode(SECRET_KEY);
-        $DecodedDataArray = JWT::decode($_GET['tokanVal'], $secretKey, array(ALGORITHM));
+}
 
-        echo '{"status" : "success" ,"data":' . json_encode($DecodedDataArray) . ' }';
-        die();
-
-    } catch (Exception $e) {
-        echo '{"status" : "fail" ,"msg":"Unauthorized " }';
-        die();
+function getDecodedData()
+{
+    if (isset($_SESSION["user"])) {
+        try {
+            $secretKey = base64_decode(SECRET_KEY);
+            return JWT::decode($_SESSION["user"], $secretKey, array(ALGORITHM));
+        } catch (Exception $e) {
+            header("location:index.php?page=Login");
+            exit();
+        }
     }
 
+    return false;
 }
