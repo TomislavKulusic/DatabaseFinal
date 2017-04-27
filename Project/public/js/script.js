@@ -1,10 +1,15 @@
-function addSelect(element, what) {
+function addSelect(element, what, counter) {
     document.getElementById("add" + what + "B").remove();
 
+    var options = document.getElementById("options" + what);
+
     var label = document.createElement("label");
+    var counter1 = counter + 1;
+    var counterInt = parseInt(counter1);
 
     var select = document.createElement("select");
     select.appendChild(new Option("Select " + what));
+    select.name = what + counter1;
 
     label.appendChild(select);
     label.className = "selectors";
@@ -12,7 +17,7 @@ function addSelect(element, what) {
     var button = document.createElement("button");
     button.className = "mdl-button mdl-js-button mdl-button--icon";
     button.type = "button";
-    button.setAttribute("onclick", "addSelect(this.parentElement, '" + what + "')");
+    button.setAttribute("onclick", "addSelect(this.parentElement, '" + what + "'," + counterInt + ")");
     button.id = "add" + what + "B";
 
     var i = document.createElement("i");
@@ -24,28 +29,30 @@ function addSelect(element, what) {
     label.appendChild(button);
 
     element.parentElement.insertBefore(label, element.nextSibling);
+
+    select.innerHTML = options.innerHTML;
 }
 
 /*if (document.cookie) {
-    $.post('../application/pages/check.php?action=authenticate&' + document.cookie, function (resp) {
-        if (resp.done()) {
-            alert("YAY");
-        } else {
-            alert("NAY");
-            /!*deleteAllCookies();
+ $.post('../application/pages/check.php?action=authenticate&' + document.cookie, function (resp) {
+ if (resp.done()) {
+ alert("YAY");
+ } else {
+ alert("NAY");
+ /!*deleteAllCookies();
 
-            window.location.replace("index.php?page=Login");*!/
-        }
-    }, 'json');
-}
+ window.location.replace("index.php?page=Login");*!/
+ }
+ }, 'json');
+ }
 
-function deleteAllCookies() {
-    var cookies = document.cookie.split(";");
+ function deleteAllCookies() {
+ var cookies = document.cookie.split(";");
 
-    for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i];
-        var eqPos = cookie.indexOf("=");
-        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    }
-}*/
+ for (var i = 0; i < cookies.length; i++) {
+ var cookie = cookies[i];
+ var eqPos = cookie.indexOf("=");
+ var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+ document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+ }
+ }*/

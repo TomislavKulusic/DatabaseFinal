@@ -23,6 +23,27 @@ h3 {
     width: 50%;
     margin-right: 10px;
 }
+
+/**
+ * Movie
+ */
+
+.banner.mdl-card {
+    height: 450px;
+    width: 450px;
+    margin-left: auto;
+    margin-right: 15px;
+}
+
+.movie, .movie .texts h1 {
+    color: white;
+}
+
+.mdl-card.mdl-cell--4-col.imgM {
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
 /**
  * Cart
  */

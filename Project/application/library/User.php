@@ -136,7 +136,7 @@ class User
 
         $query = "SELECT
                     role_name,
-                    GROUP_CONCAT(privileges.privilege_desc SEPARATOR '|') AS 'Privilege'
+                    GROUP_CONCAT(privileges.privilege_desc SEPARATOR '|') AS 'privilege_desc'
                   FROM users
                     LEFT JOIN user_roles ON users.username = user_roles.username
                     LEFT JOIN roles ON user_roles.role_id = roles.role_id
@@ -146,9 +146,7 @@ class User
 
         $array = array("", "");
 
-        $result = $database->getDataClass($query, array($this->username), "Privileges", $array)[0];
-
-        $this->role = new Privileges($result['role_name'], $result['Privilege']);
+        $this->role = $database->getDataClass($query, array($this->username), "Privileges", $array)[0];
     }
 
     /**

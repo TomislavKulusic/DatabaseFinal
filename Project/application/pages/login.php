@@ -1,4 +1,5 @@
 <?php
+
 include_once(LIBRARY_PATH . 'check.php');
 /*if (isset($_POST['register'])) {
     if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {

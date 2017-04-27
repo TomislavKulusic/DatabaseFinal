@@ -30,6 +30,9 @@ if ($isLoggedIn)
         case 'Cart':
             include(PAGES_PATH . 'cart.php');
             break;
+        case 'Movie':
+            include(PAGES_PATH . 'movie.php');
+            break;
         default:
             include(PAGES_PATH . 'allMovies.php');
     }

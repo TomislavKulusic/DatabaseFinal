@@ -118,9 +118,16 @@ class Renter implements InterfaceClass
         $this->rentedMovies = $database->getDataClass($query, array($this->renterID), 'Movie', $array);
 
         if ($updateAll)
-            foreach ($this->rentedMovies as $asd) {
+            foreach ($this->rentedMovies as $asd)
                 $asd->setAll();
-            }
+    }
+
+    public function hasMovie($movieTitle) {
+        foreach ($this->rentedMovies as $movie)
+            if ($movie->getMovieTitle() != $movieTitle)
+                return true;
+
+        return false;
     }
 
     /**

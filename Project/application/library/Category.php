@@ -67,6 +67,40 @@ class Category implements InterfaceClass
 		
 		$database->setData($query, array($this->category_id));
 	}
+
+    /**
+     * @return mixed
+     */
+    public function getCategoryId()
+    {
+        return $this->category_id;
+    }
+
+    /**
+     * @param mixed $category_id
+     */
+    public function setCategoryId($category_id)
+    {
+        $this->category_id = $category_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategoryName()
+    {
+        return $this->category_name;
+    }
+
+    /**
+     * @param mixed $category_name
+     */
+    public function setCategoryName($category_name)
+    {
+        $this->category_name = $category_name;
+    }
+
+
 	
 	
 } // end of Category Class

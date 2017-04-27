@@ -1,18 +1,26 @@
 <?php
 
 include_once(LIBRARY_PATH . "TheDatabase.php");
-include_once(LIBRARY_PATH . "Movie.php");
+include_once(LIBRARY_PATH . "Renter.php");
 
 $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'],
     $config['db']['dbName']);
 
-$database->connect();
+if ($database->connect()) {
+    $renter = new Renter("", getDecodedData()->data->username, "", "", "", "", $database);
 
-$classValues = array("", "", "", "", "", $database);
+    $renter->fetchU("");
 
-$result = $database->getDataClass("SELECT * FROM movies;", null, "Movie", $classValues);
+    $renter->setRentedMovies(false);
 
-$database->close();
+    $movies = $renter->getRentedMovies();
+
+    $classValues = array("", "", "", "", "", $database);
+
+    $result = $database->getDataClass("SELECT * FROM movies;", null, "Movie", $classValues);
+
+    $database->close();
+}
 
 include(TEMPLATES_PATH . "navigation.php");
 

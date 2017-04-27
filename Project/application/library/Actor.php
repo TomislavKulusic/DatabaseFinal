@@ -1,6 +1,6 @@
 <?php
 
-include_once ('InterfaceClass.php');
+include_once('InterfaceClass.php');
 
 /**
  * Created by IntelliJ IDEA.
@@ -72,6 +72,11 @@ class Actor implements InterfaceClass
         $query = "DELETE FROM actors WHERE last_name = ?;";
 
         $database->setData($query, array($this->last_name));
+    }
+
+    public function getFullName()
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     /**

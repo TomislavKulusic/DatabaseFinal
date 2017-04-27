@@ -22,14 +22,14 @@ $database = new TheDatabase($config['db']['host'], $config['db']['username'], $c
 if ($database->connect()) {
     echo "Connected<br><br>";
 
-    /*    $renter = new Renter('1', '', '', '', '', $database);
+    /*  $renter = new Renter('1', '', '', '', '', $database);
 
         $renter->fetch();
 
         $renter->setRentedMovies(true);
 
         print_r($renter->getRentedMovies());
-*/
+    */
 
     $user = new User("AdminEx", "123", "", "", $database);
 

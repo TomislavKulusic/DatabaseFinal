@@ -60,7 +60,25 @@ class Movie implements InterfaceClass
 
         $this->movie_id = $result['movie_id'];
         $this->movie_title = $result['movie_title'];
-        $this->movie_description = $result['movie_movie_description'];
+        $this->movie_description = $result['movie_description'];
+        $this->category_id = $result['category_id'];
+        $this->release_date = $result['release_date'];
+    }
+
+    public function fetchN($title)
+    {
+        global $database;
+
+        if ($title == null || $title == "")
+            $title = $this->movie_title;
+
+        $query = "SELECT * FROM movies WHERE movie_title = ?;";
+
+        $result = $database->getData($query, array($title))[0];
+
+        $this->movie_id = $result['movie_id'];
+        $this->movie_title = $result['movie_title'];
+        $this->movie_description = $result['movie_description'];
         $this->category_id = $result['category_id'];
         $this->release_date = $result['release_date'];
     }
@@ -111,7 +129,7 @@ class Movie implements InterfaceClass
 
         $database->setData($query, array($this->movie_id));
 
-        $database->connect();
+        $database->endTransaction();
     }
 
     public function setCategories()
@@ -121,9 +139,9 @@ class Movie implements InterfaceClass
         $query = "SELECT * FROM Category WHERE category_id = ?;";
 
         $array = array("", "");
-	
+
         $this->category = $database->getDataClass($query, array($this->category_id), 'Category', $array);
-        
+
      //   $this->categories = $database->getData($query, array($this->category_id)); old code
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-include_once ('InterfaceClass.php');
+include_once('InterfaceClass.php');
 
 /**
  * Created by IntelliJ IDEA.
@@ -73,4 +73,75 @@ class Director implements InterfaceClass
 
         $database->setData($query, array($this->director_id));
     }
+
+    public function getFullName()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDirectorId()
+    {
+        return $this->director_id;
+    }
+
+    /**
+     * @param mixed $director_id
+     */
+    public function setDirectorId($director_id)
+    {
+        $this->director_id = $director_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstName()
+    {
+        return $this->first_name;
+    }
+
+    /**
+     * @param mixed $first_name
+     */
+    public function setFirstName($first_name)
+    {
+        $this->first_name = $first_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return $this->last_name;
+    }
+
+    /**
+     * @param mixed $last_name
+     */
+    public function setLastName($last_name)
+    {
+        $this->last_name = $last_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDatabase()
+    {
+        return $this->database;
+    }
+
+    /**
+     * @param mixed $database
+     */
+    public function setDatabase($database)
+    {
+        $this->database = $database;
+    }
+
+
 }
