@@ -8,7 +8,7 @@ $(document).ready(function() {
     $("#test").click(function () {
 
 
-        $.post('watchLaterMovie.php', function (resp) {
+        $.post('js/watchLaterMovie.php', function (resp) {
 
 
         });
