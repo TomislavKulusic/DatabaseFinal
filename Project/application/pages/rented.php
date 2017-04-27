@@ -49,7 +49,7 @@ include(TEMPLATES_PATH . 'navigation.php');
         <?php
 
         foreach ($movies as $movie)
-            $movie->printMovie();
+            $movie->printMovie("ren");
 
         ?>
     </div>

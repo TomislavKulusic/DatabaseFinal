@@ -24,7 +24,7 @@ include(TEMPLATES_PATH . "navigation.php");
         <?php
 
         foreach ($result as $movie)
-            $movie->printMovie();
+            $movie->printMovie("all");
 
         ?>
     </div>

@@ -116,7 +116,6 @@ class TheDatabase
         global $connection;
 
         try {
-
             $insert = $connection->prepare($query);
 
             $insert->execute($values);
