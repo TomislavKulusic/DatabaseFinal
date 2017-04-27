@@ -3,6 +3,7 @@
 include(TEMPLATES_PATH . "navigation.php");
 
 ?>
+
 <main class="mdl-layout__content">
     <h3>Cart</h3>
     <div class="flex cart">

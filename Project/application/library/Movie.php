@@ -170,7 +170,6 @@ class Movie implements InterfaceClass
 
     public function printMovie($what)
     {
-
         if ($what === "all")
             $what = "<button class=\"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-button--mini-fab img-button mdl-shadow--8dp\" onclick='addToCart(\"$this->movie_title\")'>" .
                     "<i class=\"material-icons\">add_shopping_cart</i>" .

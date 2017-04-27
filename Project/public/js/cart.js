@@ -60,3 +60,6 @@ function removeCart(movieTitle) {
     document.getElementById("price").innerHTML = movies.length * 10 + "$";
     snackbarContainer.MaterialSnackbar.showSnackbar(data);
 }
+
+if (cart)
+    document.getElementById("cartN").setAttribute("data-badge", movies.length.toString());

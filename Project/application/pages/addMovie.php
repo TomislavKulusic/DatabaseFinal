@@ -3,70 +3,70 @@
 if (isset($_POST['movie'])) {
 //TODO
 } else if (isset($_POST['delete'])) {
-	
+
 	//Getting the input from the input box in the HTML name:inputDeletee
 	$movie_id =  $_POST['inputDelete'];
-	
+
 	//Connecting to a databasee
 	$database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
-	
+
 	//Creating a movie with a id from the input
 	$movie = new Movie($movie_id, "", "", "","", $database);
-	
+
 	//Deleting a movie.
 	$movie->delete();
-	
-	
-	
+
+
+
 } else if (isset($_POST['director'])) {
 
 	$director_fn =  $_POST['directorFN'];
 	$director_ln =  $_POST['directorLN'];
-	
-	
+
+
 	//Connecting to a database
 	$database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
-	
+
 	//Creating a director from input
 	$director = new Director(null, $director_fn, $director_ln, $database);
-	
+
 	//Deleting a movie.
 	$director->post();
 
-	
-	
+
+
 } else if (isset($_POST['category'])) {
-	
+
 	$category_id =  $_POST['categoryID'];
 	$category_name =  $_POST['categoryNAME'];
-	
-	
+
+
 	//Connecting to a databasee
 	$database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
-	
+
 	//Creating a actor from input
 	$category = new Category($category_id, $category_name);
-	
+
 	//Deleting a movie.
 	$category->post();
-	
+
 
 } else if (isset($_POST['actor'])) {
 
-	
+
 	$actor_id =  $_POST['actorID'];
 	$actor_fn =  $_POST['actorFN'];
 	$actor_ln =  $_POST['actorLN'];
-	
+
 	//Connecting to a database
 	$database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
-	
+
 	//Creating a actor from input
 	$actor = new Actor($actor_id, $actor_fn, $actor_ln, $database);
-	
+
 	//Deleting a movie.
 	$actor->post();
-	
+
 }
 
 ?>

@@ -131,6 +131,26 @@ class User
         }
     }
 
+    public function setRole() {
+        global $database;
+
+        $query = "SELECT
+                    role_name,
+                    GROUP_CONCAT(privileges.privilege_desc SEPARATOR '|') AS 'Privilege'
+                  FROM users
+                    LEFT JOIN user_roles ON users.username = user_roles.username
+                    LEFT JOIN roles ON user_roles.role_id = roles.role_id
+                    LEFT JOIN role_privileges ON roles.role_id = role_privileges.role_id
+                    LEFT JOIN privileges ON role_privileges.priviledge_id = privileges.privilege_id
+                  WHERE users.username = ? GROUP BY users.username;";
+
+        $array = array("", "");
+
+        $result = $database->getDataClass($query, array($this->username), "Privileges", $array)[0];
+
+        $this->role = new Privileges($result['role_name'], $result['Privilege']);
+    }
+
     /**
      * @return mixed
      */
