@@ -154,7 +154,7 @@ class Movie implements InterfaceClass
 
         $this->categories = $database->getDataClass($query, array($this->category_id), 'Category', $array);
 
-     //   $this->categories = $database->getData($query, array($this->category_id)); old code
+        //   $this->categories = $database->getData($query, array($this->category_id)); old code
     }
 
     public function getCategory() {
@@ -214,23 +214,23 @@ class Movie implements InterfaceClass
     {
         if ($what === "all")
             $what = "<button class=\"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-button--mini-fab img-button mdl-shadow--8dp\" onclick='addToCart(\"$this->movie_title\")'>" .
-                    "<i class=\"material-icons\">add_shopping_cart</i>" .
+                "<i class=\"material-icons\">add_shopping_cart</i>" .
                 "</button>";
         else
             $what = "<button class=\"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-button--mini-fab img-button mdl-shadow--8dp\" name='" . $this->movie_id . "'>" .
-                    "<i class=\"material-icons\">watch_later</i>" .
+                "<i class=\"material-icons\">watch_later</i>" .
                 "</button>";
 
         //<img src='img/movie-images/" . preg_replace("/[^ \w]+/", "", $this->movie_title) . "/cover/image-cover-s.jpg'/>
         echo
-            "<a class=\"mdl-cell mdl-cell--4-col demo-card-image mdl-card mdl-shadow--4dp\" style=\"background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $this->movie_title) . "/cover/image-cover-s.jpg') center / cover;\" href='index.php?page=Movie&name=" . $this->movie_title . "'>
-                <div class=\"vignette\"></div>
+            "<div id='test' class=\"mdl-cell mdl-cell--4-col demo-card-image mdl-card mdl-shadow--4dp\" style=\"background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $this->movie_title) . "/cover/image-cover-s.jpg') center / cover;\" >
+                <a class=\"vignette\" href='index.php?page=Movie&name=" . $this->movie_title . "'></a>
                 <div class=\"mdl-card__title mdl-card--expand\"></div>
                 <div class=\"mdl-card__actions\">
                     <span class=\"demo-card-image__filename\">" . $this->movie_title . "</span>
                 </div>
                 $what
-            </a>";
+            </div>";
     }
 
     /**
