@@ -140,9 +140,13 @@ class Movie implements InterfaceClass
 
         $array = array("", "");
 
-        $this->category = $database->getDataClass($query, array($this->category_id), 'Category', $array);
+        $this->categories = $database->getDataClass($query, array($this->category_id), 'Category', $array);
 
      //   $this->categories = $database->getData($query, array($this->category_id)); old code
+    }
+
+    public function getCategory() {
+        return $this->categories;
     }
 
     public function setActors()
@@ -167,6 +171,10 @@ class Movie implements InterfaceClass
         $this->reviews = $database->getDataClass($query, array($this->movie_id), 'Review', $array);
     }
 
+    public function getReviews() {
+        return $this->reviews;
+    }
+
     public function setDirectors()
     {
         global $database;
@@ -176,6 +184,10 @@ class Movie implements InterfaceClass
         $array = array("", "", "", $database);
 
         $this->directors = $database->getDataClass($queary, array($this->movie_id), 'Director', $array);
+    }
+
+    public function getDirectors() {
+        return $this->directors;
     }
 
     public function setAll()
@@ -193,7 +205,7 @@ class Movie implements InterfaceClass
                     "<i class=\"material-icons\">add_shopping_cart</i>" .
                 "</button>";
         else
-            $what = "<button class=\"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-button--mini-fab img-button mdl-shadow--8dp\" onclick='addWatchLater(\"$this->movie_title\")'>" .
+            $what = "<button class=\"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-button--mini-fab img-button mdl-shadow--8dp\" onclick='addWatchLater(\"$this->movie_id\")'>" .
                     "<i class=\"material-icons\">watch_later</i>" .
                 "</button>";
 
@@ -353,5 +365,16 @@ class Movie implements InterfaceClass
         $this->database = $database;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getMovieDescription()
+    {
+        return $this->movie_description;
+    }
+
+    public function getActors() {
+        return $this->actors;
+    }
 
 }

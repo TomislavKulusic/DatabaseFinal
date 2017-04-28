@@ -124,7 +124,7 @@ class Renter implements InterfaceClass
 
     public function hasMovie($movieTitle) {
         foreach ($this->rentedMovies as $movie)
-            if ($movie->getMovieTitle() != $movieTitle)
+            if ($movie->getMovieTitle() == $movieTitle)
                 return true;
 
         return false;

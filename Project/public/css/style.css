@@ -28,18 +28,45 @@ h3 {
  * Movie
  */
 
+.movie .buttons {
+    width: 421px;
+    margin: auto 17px auto auto;
+}
+
+.movie .buttons button:nth-child(2) {
+    margin-top: 50px;
+}
+
+.movie {
+    max-width: 1200px;
+}
+
 .banner.mdl-card {
-    height: 450px;
-    width: 450px;
+    height: 420px;
+    min-width: 420px;
     margin-left: auto;
-    margin-right: 15px;
+    margin-right: 17px;
 }
 
 .movie, .movie .texts h1 {
     color: white;
 }
 
-.mdl-card.mdl-cell--4-col.imgM {
+.movie .texts {
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+.texts {
+    width: 83.2% !important;
+}
+
+.texts p {
+    color: whitesmoke;
+    margin-right: 15px;
+}
+
+.imgM {
     margin-right: 15px;
     margin-bottom: 15px;
 }
@@ -47,6 +74,10 @@ h3 {
 /**
  * Cart
  */
+
+.item:last-of-type {
+    border: none !important;
+}
 
 .item .spaceBetween {
     width: 100%;

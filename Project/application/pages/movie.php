@@ -28,6 +28,8 @@ if ($database->connect()) {
 
     $movie->fetchN("");
 
+    $movie->setAll();
+
     $database->close();
 }
 
@@ -39,18 +41,64 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
 
 <main class="mdl-layout__content">
     <div class="mdl-grid movie">
-        <div class="mdl-cell--4-col texts">
-            <h1><?php echo $movieTitle; ?></h1>
-            <p><?php echo $movie->getDescription();?></p>
+        <div class="mdl-cell--8-col texts">
+            <div class="flex">
+                <div class="test">
+                    <h1><?php echo $movieTitle; ?></h1>
+                    <p><?php echo $movie->getDescription(); ?></p>
+                </div>
+                <div style="<?php echo $path ?>/cover/image-cover.jpg') center / cover;"
+                     class="mdl-card banner mdl-shadow--6dp mdl-cell--4-col"></div>
+            </div>
         </div>
-        <div style="<?php echo $path ?>/cover/image-cover.jpg') center / cover;"
-             class="banner mdl-card mdl-shadow--6dp mdl-cell--4-col"></div>
-    </div>
-    <div class="mdl-grid movie">
-        <div class="mdl-card mdl-cell--4-col mdl-shadow--4dp imgM" style="<?php echo $path ?>/image-1.jpg') center / cover;"></div>
-        <div class="mdl-card mdl-cell--4-col mdl-shadow--4dp imgM" style="<?php echo $path ?>/image-2.jpg') center / cover;"></div>
-        <div class="mdl-card mdl-cell--4-col mdl-shadow--4dp imgM" style="<?php echo $path ?>/image-3.jpg') center / cover;"></div>
-        <div class="mdl-card mdl-cell--4-col mdl-shadow--4dp imgM" style="<?php echo $path ?>/image-4.jpg') center / cover;"></div>
+        <div class="mdl-cell--8-col texts">
+            <div class="flex">
+                <div>
+                    <h5>Directors</h5>
+                    <?php
+                    foreach ($movie->getDirectors() as $director)
+                        echo $director->getFullName() . "<br>";
+                    ?>
+                    <h5>Actors</h5>
+                    <?php
+                    foreach ($movie->getActors() as $actor)
+                        echo $actor->getFullName() . "<br>";
+                    ?>
+                    <h5>Category</h5>
+                    <?php
+                    echo $movie->getCategory()[0]->getCategoryName();
+                    ?>
+                    <h5>Reviews</h5>
+                    <?php
+                    foreach ($movie->getReviews() as $review)
+                        echo $review->getReview() . "<br>";
+                    ?>
+                </div>
+                <div class="buttons flex column">
+                    <?php
+                    if ($rented)
+                        echo '<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">' .
+                            'Watch' .
+                        '</button>';
+                    else
+                        echo '<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">' .
+                            'Rent' .
+                            '</button>';
+                    ?>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        Watch Later
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="mdl-card mdl-cell--4-col mdl-shadow--4dp imgM"
+             style="<?php echo $path ?>/image-1.jpg') center / cover;"></div>
+        <div class="mdl-card mdl-cell--6-col mdl-shadow--4dp imgM"
+             style="<?php echo $path ?>/image-2.jpg') center / cover;"></div>
+        <div class="mdl-card mdl-cell--6-col mdl-shadow--4dp imgM"
+             style="<?php echo $path ?>/image-3.jpg') center / cover;"></div>
+        <div class="mdl-card mdl-cell--4-col mdl-shadow--4dp imgM"
+             style="<?php echo $path ?>/image-4.jpg') center / cover;"></div>
     </div>
 </main>
 </div>

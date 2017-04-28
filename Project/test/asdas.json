@@ -1,0 +1,6 @@
+{
+  'status': 'success',
+  'resp': {
+    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTMxNTE1NTgsImp0aSI6ImRwYXlLUXF1SHhZU3paRW9OQjZjUkQ5WFdJQzNkVmxscVViODBvckhDWWM9IiwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0XC8iLCJuYmYiOjE0OTMxNTE1NjgsImV4cCI6MTQ5MzE1ODc2OCwiZGF0YSI6eyJ1c2VybmFtZSI6IkFkbWluRXgifX0.z1HVHiYLK6fBfwwq1Ce17RAloFTGpz6DlrZlccvfwLg"
+  }
+}

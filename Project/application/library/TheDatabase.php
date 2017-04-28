@@ -1,6 +1,7 @@
 <?php
 
 include_once('Movie.php');
+include_once ('Category.php');
 
 /**
  * Class TheDatabase
