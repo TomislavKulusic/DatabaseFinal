@@ -24,7 +24,7 @@ if ($database->connect()) {
 
     $rented = $user->hasMovie($_GET['name']);
 
-    $movie = new Movie("", $movieTitle, "", "", "", "", $database);
+    $movie = new Movie("", $movieTitle, "", "", "", $database);
 
     $movie->fetchN("");
 
@@ -38,6 +38,7 @@ include(TEMPLATES_PATH . "navigation.php");
 $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $movieTitle);
 
 ?>
+
 
 <main class="mdl-layout__content">
     <div class="mdl-grid movie">
@@ -74,13 +75,14 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
                         echo $review->getReview() . "<br>";
                     ?>
 
+
                 </div>
                 <div class="buttons flex column">
                     <?php
                     if ($rented)
                         echo '<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">' .
                             'Watch' .
-                        '</button>';
+                            '</button>';
                     else
                         echo '<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">' .
                             'Rent' .
@@ -100,7 +102,21 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
              style="<?php echo $path ?>/image-3.jpg') center / cover;"></div>
         <div class="mdl-card mdl-cell--4-col mdl-shadow--4dp imgM"
              style="<?php echo $path ?>/image-4.jpg') center / cover;"></div>
+
+
+        <form action="#">
+            <div class="mdl-textfield mdl-js-textfield">
+                <input id="movieId" style="display:none" value="<?php echo $movie->getMovieID(); ?>">
+                <input id="rating">
+                <textarea id="reviewText" class="mdl-textfieldinput" type="text" rows= "3" id="sample5" ></textarea>
+                <label class="mdl-textfieldlabel" for="sample5">Text lines...</label>
+            </div>
+        </form>
+
+        <button type="button" id="addReview"> Post a review </button>
+
     </div>
+    <script type="text/javascript" src="../public/js/addReview.js"></script>
 </main>
 </div>
 

@@ -30,7 +30,7 @@ if ($database->connect()) {
 
 
 } else {
-   Console.log("Cannot Connect");
+
 }
 
 
