@@ -72,7 +72,8 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
                     <h5>Reviews</h5>
                     <?php
                     foreach ($movie->getReviews() as $review)
-                        echo $review->getReview() . "<br>";
+                    	echo "Movie rating: ".$review->getRating() . " Movie comments: " . $review->getReview() . "<br>";
+                   		
                     ?>
 
 
