@@ -217,20 +217,20 @@ class Movie implements InterfaceClass
                     "<i class=\"material-icons\">add_shopping_cart</i>" .
                 "</button>";
         else
-            $what = "<button class=\"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-button--mini-fab img-button mdl-shadow--8dp\" onclick='addWatchLater(\"$this->movie_id\")'>" .
+            $what = "<button class=\"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-button--mini-fab img-button mdl-shadow--8dp\" name='" . $this->movie_id . "'>" .
                     "<i class=\"material-icons\">watch_later</i>" .
                 "</button>";
 
         //<img src='img/movie-images/" . preg_replace("/[^ \w]+/", "", $this->movie_title) . "/cover/image-cover-s.jpg'/>
         echo
-            "<div class=\"mdl-cell mdl-cell--4-col demo-card-image mdl-card mdl-shadow--4dp\" style=\"background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $this->movie_title) . "/cover/image-cover-s.jpg') center / cover;\">
+            "<a class=\"mdl-cell mdl-cell--4-col demo-card-image mdl-card mdl-shadow--4dp\" style=\"background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $this->movie_title) . "/cover/image-cover-s.jpg') center / cover;\" href='index.php?page=Movie&name=" . $this->movie_title . "'>
                 <div class=\"vignette\"></div>
                 <div class=\"mdl-card__title mdl-card--expand\"></div>
                 <div class=\"mdl-card__actions\">
                     <span class=\"demo-card-image__filename\">" . $this->movie_title . "</span>
                 </div>
                 $what
-            </div>";
+            </a>";
     }
 
     /**

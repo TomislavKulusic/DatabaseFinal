@@ -1,6 +1,6 @@
 <?php
 
-if (!empty($_POST['username'])) {
+if (isset($_POST['username']) || isset($_POST['register'])) {
     include_once(LIBRARY_PATH . "jwt/JWT.php");
 
     include_once(LIBRARY_PATH . "TheDatabase.php");
@@ -26,7 +26,6 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && isset($_POST['lo
         $user = new User($username, $password, "", "", $database);
 
         if ($user->login()) {
-
             $tokenId = base64_encode(random_bytes(32));
             $issuedAt = time();
             $notBefore = $issuedAt + 10;  //Adding 10 seconds
@@ -63,6 +62,31 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && isset($_POST['lo
         $database->close();
     } else {
         error_log("Error connecting to DB! Time: " . time() . "\r\n", "3", "../data/log/errors.log");
+    }
+}
+
+if (isset($_POST['register'])) {
+    if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['email'])) {
+        $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'],
+            $config['db']['dbName']);
+
+        if ($database->connect()) {
+            $email = htmlentities(strip_tags(trim($_POST['email'])));
+            $username = htmlentities(strip_tags(trim($_POST['username'])));
+            $password = htmlentities(strip_tags(trim($_POST['password'])));
+
+            $user = new User($username, $password, $email, "", $database);
+
+            if ($user->register()) {
+
+            } else {
+
+            }
+
+            $database->close();
+        } else {
+            //TODO HANDLE
+        }
     }
 }
 

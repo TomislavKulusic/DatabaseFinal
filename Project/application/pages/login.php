@@ -1,35 +1,6 @@
 <?php
 
 include_once(LIBRARY_PATH . 'check.php');
-/*if (isset($_POST['register'])) {
-    if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
-        //TODO HANDLE IT
-    } else {
-        $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'],
-            $config['db']['dbName']);
-
-        if ($database->connect()) {
-            $email = htmlentities(strip_tags(trim($_POST['email'])));
-            $username = htmlentities(strip_tags(trim($_POST['username'])));
-            $password = htmlentities(strip_tags(trim($_POST['password'])));
-
-            $user = new User($username, $password, $email, "", $database);
-
-            if ($user->register()) {
-
-                $_SESSION['login_user'] = $user; //TODO TEST THIS. If this doesn't work just store id
-                header("location: index.php?page=Rented Movies");
-
-            } else {
-                //TODO HANDLE
-            }
-
-            $database->close();
-        } else {
-            //TODO HANDLE
-        }
-    }
-}*/
 
 ?>
 

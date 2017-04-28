@@ -1,7 +1,7 @@
 <?php
 	include_once("../../application/configs/config.php");
-      include_once("../../application/library/TheDatabase.php");
-      include_once("../../application/library/Review.php");
+    include_once("../../application/library/TheDatabase.php");
+    include_once("../../application/library/Review.php");
 
    $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
 
