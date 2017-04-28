@@ -24,9 +24,9 @@ if ($database->connect()) {
 
     $rented = $user->hasMovie($_GET['name']);
 
-    $movie = new Movie("", $movieTitle, "", "", "", $database);
+    $movie = new Movie("", $movieTitle, "", "", "", "", $database);
 
-    $movie->fetchN("");
+    $movie->fetchN(null);
 
     $movie->setAll();
 

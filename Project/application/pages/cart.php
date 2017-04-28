@@ -2,14 +2,48 @@
 
 include(TEMPLATES_PATH . "navigation.php");
 
+$counter = 0;
+
+if (isset($_POST["movie_title$counter"])) {
+    include_once(LIBRARY_PATH . "Movie.php");
+    include_once(LIBRARY_PATH . "TheDatabase.php");
+    include_once(LIBRARY_PATH . "Renter.php");
+
+    $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
+
+    if ($database->connect()) {
+        while (isset($_POST['movie_title' . $counter])) {
+            $movie = new Movie("", $_POST["movie_title$counter"], "", "", "", "", $database);
+
+            $movie->fetchN(null);
+
+            $date = date("Y-m-d");
+
+            $movie->setRentalDate($date);
+
+            $movie->setDueDate(date("Y-m-d", strtotime("$date +7 day")));
+
+            $renter = new Renter("", "", "", "", "", "", $database);
+
+            $renter->fetchU(getDecodedData()->data->username);
+
+            $movie->postMR($renter->getRenterID());
+
+            $counter = $counter + 1;
+        }
+
+        $database->close();
+    }
+}
+
 ?>
 
 <main class="mdl-layout__content">
     <h3>Cart</h3>
     <div class="flex cart">
-        <div id="items" class="flex column">
+        <form id="items" class="flex column" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?page=Cart">
 
-        </div>
+        </form>
 
         <div id="checkout">
             <h4>Summary</h4>
@@ -17,7 +51,8 @@ include(TEMPLATES_PATH . "navigation.php");
                 <div id="text">Subtotal<br></div>
                 <div id="price"></div>
             </div>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            <button type="submit" form="items"
+                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                 CHECKOUT NOW
             </button>
         </div>
@@ -45,7 +80,7 @@ include(TEMPLATES_PATH . "navigation.php");
                 '<div class="flex spaceBetween"><div class="title">' + movies[i] + '</div>' +
                 '<button class="mdl-button mdl-js-button mdl-button--icon" onclick="removeCart(\'' + movies[i] + '\')">' +
                 '<i class="material-icons">clear</i>' +
-                '</button></div>' +
+                '</button><input name="movie_title' + i + '" type="text" style="display: none;" value="' + movies[i] + '"></div>' +
                 '</div>';
         }
 

@@ -20,7 +20,6 @@ class Movie implements InterfaceClass
 
     private $rental_date;
     private $due_date;
-    private $returned;
 
     private $database;
 
@@ -102,10 +101,18 @@ class Movie implements InterfaceClass
     {
         global $database;
 
-        $query = "INSERT INTO movies (movie_id, movie_title, movie_description, category_id, release_date, movie_link) VALUE (?, ?, ?, ?, ?);";
+        $query = "INSERT INTO movies (movie_id, movie_title, movie_description, category_id, release_date, movie_link) VALUE (?, ?, ?, ?, ?, ?);";
 
         $database->setData($query, array($this->movie_id, $this->movie_title, $this->movie_description, $this->category_id,
             $this->release_date, $this->movie_link));
+    }
+
+    public function postMR($renter_id) {
+        global $database;
+
+        $query = "INSERT INTO movie_renter (renter_id, movie_id, rental_date, due_date) VALUE (?, ?, ?, ?);";
+
+        $database->setData($query, array($renter_id, $this->movie_id, $this->rental_date, $this->due_date));
     }
 
     public function delete()
@@ -336,22 +343,6 @@ class Movie implements InterfaceClass
     public function setDueDate($due_date)
     {
         $this->due_date = $due_date;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getReturned()
-    {
-        return $this->returned;
-    }
-
-    /**
-     * @param mixed $returned
-     */
-    public function setReturned($returned)
-    {
-        $this->returned = $returned;
     }
 
     /**

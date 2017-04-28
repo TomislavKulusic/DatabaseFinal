@@ -22,6 +22,12 @@ function addToCart(movieTitle) {
     }
 }
 
+$('#items').submit(function() {
+    localStorage.clear();
+
+    return true;
+});
+
 function removeCart(movieTitle) {
     var disable = true;
 
