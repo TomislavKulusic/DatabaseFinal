@@ -16,6 +16,7 @@ class Movie implements InterfaceClass
     private $movie_description;
     private $category_id;
     private $release_date;
+    private $movie_link;
 
     private $rental_date;
     private $due_date;
@@ -35,9 +36,10 @@ class Movie implements InterfaceClass
      * @param $movie_description
      * @param $category_id
      * @param $release_date
+     * @param $movie_link
      * @param $database
      */
-    public function __construct($movie_id, $movie_title, $movie_description, $category_id, $release_date, $database)
+    public function __construct($movie_id, $movie_title, $movie_description, $category_id, $release_date, $movie_link, $database)
     {
         $this->movie_id = $movie_id;
         $this->movie_title = $movie_title;
@@ -45,6 +47,7 @@ class Movie implements InterfaceClass
         $this->category_id = $category_id;
         $this->release_date = $release_date;
         $this->database = $database;
+        $this->movie_link = $movie_link;
     }
 
     public function fetch($id)
@@ -63,6 +66,7 @@ class Movie implements InterfaceClass
         $this->movie_description = $result['movie_description'];
         $this->category_id = $result['category_id'];
         $this->release_date = $result['release_date'];
+        $this->movie_link = $result['movie_link'];
     }
 
     public function fetchN($title)
@@ -81,26 +85,27 @@ class Movie implements InterfaceClass
         $this->movie_description = $result['movie_description'];
         $this->category_id = $result['category_id'];
         $this->release_date = $result['release_date'];
+        $this->movie_link = $result['movie_link'];
     }
 
     public function put()
     {
         global $database;
 
-        $query = "UPDATE movies SET movie_title = ?, movie_description = ?, release_date = ? WHERE movie_id = ?;";
+        $query = "UPDATE movies SET movie_title = ?, movie_description = ?, release_date = ?, movie_link = ? WHERE movie_id = ?;";
 
         $database->setData($query, array($this->movie_title, $this->movie_description, $this->category_id,
-            $this->release_date, $this->movie_id));
+            $this->release_date, $this->movie_link, $this->movie_id));
     }
 
     public function post()
     {
         global $database;
 
-        $query = "INSERT INTO movies (movie_id, movie_title, movie_description, category_id, release_date) VALUE (?, ?, ?, ?, ?);";
+        $query = "INSERT INTO movies (movie_id, movie_title, movie_description, category_id, release_date, movie_link) VALUE (?, ?, ?, ?, ?);";
 
         $database->setData($query, array($this->movie_id, $this->movie_title, $this->movie_description, $this->category_id,
-            $this->release_date));
+            $this->release_date, $this->movie_link));
     }
 
     public function delete()
@@ -375,6 +380,22 @@ class Movie implements InterfaceClass
 
     public function getActors() {
         return $this->actors;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMovieLink()
+    {
+        return $this->movie_link;
+    }
+
+    /**
+     * @param mixed $movie_link
+     */
+    public function setMovieLink($movie_link)
+    {
+        $this->movie_link = $movie_link;
     }
 
 }

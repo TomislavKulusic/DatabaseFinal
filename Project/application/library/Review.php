@@ -64,9 +64,9 @@ class Review implements InterfaceClass
     {
         global $database;
 
-        $query = "INSERT INTO reviews (review_id, movie_id, rating, review) VALUE (?, ?, ?, ?);";
+        $query = "INSERT INTO reviews (movie_id, rating, review) VALUE (?, ?, ?);";
 
-        $database->setData($query, array($this->review_id, $this->movie_id, $this->rating, $this->review));
+        $database->setData($query, array($this->movie_id, $this->rating, $this->review));
     }
 
     public function delete()

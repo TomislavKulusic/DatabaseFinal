@@ -1,7 +1,14 @@
 <?php
-include_once(LIBRARY_PATH . "jwt/JWT.php");
 
-include_once (LIBRARY_PATH . "TheDatabase.php");
+if (!empty($_POST['username'])) {
+    include_once(LIBRARY_PATH . "jwt/JWT.php");
+
+    include_once(LIBRARY_PATH . "TheDatabase.php");
+} else if (!empty($_POST['review'])) {
+    include_once("../configs/config.php");
+    include_once("jwt/JWT.php");
+    include_once("TheDatabase.php");
+}
 
 $decodedData;
 
@@ -62,6 +69,7 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && isset($_POST['lo
 function getDecodedData()
 {
     if (isset($_SESSION["user"])) {
+        include_once(LIBRARY_PATH . "jwt/JWT.php");
         try {
             $secretKey = base64_decode(SECRET_KEY);
             return JWT::decode($_SESSION["user"], $secretKey, array(ALGORITHM));

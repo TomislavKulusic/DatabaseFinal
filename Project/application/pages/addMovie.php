@@ -12,9 +12,7 @@ include_once(LIBRARY_PATH . 'Privileges.php');
 
 $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
 
-
 if ($database->connect()) {
-
 
     $queryCategory = "SELECT * FROM Category;";
     $queryDirector = "SELECT * FROM directors;";
@@ -28,12 +26,12 @@ if ($database->connect()) {
     $resultDirector = $database->getDataClass($queryDirector, null, 'Director', $arrayDir);
     $resultActor = $database->getDataClass($queryActor, null, 'Actor', $arrayAct);
 
-
     $user = new User(getDecodedData()->data->username, "", "", "", $database);
     $user->setRole();
 
     $adminPrivilages = $user->getRole()->checkPrivilege("Delete movies");
 
+    $database->close();
 
     if ($user->getRole()->checkPrivilege("Add movies")) {
         echo "Editor";
@@ -52,11 +50,12 @@ if (isset($_POST['movie'])) {
     $category_id = $_POST['category'];
     $director_id = $_POST['director'];
     $actor_id = $_POST['actor'];
+    $movie_link = $_POST['movie_link'];
 
 
     //Connecting to a database
     $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
-    $movie = new Movie($movie_id, $movie_title, $movie_description, $category_id, $movie_date, $database);
+    $movie = new Movie($movie_id, $movie_title, $movie_description, $category_id, $movie_date, $movie_link, $database);
 
     if ($database->connect()) {
 
@@ -78,6 +77,8 @@ if (isset($_POST['movie'])) {
         $database->setData($movie_directors_query, null);
 
         $database->endTransaction();
+
+        $database->close();
     }
 
 
@@ -94,10 +95,12 @@ if (isset($_POST['movie'])) {
         //Creating a movie with a id from the input
         if ($user->getRole()->checkPrivilege("Delete movies")) {
 
-            $movie = new Movie($movie_id, "", "", "", "", $database);
+            $movie = new Movie($movie_id, "", "", "", "", "", $database);
 
             //Deleting a movie.
             $movie->delete();
+
+            $database->close();
 
         } else {
             header("location:index.php?page=AddMovie");
@@ -122,6 +125,8 @@ if (isset($_POST['movie'])) {
         //Deleting a movie.
         $director->post();
 
+        $database->close();
+
     }
 
 } else if (isset($_POST['category'])) {
@@ -139,6 +144,8 @@ if (isset($_POST['movie'])) {
 
         //Deleting a movie.
         $category->post();
+
+        $database->close();
     }
 
 } else if (isset($_POST['actor'])) {
@@ -160,6 +167,8 @@ if (isset($_POST['movie'])) {
         //Deleting a movie.
         $actor->post();
     }
+
+    $database->close();
 
 }
 
@@ -235,11 +244,15 @@ if (isset($_POST['movie'])) {
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="movie_title" class="mdl-textfield__input" type="text" id="sample2" pattern="[a-zA-Z0-9]+">
                 <label class="mdl-textfield__label" for="sample2">Movie Title</label>
+                <span class="mdl-textfield__error">Input is not valid</span>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input name="movie_description" class="mdl-textfield__input" type="text" id="sample3"
-                       pattern="[a-zA-Z0-9]+">
+                <textarea name="movie_description" class="mdl-textfield__input" type="text" rows= "3" id="sample3" ></textarea>
                 <label class="mdl-textfield__label" for="sample3">Movie Description</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input name="movie_link" class="mdl-textfield__input" type="text" id="sample54">
+                <label class="mdl-textfield__label" for="sample54">Movie Link</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="movie_date" class="mdl-textfield__input" type="text"

@@ -1,6 +1,7 @@
 <?php
 
 include_once (LIBRARY_PATH . "Renter.php");
+include_once (LIBRARY_PATH . "TheDatabase.php");
 
 $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'],
     $config['db']['dbName']);

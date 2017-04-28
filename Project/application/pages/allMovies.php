@@ -15,7 +15,7 @@ if ($database->connect()) {
 
     $movies = $renter->getRentedMovies();
 
-    $classValues = array("", "", "", "", "", $database);
+    $classValues = array("", "", "", "", "", "", $database);
 
     $result = $database->getDataClass("SELECT * FROM movies;", null, "Movie", $classValues);
 

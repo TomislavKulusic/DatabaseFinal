@@ -24,7 +24,7 @@ if ($database->connect()) {
 
     $rented = $user->hasMovie($_GET['name']);
 
-    $movie = new Movie("", $movieTitle, "", "", "", $database);
+    $movie = new Movie("", $movieTitle, "", "", "", "", $database);
 
     $movie->fetchN("");
 
@@ -73,6 +73,7 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
                     foreach ($movie->getReviews() as $review)
                         echo $review->getReview() . "<br>";
                     ?>
+
                 </div>
                 <div class="buttons flex column">
                     <?php

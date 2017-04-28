@@ -22,7 +22,7 @@ if ($database->connect()) {
       echo "connected to db";
    $sql = "INSERT INTO watch_later VALUES (?,?)";
 
-   if($database->setData($sql,array(1,1))) {
+   if($database->setData($sql, array(1,1))) {
        echo"Stored";
    } else {
        echo "not stored";
