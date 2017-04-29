@@ -52,6 +52,7 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && isset($_POST['lo
             );
 
             $_SESSION["user"] = $jwt;
+            setcookie("user", $jwt);
 
             header("location:index.php?page=All Movies");
         } else {
@@ -100,6 +101,21 @@ function getDecodedData()
         } catch (Exception $e) {
             header("location:index.php?page=Login");
             exit();
+        }
+    }
+
+    return false;
+}
+
+function getDecodedDataCookie($cookie)
+{
+    if (isset($_SESSION["user"])) {
+        include_once(LIBRARY_PATH . "jwt/JWT.php");
+        try {
+            $secretKey = base64_decode(SECRET_KEY);
+            return JWT::decode($cookie, $secretKey, array(ALGORITHM));
+        } catch (Exception $e) {
+            //FAILED AUTHORISATION
         }
     }
 
