@@ -177,7 +177,7 @@ if (isset($_POST['movie'])) {
 
 <div id="addMovieForm">
     <div class="mdl-grid">
-        <form class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
+        <form action="<?php echo $_SERVER["PHP_SELF"] . '?page=AddMovie';?>" method="post" class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
             <h3>Director</h3>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="directorFN" class="mdl-textfield__input" type="text" pattern="[a-zA-Z0-9]+" id="sample5">
@@ -185,8 +185,8 @@ if (isset($_POST['movie'])) {
                 <span class="mdl-textfield__error">Input is not a number!</span>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="sample6" pattern="[a-zA-Z0-9]+">
-                <label input="directorLN" class="mdl-textfield__label" for="sample6">Director Last Name</label>
+                <input name="directorLN" class="mdl-textfield__input" type="text" id="sample6" pattern="[a-zA-Z0-9]+">
+                <label class="mdl-textfield__label" for="sample6">Director Last Name</label>
             </div>
             <button class="mdl-button mdl-js-button mdl-button--primary" name="director">
                 Add
@@ -212,7 +212,7 @@ if (isset($_POST['movie'])) {
 
         <!--  ACTOR  -->
 
-        <form action="" method="post" name="actor" class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
+        <form action="<?php echo $_SERVER["PHP_SELF"] . '?page=AddMovie';?>" method="post" name="actor" class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
             <h3>Actor</h3>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="actorID" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?"
@@ -233,7 +233,7 @@ if (isset($_POST['movie'])) {
             </button>
         </form>
 
-        <form action="" method="post" name="movie" class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
+        <form action="<?php echo $_SERVER["PHP_SELF"] . '?page=AddMovie';?>" method="post" name="movie" class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
             <h3>Movie</h3>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="movie_id" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?"
@@ -327,8 +327,8 @@ if (isset($_POST['movie'])) {
             </button>
         </form>
 
-        <form action="" method="post" name="delete" class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
-            <h3>Delete Movie</h3>
+        <form action="<?php echo $_SERVER["PHP_SELF"] . '?page=AddMovie';?>" method="post" name="delete" class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
+            <h3>Delete Movie</h3> 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="inputDelete" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?"
                        id="sample30">
