@@ -6,20 +6,17 @@ $(document).ready(function () {
 
     $("#addReview").click(function () {
 
-        if (!($("#reviewText").val().length === 0)) {
-
+        if (($("#reviewText").val().length !== 0) && !$("#rating").val().length !== 0) {
             $.post('js/addReviewMovie.php?review=' + $("#reviewText").val() + "&rating=" + $("#rating").val() + "&movieid=" + $("#movieId").val(), function (resp) {
-
-                console.log(resp);
-
 
             });
 
         } else {
-            console.log("Text je prazan!");
+            alert("Please fill all inputs before submitting");
         }
 
         $("#reviewText").val("");
+        $("#rating").val("");
 
     });
 

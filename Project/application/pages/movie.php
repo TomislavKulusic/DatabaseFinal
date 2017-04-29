@@ -32,7 +32,8 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
 
 <main class="mdl-layout__content">
     <div class="mdl-grid movie">
-        <div class="mdl-cell--8-col texts">
+        <div id="back" class="mdl-card mdl-shadow--4dp"></div>
+        <div class="mdl-cell--8-col texts" id="texts">
             <div class="flex">
                 <div class="test">
                     <h1><?php echo $movieTitle; ?></h1>
@@ -42,9 +43,9 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
                      class="mdl-card banner mdl-shadow--6dp mdl-cell--4-col"></div>
             </div>
         </div>
-        <div class="mdl-cell--8-col texts">
+        <div class="mdl-cell--8-col texts" id="infoText">
             <div class="flex">
-                <div>
+                <div class="padd">
                     <h5>Directors</h5>
                     <?php
                     foreach ($movie->getDirectors() as $director)
@@ -65,15 +66,15 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
                 <div class="buttons flex column">
                     <?php
                     if ($rented)
-                        echo '<button id="show-dialog" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">' .
+                        echo '<button id="show-dialog" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-shadow--6dp">' .
                             'Watch' .
                             '</button>';
                     else
-                        echo '<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="addToCart(\'' . $_GET['name'] . '\')">' .
+                        echo '<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-shadow--6dp" onclick="addToCart(\'' . $_GET['name'] . '\')">' .
                             'Rent' .
                             '</button>';
                     ?>
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-shadow--6dp">
                         Watch Later
                     </button>
                 </div>
@@ -114,7 +115,7 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
                 <input id="movieId" style="display:none" value="<?php echo $movie->getMovieID(); ?>" title="">
             </form>
 
-            <button class="subR mdl-button mdl-js-button mdl-button--fab mdl-button--colored" type="button"
+            <button class="subR mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp" type="button"
                     id="addReview">
                 <i class="material-icons">add</i>
             </button>
@@ -151,6 +152,11 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
         dialog.querySelector('.close').addEventListener('click', function() {
             dialog.close();
         });
+
+        var height = $("#infoText").height() + $("#texts").height() + 15 - 33 + 8;
+
+        $("#back").css("height", height);
+
     </script>
 
     <script type="text/javascript" src="../public/js/addReview.js"></script>
