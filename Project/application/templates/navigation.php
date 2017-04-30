@@ -33,8 +33,9 @@
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link" href="index.php?page=Rented Movies">Rented Movies</a>
             <a class="mdl-navigation__link" href="index.php?page=All Movies">All Movies</a>
+            <a class="mdl-navigation__link" href="index.php?page=History">History</a>
             <!--            <a class="mdl-navigation__link" href="index.php?page=Watch Later">Watch Later</a>
-                        <a class="mdl-navigation__link" href="index.php?page=History">History</a>-->
+                        -->
         </nav>
     </div>
 

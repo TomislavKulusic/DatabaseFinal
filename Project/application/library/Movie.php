@@ -216,10 +216,12 @@ class Movie implements InterfaceClass
             $what = "<button class=\"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-button--mini-fab img-button mdl-shadow--8dp\" onclick='addToCart(\"$this->movie_title\")'>" .
                 "<i class=\"material-icons\">add_shopping_cart</i>" .
                 "</button>";
-        else
+        else if($what === 'ren')
             $what = "<button id = \"addWatchLater\" class=\"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-button--mini-fab img-button mdl-shadow--8dp\" name='" . $this->movie_id . "'>" .
                 "<i class=\"material-icons\">watch_later</i>" .
                 "</button>";
+        else
+            $what = "";
 
         //<img src='img/movie-images/" . preg_replace("/[^ \w]+/", "", $this->movie_title) . "/cover/image-cover-s.jpg'/>
         echo
