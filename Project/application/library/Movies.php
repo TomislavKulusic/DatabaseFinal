@@ -13,6 +13,8 @@ class Movies
     private $database;
     private $allMovies;
     private $rentedMovies;
+    private $movie;
+    private $rented;
 
     /**
      * Movies constructor.
@@ -23,7 +25,8 @@ class Movies
         $this->database = $database;
     }
 
-    public function setAllMovies() {
+    public function setAllMovies()
+    {
         global $database;
 
         $classValues = array("", "", "", "", "", "", $database);
@@ -36,14 +39,16 @@ class Movies
         $this->allMovies = $result;
     }
 
-    public function printAllMovies() {
+    public function printAllMovies()
+    {
         $movies = $this->allMovies;
 
         foreach ($movies as $movie)
             $movie->printMovie("all");
     }
 
-    public function setRentedMovies() {
+    public function setRentedMovies()
+    {
         global $database;
 
         $renter = new Renter("", getDecodedData()->data->username, "", "", "", "", $database);
@@ -60,11 +65,112 @@ class Movies
         $this->rentedMovies = $movies;
     }
 
-    public function printRentedMovies() {
+    public function printRentedMovies()
+    {
         $movies = $this->rentedMovies;
 
         foreach ($movies as $movie)
             $movie->printMovie("ren");
+    }
+
+    public function hasRented($username)
+    {
+        global $database;
+
+        $user = new Renter("", $username, "", "", "", "", $database);
+        $user->fetchU(null);
+        $user->setRentedMovies(false);
+
+        $this->rented = $user->hasMovie($_GET['name']);
+    }
+
+    public function setMovie($movieTitle)
+    {
+        global $database;
+
+        $movie = new Movie("", $movieTitle, "", "", "", "", $database);
+        $movie->fetchN(null);
+        $movie->setAll();
+
+        $this->movie =  $movie;
+    }
+
+    public function printDirectors()
+    {
+        $movie = $this->movie;
+
+        foreach ($movie->getDirectors() as $director)
+            echo $director->getFullName() . "<br>";
+    }
+
+    public function printActors()
+    {
+        $movie = $this->movie;
+
+        foreach ($movie->getActors() as $actor)
+            echo $actor->getFullName() . "<br>";
+    }
+
+    public function printCategories()
+    {
+        $movie = $this->movie;
+
+        echo $movie->getCategory()[0]->getCategoryName();
+    }
+
+    public function rentOrWatch($name)
+    {
+        if ($this->rented)
+            echo '<button id="show-dialog" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-shadow--6dp">' .
+                'Watch' .
+                '</button>';
+        else
+            echo '<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-shadow--6dp" onclick="addToCart(\'' . $name . '\')">' .
+                'Rent' .
+                '</button>';
+    }
+
+    public function printReviews()
+    {
+        $reviews = $this->movie->getReviews();
+
+        foreach ($reviews as $review) {
+            echo "<b>Rating:</b> " . $review->getRating() . " <b>Comment:</b> " . $review->getReview() . "<br>";
+            if ($review !== end($reviews))
+                echo '<hr>';
+        }
+    }
+
+    public function getMovie()
+    {
+        return $this->movie;
+    }
+
+    public function printMovieVideo()
+    {
+        if ($this->rented)
+            echo "<dialog class=\"mdl-dialog\">
+    <h4 class=\"mdl-dialog__title\">" . $_GET['name'] . "</h4>
+    <div class=\"mdl-dialog__content\">
+    <iframe width=\"854\" height=\"480\" src=\"https://www.youtube.com/embed/" . $this->movie->getMovieLink() . "\" frameborder=\"0\" allowfullscreen></iframe>
+    </div>
+    <div class=\"mdl-dialog__actions mdl-dialog__actions--full-width\">
+      <button type=\"button\" class=\"mdl-button close\">Close</button>
+    </div>
+  </dialog>
+      <script>
+        var dialog = document.querySelector('dialog');
+        var showDialogButton = document.querySelector('#show-dialog');
+        if (! dialog.showModal) {
+            dialogPolyfill.registerDialog(dialog);
+        }
+        showDialogButton.addEventListener('click', function() {
+            dialog.showModal();
+        });
+        dialog.querySelector('.close').addEventListener('click', function() {
+            dialog.close();
+        });
+    </script>";
     }
 
     /**

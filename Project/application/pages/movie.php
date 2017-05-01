@@ -1,7 +1,7 @@
 <?php
 include_once(LIBRARY_PATH . "TheDatabase.php");
-include_once(LIBRARY_PATH . "Renter.php");
 include_once(LIBRARY_PATH . "History.php");
+include_once(LIBRARY_PATH . "Movies.php");
 $movieTitle = "";
 
 if (isset($_GET['name']))
@@ -10,26 +10,20 @@ if (isset($_GET['name']))
 $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'],
     $config['db']['dbName']);
 
-$rented = false;
-$movie = "";
+$movies = "";
 
 if ($database->connect()) {
-    $user = new Renter("", getDecodedData()->data->username, "", "", "", "", $database);
-    $user->fetchU(null);
-    $user->setRentedMovies(false);
-    $rented = $user->hasMovie($_GET['name']);
-    $movie = new Movie("", $movieTitle, "", "", "", "", $database);
-    $movie->fetchN(null);
-    $movie->setAll();
+    $movies = new Movies($database);
 
-    $history = new History($database, $movie->getMovieID(), getDecodedData()->data->renterid);
-    $history -> post($history->getmovieid(), $history->getRenterid());
+    $movies->hasRented(getDecodedData()->data->username);
 
+    $movies->setMovie($movieTitle);
+
+    $history = new History($database, $movies->getMovie()->getMovieID(), getDecodedData()->data->renterid);
+    $history->post($history->getmovieid(), $history->getRenterid());
 
     $database->close();
 }
-
-$reviews = $movie->getReviews();
 
 include(TEMPLATES_PATH . "navigation.php");
 $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $movieTitle);
@@ -43,7 +37,7 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
             <div class="flex">
                 <div class="test">
                     <h1><?php echo $movieTitle; ?></h1>
-                    <p><?php echo $movie->getDescription(); ?></p>
+                    <p><?php echo $movies->getMovie()->getDescription(); ?></p>
                 </div>
                 <div style="<?php echo $path ?>/cover/image-cover.jpg') center / cover;"
                      class="mdl-card banner mdl-shadow--6dp mdl-cell--4-col"></div>
@@ -54,31 +48,21 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
                 <div class="padd">
                     <h5>Directors</h5>
                     <?php
-                    foreach ($movie->getDirectors() as $director)
-                        echo $director->getFullName() . "<br>";
+                    $movies->printDirectors();
                     ?>
                     <h5>Actors</h5>
                     <?php
-                    foreach ($movie->getActors() as $actor)
-                        echo $actor->getFullName() . "<br>";
+                    $movies->printActors();
                     ?>
                     <h5>Category</h5>
                     <?php
-                    echo $movie->getCategory()[0]->getCategoryName();
+                    $movies->printCategories();
                     ?>
-
 
                 </div>
                 <div class="buttons flex column">
                     <?php
-                    if ($rented)
-                        echo '<button id="show-dialog" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-shadow--6dp">' .
-                            'Watch' .
-                            '</button>';
-                    else
-                        echo '<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-shadow--6dp" onclick="addToCart(\'' . $_GET['name'] . '\')">' .
-                            'Rent' .
-                            '</button>';
+                    $movies->rentOrWatch($movieTitle);
                     ?>
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-shadow--6dp">
                         Watch Later
@@ -98,12 +82,7 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
         <div class="mdl-cell--6-col mdl-card mdl-shadow--4dp rews">
             <h5>Reviews</h5>
             <?php
-            foreach ($reviews as $review) {
-                echo "<b>Rating:</b> " . $review->getRating() . " <b>Comment:</b> " . $review->getReview() . "<br>";
-                if ($review !== end($reviews))
-                    echo '<hr>';
-            }
-
+            $movies->printReviews();
             ?>
         </div>
 
@@ -118,10 +97,11 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
                     <label class="mdl-textfield__label" for="rating">Rating</label>
                     <span class="mdl-textfield__error">Input is not one number!</span>
                 </div>
-                <input id="movieId" style="display:none" value="<?php echo $movie->getMovieID(); ?>" title="">
+                <input id="movieId" style="display:none" value="<?php echo $movies->getMovie()->getMovieID(); ?>" title="">
             </form>
 
-            <button class="subR mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp" type="button"
+            <button class="subR mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp"
+                    type="button"
                     id="addReview">
                 <i class="material-icons">add</i>
             </button>
@@ -134,35 +114,11 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
     </div>
 
     <?php
-    if ($rented)
-        echo "<dialog class=\"mdl-dialog\">
-    <h4 class=\"mdl-dialog__title\">" . $_GET['name'] . "</h4>
-    <div class=\"mdl-dialog__content\">
-    <iframe width=\"854\" height=\"480\" src=\"https://www.youtube.com/embed/" . $movie->getMovieLink() . "\" frameborder=\"0\" allowfullscreen></iframe>
-    </div>
-    <div class=\"mdl-dialog__actions mdl-dialog__actions--full-width\">
-      <button type=\"button\" class=\"mdl-button close\">Close</button>
-    </div>
-  </dialog>";
+        $movies->printMovieVideo();
+    ?>
 
-    if ($rented)
-        echo "    <script>
-        var dialog = document.querySelector('dialog');
-        var showDialogButton = document.querySelector('#show-dialog');
-        if (! dialog.showModal) {
-            dialogPolyfill.registerDialog(dialog);
-        }
-        showDialogButton.addEventListener('click', function() {
-            dialog.showModal();
-        });
-        dialog.querySelector('.close').addEventListener('click', function() {
-            dialog.close();
-        });
-    </script>"
-
-?>
     <script>
-        $( document ).ready(function() {
+        $(document).ready(function () {
             var height = $("#infoText").outerHeight(true) + $("#texts").outerHeight(true) - 39;
 
             $("#back").css("height", height);
