@@ -2,6 +2,15 @@
 
 session_start();
 
+if (isset($_GET['logout'])) {
+    setcookie("user", "", time()-3600);
+
+    session_destroy();
+
+    header("location:index.php?page=Login");
+    exit();
+}
+
 $isLoggedIn = isset($_SESSION['user']);
 
 if (!$isLoggedIn)

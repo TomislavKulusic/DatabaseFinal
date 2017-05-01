@@ -36,6 +36,7 @@
                     <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">Another Action</li>
                     <li disabled class="mdl-menu__item">Disabled Action</li>
                     <li class="mdl-menu__item">Yet Another Action</li>
+                    <li class="mdl-menu__item"><a href="index.php?logout">Log Out</a></li>
                 </ul>
             </nav>
         </div>

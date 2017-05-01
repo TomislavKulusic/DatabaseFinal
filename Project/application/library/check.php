@@ -43,6 +43,7 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && isset($_POST['lo
                 'exp' => $expire,           // Expire
                 'data' => [                 // Data related to the logged user you can set your required data
                     'username' => $user->getUsername(),
+                    'renterid' => $renter->getRenterID(),
                 ]
             ];
 

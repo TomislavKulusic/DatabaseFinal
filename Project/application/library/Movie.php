@@ -106,16 +106,6 @@ class Movie implements InterfaceClass
         $database->setData($query, array($this->movie_id, $this->movie_title, $this->movie_description, $this->category_id,
             $this->release_date, $this->movie_link));
     }
-    
-    public function postNoId()
-    {
-    	global $database;
-    	
-    	$query = "INSERT INTO movies (movie_title, movie_description, category_id, release_date, movie_link) VALUE (?, ?, ?, ?, ?);";
-    	
-    	$database->setData($query, array($this->movie_title, $this->movie_description, $this->category_id,
-    			$this->release_date, $this->movie_link));
-    }
 
     public function postNoId()
     {
@@ -127,7 +117,8 @@ class Movie implements InterfaceClass
             $this->release_date, $this->movie_link));
     }
 
-    public function postMR($renter_id) {
+    public function postMR($renter_id)
+    {
         global $database;
 
         $query = "INSERT INTO movie_renter (renter_id, movie_id, rental_date, due_date) VALUE (?, ?, ?, ?);";
@@ -175,7 +166,8 @@ class Movie implements InterfaceClass
         $this->categories = $database->getDataClass($query, array($this->category_id), 'Category', $array);
     }
 
-    public function getCategory() {
+    public function getCategory()
+    {
         return $this->categories;
     }
 
@@ -201,7 +193,8 @@ class Movie implements InterfaceClass
         $this->reviews = $database->getDataClass($query, array($this->movie_id), 'Review', $array);
     }
 
-    public function getReviews() {
+    public function getReviews()
+    {
         return $this->reviews;
     }
 
@@ -216,7 +209,8 @@ class Movie implements InterfaceClass
         $this->directors = $database->getDataClass($queary, array($this->movie_id), 'Director', $array);
     }
 
-    public function getDirectors() {
+    public function getDirectors()
+    {
         return $this->directors;
     }
 
@@ -234,7 +228,7 @@ class Movie implements InterfaceClass
             $what = "<button class=\"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-button--mini-fab img-button mdl-shadow--8dp\" onclick='addToCart(\"$this->movie_title\")'>" .
                 "<i class=\"material-icons\">add_shopping_cart</i>" .
                 "</button>";
-        else if($what === 'ren')
+        else if ($what === 'ren')
             $what = "<button id = \"addWatchLater\" class=\"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-button--mini-fab img-button mdl-shadow--8dp\" name='" . $this->movie_id . "'>" .
                 "<i class=\"material-icons\">watch_later</i>" .
                 "</button>";
@@ -388,7 +382,8 @@ class Movie implements InterfaceClass
         return $this->movie_description;
     }
 
-    public function getActors() {
+    public function getActors()
+    {
         return $this->actors;
     }
 
