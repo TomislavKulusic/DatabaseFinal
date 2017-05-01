@@ -38,10 +38,22 @@ class History
 
         $array = array('', '', '', '', '', '', $database);
 
-        $this->historyMovies = $database->getDataClass($query, array($this->renterid), 'Movie', $array);
+        $result = $database->getDataClass($query, array($this->renterid), 'Movie', $array);
+
+        foreach ($result as $movie)
+            $movie->setCategories();
+
+        $this->historyMovies = $result;
 
         return $this -> historyMovies;
 
+    }
+
+    public function printAll() {
+        $movies = $this->historyMovies;
+
+        foreach ($movies as $movie)
+            $movie->printMovie('his');
     }
 
 
