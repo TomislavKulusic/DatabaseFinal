@@ -173,6 +173,22 @@ class Movies
     </script>";
     }
 
+    public function rentMovie($movieTitle, $renterID) {
+        global $database;
+
+        $movie = new Movie("", $movieTitle, "", "", "", "", $database);
+
+        $movie->fetchN(null);
+
+        $date = date("Y-m-d");
+
+        $movie->setRentalDate($date);
+
+        $movie->setDueDate(date("Y-m-d", strtotime("$date +7 day")));
+
+        $movie->postMR($renterID);
+    }
+
     /**
      * @return mixed
      */

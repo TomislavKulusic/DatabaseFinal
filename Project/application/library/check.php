@@ -12,6 +12,8 @@ if (isset($_POST['username']) || isset($_POST['register'])) {
 
 $decodedData;
 
+//TODO CHECK IF REGISTER WORKS
+
 echo !empty($_POST['login']) && !empty($_POST['username']) && !empty($_POST['password']);
 
 if (!empty($_POST['username']) && !empty($_POST['password']) && isset($_POST['login'])) {
