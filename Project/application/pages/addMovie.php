@@ -43,7 +43,7 @@ if ($database->connect()) {
 
 if (isset($_POST['movie'])) {
 
-    $movie_id = $_POST['movie_id'];
+    //$movie_id = $_POST['movie_id'];
     $movie_title = $_POST['movie_title'];
     $movie_description = $_POST['movie_description'];
     $movie_date = $_POST['movie_date'];
@@ -55,7 +55,7 @@ if (isset($_POST['movie'])) {
 
     //Connecting to a database
     $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
-    $movie = new Movie($movie_id, $movie_title, $movie_description, $category_id, $movie_date, $movie_link, $database);
+    $movie = new Movie(null,$movie_title, $movie_description, $category_id, $movie_date, $movie_link, $database); //Testing with NULL
 
     if ($database->connect()) {
 
@@ -63,6 +63,7 @@ if (isset($_POST['movie'])) {
 
         //Adding movie
         $movie->post();
+        $movie_id = $movie->getMovieID();
 
         //ADDING INSERT INTO movie_actors (movie_id, actor_id) VALUES (2,3);
 
@@ -235,12 +236,12 @@ if (isset($_POST['movie'])) {
 
         <form action="<?php echo $_SERVER["PHP_SELF"] . '?page=AddMovie';?>" method="post" name="movie" class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
             <h3>Movie</h3>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+         <!--     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="movie_id" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?"
                        id="sample1">
                 <label class="mdl-textfield__label" for="sample1">Movie ID</label>
                 <span class="mdl-textfield__error">Input is not a number!</span>
-            </div>
+            </div> TESTING WITHOUT ID  -->
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="movie_title" class="mdl-textfield__input" type="text" id="sample2" pattern="[a-zA-Z0-9]+">
                 <label class="mdl-textfield__label" for="sample2">Movie Title</label>
@@ -280,7 +281,7 @@ if (isset($_POST['movie'])) {
                 </button>-->
             </label>
             <label class="selectors">
-                <select name="director">
+                <select name="Director1">
                     <option>Select Director</option>
                     <?php
 
@@ -296,12 +297,12 @@ if (isset($_POST['movie'])) {
 
                 </select>
                 <button class="mdl-button mdl-js-button mdl-button--icon" type=button
-                        onclick="addSelect(this.parentElement, 'Director')" id="addDirectorB">
+                        onclick="addSelect(this.parentElement, 'Director', 1)" id="addDirectorB">
                     <i class="material-icons">add_circe_outline</i>
                 </button>
             </label>
             <label class="selectors">
-                <select name="actor">
+                <select name="Actor1">
                     <option>Select Actor</option>
 
                     <?php
@@ -318,7 +319,7 @@ if (isset($_POST['movie'])) {
 
                 </select>
                 <button class="mdl-button mdl-js-button mdl-button--icon" type=button
-                        onclick="addSelect(this.parentElement, 'Actor')" id="addActorB">
+                        onclick="addSelect(this.parentElement, 'Actor', 1)" id="addActorB">
                     <i class="material-icons">add_circe_outline</i>
                 </button>
             </label>
@@ -340,4 +341,41 @@ if (isset($_POST['movie'])) {
             </button>
         </form>
     </div>
+    
+    
+    <div style="display:none" id="optionsDirector">
+    
+    	<option>Select Director</option>
+                    <?php
+
+                    foreach ($resultDirector as $director) {
+
+                        echo("<option value='" . $director->getDirectorId() . "' >" . $director->getFullName() . "</option>");
+
+
+                    }
+
+                    ?>
+    
+    
+    </div>
+    
+    <div style="display:none" id="optionsActor">
+    
+    	<option>Select Actor</option>
+
+                    <?php
+
+                    foreach ($resultActor as $actor) {
+
+                        echo("<option value='" . $actor->getActorId() . "' >" . $actor->getFullName() . "</option>");
+
+
+                    }
+
+                    ?>
+    
+    </div>
+    
+    
 </div>
