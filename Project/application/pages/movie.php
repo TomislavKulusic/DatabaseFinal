@@ -138,9 +138,9 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
       <button type=\"button\" class=\"mdl-button close\">Close</button>
     </div>
   </dialog>";
-    ?>
 
-    <script>
+    if ($rented)
+        echo "    <script>
         var dialog = document.querySelector('dialog');
         var showDialogButton = document.querySelector('#show-dialog');
         if (! dialog.showModal) {
@@ -152,11 +152,15 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
         dialog.querySelector('.close').addEventListener('click', function() {
             dialog.close();
         });
+    </script>"
 
-        var height = $("#infoText").height() + $("#texts").height() + 15 - 33 + 8;
+?>
+    <script>
+        $( document ).ready(function() {
+            var height = $("#infoText").outerHeight(true) + $("#texts").outerHeight(true) - 39;
 
-        $("#back").css("height", height);
-
+            $("#back").css("height", height);
+        });
     </script>
 
     <script type="text/javascript" src="../public/js/addReview.js"></script>

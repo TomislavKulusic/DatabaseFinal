@@ -77,7 +77,6 @@ input:focus {
 #back {
     position: absolute !important;
     width: 78% !important;
-    height: 672px;
     background: #E0E0E0 !important;
     z-index: -1 !important;
     max-width: 1000px;

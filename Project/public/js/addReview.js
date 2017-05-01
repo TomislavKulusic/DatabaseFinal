@@ -5,18 +5,27 @@
 $(document).ready(function () {
 
     $("#addReview").click(function () {
+        var review = $("#reviewText").val();
+        var rating = $("#rating").val();
 
-        if (($("#reviewText").val().length !== 0) && !$("#rating").val().length !== 0) {
-            $.post('js/addReviewMovie.php?review=' + $("#reviewText").val() + "&rating=" + $("#rating").val() + "&movieid=" + $("#movieId").val(), function (resp) {
+        if (review.length !== 0 && !rating.length !== 0) {
+            var reviewsD = $(".rews");
+            var reviews = reviewsD.html();
 
+            $.post('../application/library/addReviewMovie.php?review=' + review + "&rating=" + rating + "&movieid=" + $("#movieId").val(), function (resp) {
+                if (reviews !== "<h5>Reviews</h5>")
+                    reviewsD.html(reviews + "<hr>");
+
+                reviews = reviewsD.html();
+
+                reviewsD.html(reviews + "<b>Rating:</b> " + rating + " <b>Comment:</b> " + review + "<br>");
+
+                $("#reviewText").val("");
+                $("#rating").val("");
             });
-
         } else {
-            alert("Please fill all inputs before submitting");
+            alert("Please fill all inputs before submitting"); //TODO handle better
         }
-
-        $("#reviewText").val("");
-        $("#rating").val("");
 
     });
 
@@ -24,3 +33,4 @@ $(document).ready(function () {
 
 
 
+//" . $review->getRating() . " <b>Comment:</b> " . $review->getReview() . "<br>"
