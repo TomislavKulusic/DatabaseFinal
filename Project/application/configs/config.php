@@ -4,7 +4,7 @@ $config = array(
     "db" => array(
         "dbName" => "mydb",
         "username" => "root",
-        "password" => "root",
+        "password" => "",
         "host" => "localhost"
     )
 );

@@ -1,6 +1,7 @@
 <?php
 include_once(LIBRARY_PATH . "TheDatabase.php");
 include_once(LIBRARY_PATH . "Renter.php");
+include_once(LIBRARY_PATH . "History.php");
 $movieTitle = "";
 
 if (isset($_GET['name']))
@@ -20,6 +21,11 @@ if ($database->connect()) {
     $movie = new Movie("", $movieTitle, "", "", "", "", $database);
     $movie->fetchN(null);
     $movie->setAll();
+
+    $history = new History($database, $movie->getMovieID(), getDecodedData()->data->renterid);
+    $history -> post($history->getmovieid(), $history->getRenterid());
+
+
     $database->close();
 }
 
