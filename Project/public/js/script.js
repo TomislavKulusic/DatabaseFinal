@@ -2,14 +2,14 @@ function addSelect(element, what, counter) {
     document.getElementById("add" + what + "B").remove();
 
     var options = document.getElementById("options" + what);
-
+    
     var label = document.createElement("label");
     var counter1 = counter + 1;
     var counterInt = parseInt(counter1);
 
     var select = document.createElement("select");
     select.appendChild(new Option("Select " + what));
-    select.name = what + counter1;
+    select.name = what + counter;
 
     label.appendChild(select);
     label.className = "selectors";
