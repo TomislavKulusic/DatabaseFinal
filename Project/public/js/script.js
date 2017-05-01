@@ -2,7 +2,7 @@ function addSelect(element, what, counter) {
     document.getElementById("add" + what + "B").remove();
 
     var options = document.getElementById("options" + what);
-
+    
     var label = document.createElement("label");
     var counter1 = counter + 1;
     var counterInt = parseInt(counter1);
@@ -32,6 +32,7 @@ function addSelect(element, what, counter) {
 
     select.innerHTML = options.innerHTML;
 }
+//JUST A TEST
 
 var movies = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),

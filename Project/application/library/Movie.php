@@ -106,6 +106,16 @@ class Movie implements InterfaceClass
         $database->setData($query, array($this->movie_id, $this->movie_title, $this->movie_description, $this->category_id,
             $this->release_date, $this->movie_link));
     }
+    
+    public function postNoId()
+    {
+    	global $database;
+    	
+    	$query = "INSERT INTO movies (movie_title, movie_description, category_id, release_date, movie_link) VALUE (?, ?, ?, ?, ?);";
+    	
+    	$database->setData($query, array($this->movie_title, $this->movie_description, $this->category_id,
+    			$this->release_date, $this->movie_link));
+    }
 
     public function postNoId()
     {

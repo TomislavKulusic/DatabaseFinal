@@ -51,7 +51,7 @@ if (isset($_POST['movie'])) {
     $director_id = $_POST['Director1'];
     //$actor_id = $_POST['actor'];
     $movie_link = $_POST['movie_link'];
-
+   
 
     //Connecting to a database
     $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
@@ -60,70 +60,52 @@ if (isset($_POST['movie'])) {
     if ($database->connect()) {
 
         $database->startTransaction();
-
+        
+        
         //Adding movie
         $movie->postNoId();
-
+        
         $movie_id = $database->getLastID();
-
+        
+        
         // ADDING ACTOR
-
+        
+       
         $counter = 1;
         $movie_actors_query = "INSERT INTO movie_actors (movie_id, actor_id) VALUES ";
         $values = [];
-
+        
         while (isset($_POST['Actor' . $counter])) {
-            array_push($values, $movie_id, $_POST['Actor' . $counter]);
-
-            if ($counter != 1)
-                $movie_actors_query .= ",";
-
-            $movie_actors_query .= "(? , ?)";
-
-            $counter = $counter + 1;
+        	array_push($values, $movie_id, $_POST['Actor' . $counter]);
+        	
+        	if ($counter != 1)
+        		$movie_actors_query .= ",";
+        		
+        		$movie_actors_query .= "(? , ?)";
+        		
+        		$counter = $counter + 1;
         }
-
+        
         $database->setData($movie_actors_query, $values);
-
+        
         // ADDING DIRECTOR
-
-        // while (isset($_POST['Director' . $counter])){
-        $actor_id = $_POST['Director1'];
-        $movie_id = $database->getLastID();
-        $movie_directors_query = "INSERT INTO movie_directors (director_id, movie_id) VALUES (?, ?)";
-        $array = array($movie_id,$actor_id);
-        $database->setData($movie_directors_query, $array);
-        //	$counter = $counter +1;
-        //      }
-
-
-
-
-
-
-        //ADDING INSERT INTO movie_actors (movie_id, actor_id) VALUES (2,3);
-
-        //while (isset($_POST["director" . $counter]))
-        /* while (isset($_POST['Actor' . $counter])){
-             $actor_id = $_POST['Actor' . $counter];
-             $movie_id = $movie->getMovieID();
-             $movie_actors_query = "INSERT INTO movie_actors (movie_id, actor_id) VALUES ('?','?')";
-             $array = array($movie_id,$actor_id);
-             $database->setData($movie_actors_query, $array);
-             $counter = $counter +1;
-         }
-
-        // $movie_actors_query = "INSERT INTO movie_actors (movie_id, actor_id) VALUES (' .$movie_id. ',' .$actor_id.')";
-
-         // $database->setData($movie_actors_query, null);
-
-         //ADDING INSERT INTO movie_directors (director_id, movie_id) VALUES(2,2);
-
-
-
-         $movie_directors_query = "INSERT INTO movie_directors (director_id, movie_id) VALUES (' $director_id',' $movie_id')";
-
-          $database->setData($movie_directors_query, null); */
+        
+        $director_actors_query = "INSERT INTO movie_directors (director_id, movie_id) VALUES ";
+        $values = [];
+        
+        while (isset($_POST['Director' . $counter])) {
+        	array_push($values, $_POST['Director' . $counter], $movie_id);
+        	
+        	if ($counter != 1)
+        		$director_actors_query .= ",";
+        		
+        		$director_actors_query .= "(? , ?)";
+        		
+        		$counter = $counter + 1;
+        }
+        
+        $database->setData($movie_actors_query, $values);
+        
 
         $database->endTransaction();
 
@@ -180,7 +162,7 @@ if (isset($_POST['movie'])) {
 
 } else if (isset($_POST['category'])) {
 
-    $category_id = $_POST['categoryID'];
+   // $category_id = $_POST['categoryID'];
     $category_name = $_POST['categoryNAME'];
 
 
@@ -189,7 +171,7 @@ if (isset($_POST['movie'])) {
 
     if ($database->connect()) {
         //Creating a actor from input
-        $category = new Category($category_id, $category_name);
+        $category = new Category('', $category_name);
 
         //Deleting a movie.
         $category->post();
@@ -200,7 +182,7 @@ if (isset($_POST['movie'])) {
 } else if (isset($_POST['actor'])) {
 
 
-    //  $actor_id = $_POST['actorID'];
+  //  $actor_id = $_POST['actorID'];
     $actor_fn = $_POST['actorFN'];
     $actor_ln = $_POST['actorLN'];
 
@@ -242,14 +224,14 @@ if (isset($_POST['movie'])) {
             </button>
         </form>
 
-        <form class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
+        <form action="<?php echo $_SERVER["PHP_SELF"] . '?page=AddMovie';?>" method="post" class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
             <h3>Category</h3>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+         <!--    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="categoryID" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?"
                        id="sample7">
                 <label class="mdl-textfield__label" for="sample7">Category ID</label>
                 <span class="mdl-textfield__error">Input is not a number!</span>
-            </div>
+            </div> -->
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="categoryNAME" class="mdl-textfield__input" type="text" id="sample8" pattern="[a-zA-Z0-9]+">
                 <label class="mdl-textfield__label" for="sample8">Category Name</label>
@@ -263,12 +245,12 @@ if (isset($_POST['movie'])) {
 
         <form action="<?php echo $_SERVER["PHP_SELF"] . '?page=AddMovie';?>" method="post" name="actor" class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
             <h3>Actor</h3>
-            <!--     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                     <input name="actorID" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?"
-                            id="sample9">
-                     <label class="mdl-textfield__label" for="sample9">Actor ID</label>
-                     <span class="mdl-textfield__error">Input is not a number!</span>
-                 </div> Removing ID -->
+       <!--     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input name="actorID" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?"
+                       id="sample9">
+                <label class="mdl-textfield__label" for="sample9">Actor ID</label>
+                <span class="mdl-textfield__error">Input is not a number!</span>
+            </div> Removing ID --> 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="actorFN" class="mdl-textfield__input" type="text" id="sample10" pattern="^[a-zA-Z]+$">
                 <label class="mdl-textfield__label" for="sample10">First Name</label>
@@ -284,12 +266,12 @@ if (isset($_POST['movie'])) {
 
         <form action="<?php echo $_SERVER["PHP_SELF"] . '?page=AddMovie';?>" method="post" name="movie" class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
             <h3>Movie</h3>
-            <!--     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                   <input name="movie_id" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?"
-                          id="sample1">
-                   <label class="mdl-textfield__label" for="sample1">Movie ID</label>
-                   <span class="mdl-textfield__error">Input is not a number!</span>
-               </div> TESTING WITHOUT ID  -->
+         <!--     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input name="movie_id" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?"
+                       id="sample1">
+                <label class="mdl-textfield__label" for="sample1">Movie ID</label>
+                <span class="mdl-textfield__error">Input is not a number!</span>
+            </div> TESTING WITHOUT ID  -->
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="movie_title" class="mdl-textfield__input" type="text" id="sample2" pattern="[a-zA-Z0-9]+">
                 <label class="mdl-textfield__label" for="sample2">Movie Title</label>
@@ -377,7 +359,7 @@ if (isset($_POST['movie'])) {
         </form>
 
         <form action="<?php echo $_SERVER["PHP_SELF"] . '?page=AddMovie';?>" method="post" name="delete" class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
-            <h3>Delete Movie</h3>
+            <h3>Delete Movie</h3> 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="inputDelete" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?"
                        id="sample30">
@@ -389,41 +371,41 @@ if (isset($_POST['movie'])) {
             </button>
         </form>
     </div>
-
-
+    
+    
     <div style="display:none" id="optionsDirector">
+    
+    	<option>Select Director</option>
+                    <?php
 
-        <option>Select Director</option>
-        <?php
+                    foreach ($resultDirector as $director) {
 
-        foreach ($resultDirector as $director) {
-
-            echo("<option value='" . $director->getDirectorId() . "' >" . $director->getFullName() . "</option>");
-
-
-        }
-
-        ?>
+                        echo("<option value='" . $director->getDirectorId() . "' >" . $director->getFullName() . "</option>");
 
 
+                    }
+
+                    ?>
+    
+    
     </div>
-
+    
     <div style="display:none" id="optionsActor">
+    
+    	<option>Select Actor</option>
 
-        <option>Select Actor</option>
+                    <?php
 
-        <?php
+                    foreach ($resultActor as $actor) {
 
-        foreach ($resultActor as $actor) {
-
-            echo("<option value='" . $actor->getActorId() . "' >" . $actor->getFullName() . "</option>");
+                        echo("<option value='" . $actor->getActorId() . "' >" . $actor->getFullName() . "</option>");
 
 
-        }
+                    }
 
-        ?>
-
+                    ?>
+    
     </div>
-
-
+    
+    
 </div>
