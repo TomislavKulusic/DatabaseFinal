@@ -11,4 +11,5 @@
 </body>
 <script src="js/cart.js"></script>
 <script src="js/script.js"></script>
+<script src="js/watchLater.js"></script>
 </html>

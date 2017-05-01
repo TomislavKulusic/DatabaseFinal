@@ -2,9 +2,9 @@
 
 if (isset($_POST['username']) || isset($_POST['register'])) {
     include_once(LIBRARY_PATH . "jwt/JWT.php");
-
+    include_once("Renter.php");
     include_once(LIBRARY_PATH . "TheDatabase.php");
-} else if (!empty($_POST['review'])) {
+} else if (!empty($_POST['review']) || !empty($_GET['movieid'])) {
     include_once("../configs/config.php");
     include_once("jwt/JWT.php");
     include_once("TheDatabase.php");
@@ -32,6 +32,9 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && isset($_POST['lo
             $expire = $notBefore + 7200; // Adding 60 seconds
             $serverName = 'http://localhost/'; /// set your domain name
 
+            $renter = new Renter("", "", "", "", "", "", $database);
+            $renter->fetchU($user->getUsername());
+
             $data = [
                 'iat' => $issuedAt,         // Issued at: time when the token was generated
                 'jti' => $tokenId,          // Json Token Id: an unique identifier for the token
@@ -52,6 +55,7 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && isset($_POST['lo
             );
 
             $_SESSION["user"] = $jwt;
+            setcookie("user", $jwt);
 
             header("location:index.php?page=All Movies");
         } else {
@@ -101,6 +105,18 @@ function getDecodedData()
             header("location:index.php?page=Login");
             exit();
         }
+    }
+
+    return false;
+}
+
+function getDecodedDataCookie($cookie)
+{
+    try {
+        $secretKey = base64_decode(SECRET_KEY);
+        return JWT::decode($cookie, $secretKey, array(ALGORITHM));
+    } catch (Exception $e) {
+        //FAILED AUTHORISATION
     }
 
     return false;

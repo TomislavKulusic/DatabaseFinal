@@ -5,9 +5,10 @@ if (localStorage.movies)
     movies = JSON.parse(localStorage.getItem("movies"));
 
 function addToCart(movieTitle) {
-    if (localStorage.movies) {
+    movies = [];
+
+    if (localStorage.movies)
         movies = JSON.parse(localStorage.getItem("movies"));
-    }
 
     if (movies.indexOf(movieTitle) === -1) {
         movies.push(movieTitle);

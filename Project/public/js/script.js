@@ -34,6 +34,43 @@ function addSelect(element, what, counter) {
 }
 //JUST A TEST
 
+var movies = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    prefetch: '../application/library/search.php',
+    remote: {
+        url: '../application/library/search.php?query=%QUERY',
+        wildcard: '%QUERY'
+    }
+});
+
+$('#remote .typeahead').typeahead(null, {
+    name: 'movies',
+    display: 'movie_title',
+    source: movies
+});
+
+$('#searchB').click(function () {
+    $('#search').css("visibility", "visible");
+    $('#search').focus();
+});
+
+$(document).ready(function() {
+    $(document.body).delegate('#searchF', 'keypress', function(e) {
+        if (e.which === 13) { // if is enter
+            location.href = 'index.php?page=Movie&' + $('#searchF').serialize();
+        }
+    });
+});
+
+function toggle(what) {
+    $("#" + what).toggle("drop");
+}
+
+function toggleSpec(what) {
+    $("." + what).toggle("drop");
+}
+
 /*if (document.cookie) {
  $.post('../application/pages/check.php?action=authenticate&' + document.cookie, function (resp) {
  if (resp.done()) {
