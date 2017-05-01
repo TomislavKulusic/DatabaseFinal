@@ -76,7 +76,7 @@ if (isset($_POST['movie'])) {
         $values = [];
         
         while (isset($_POST['Actor' . $counter])) {
-        	array_push($values, $movie->getMovieID(), $_POST['Actor' . $counter]);
+        	array_push($values, $movie_id, $_POST['Actor' . $counter]);
         	
         	if ($counter != 1)
         		$movie_actors_query .= ",";
@@ -90,43 +90,22 @@ if (isset($_POST['movie'])) {
         
         // ADDING DIRECTOR
         
-       // while (isset($_POST['Director' . $counter])){
-        	$actor_id = $_POST['Director1'];
-        	$movie_id = $database->getLastID();
-        	$movie_directors_query = "INSERT INTO movie_directors (director_id, movie_id) VALUES (?,?)";
-        	$array = array($movie_id,$actor_id);
-        	$database->setData($movie_directors_query, $array);
-        //	$counter = $counter +1;
-  //      }
+        $director_actors_query = "INSERT INTO movie_directors (director_id, movie_id) VALUES ";
+        $values = [];
         
-        
-		
-        
-       
-
-        //ADDING INSERT INTO movie_actors (movie_id, actor_id) VALUES (2,3);
-        
-        //while (isset($_POST["director" . $counter]))
-       /* while (isset($_POST['Actor' . $counter])){
-        	$actor_id = $_POST['Actor' . $counter];
-        	$movie_id = $movie->getMovieID();
-        	$movie_actors_query = "INSERT INTO movie_actors (movie_id, actor_id) VALUES ('?','?')";
-        	$array = array($movie_id,$actor_id);
-        	$database->setData($movie_actors_query, $array);
-        	$counter = $counter +1;
+        while (isset($_POST['Director' . $counter])) {
+        	array_push($values, $_POST['Director' . $counter], $movie_id);
+        	
+        	if ($counter != 1)
+        		$director_actors_query .= ",";
+        		
+        		$director_actors_query .= "(? , ?)";
+        		
+        		$counter = $counter + 1;
         }
-
-       // $movie_actors_query = "INSERT INTO movie_actors (movie_id, actor_id) VALUES (' .$movie_id. ',' .$actor_id.')";
-
-        // $database->setData($movie_actors_query, null);
-
-        //ADDING INSERT INTO movie_directors (director_id, movie_id) VALUES(2,2);
         
+        $database->setData($movie_actors_query, $values);
         
-
-        $movie_directors_query = "INSERT INTO movie_directors (director_id, movie_id) VALUES (' $director_id',' $movie_id')";
-
-         $database->setData($movie_directors_query, null); */
 
         $database->endTransaction();
 
@@ -183,7 +162,7 @@ if (isset($_POST['movie'])) {
 
 } else if (isset($_POST['category'])) {
 
-    $category_id = $_POST['categoryID'];
+   // $category_id = $_POST['categoryID'];
     $category_name = $_POST['categoryNAME'];
 
 
@@ -192,7 +171,7 @@ if (isset($_POST['movie'])) {
 
     if ($database->connect()) {
         //Creating a actor from input
-        $category = new Category($category_id, $category_name);
+        $category = new Category('', $category_name);
 
         //Deleting a movie.
         $category->post();
@@ -245,14 +224,14 @@ if (isset($_POST['movie'])) {
             </button>
         </form>
 
-        <form class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
+        <form action="<?php echo $_SERVER["PHP_SELF"] . '?page=AddMovie';?>" method="post" class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
             <h3>Category</h3>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+         <!--    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="categoryID" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?"
                        id="sample7">
                 <label class="mdl-textfield__label" for="sample7">Category ID</label>
                 <span class="mdl-textfield__error">Input is not a number!</span>
-            </div>
+            </div> -->
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="categoryNAME" class="mdl-textfield__input" type="text" id="sample8" pattern="[a-zA-Z0-9]+">
                 <label class="mdl-textfield__label" for="sample8">Category Name</label>
