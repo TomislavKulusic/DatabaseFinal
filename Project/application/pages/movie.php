@@ -132,7 +132,7 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
         echo "<dialog class=\"mdl-dialog\">
     <h4 class=\"mdl-dialog__title\">" . $_GET['name'] . "</h4>
     <div class=\"mdl-dialog__content\">
-    <iframe width=\"854\" height=\"480\" src=\"" . $movie->getMovieLink() . "\" frameborder=\"0\" allowfullscreen></iframe>
+    <iframe width=\"854\" height=\"480\" src=\"https://www.youtube.com/embed/" . $movie->getMovieLink() . "\" frameborder=\"0\" allowfullscreen></iframe>
     </div>
     <div class=\"mdl-dialog__actions mdl-dialog__actions--full-width\">
       <button type=\"button\" class=\"mdl-button close\">Close</button>
