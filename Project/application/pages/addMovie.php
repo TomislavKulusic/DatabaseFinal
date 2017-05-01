@@ -48,34 +48,85 @@ if (isset($_POST['movie'])) {
     $movie_description = $_POST['movie_description'];
     $movie_date = $_POST['movie_date'];
     $category_id = $_POST['category'];
-    $director_id = $_POST['director'];
-    $actor_id = $_POST['actor'];
+    $director_id = $_POST['Director1'];
+    //$actor_id = $_POST['actor'];
     $movie_link = $_POST['movie_link'];
-
+   
 
     //Connecting to a database
     $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
-    $movie = new Movie(null,$movie_title, $movie_description, $category_id, $movie_date, $movie_link, $database); //Testing with NULL
+    $movie = new Movie('',$movie_title, $movie_description, $category_id, $movie_date, $movie_link, $database); //Testing with NULL
 
     if ($database->connect()) {
 
         $database->startTransaction();
-
+        
+        
         //Adding movie
-        $movie->post();
-        $movie_id = $movie->getMovieID();
+        $movie->postNoId();
+        
+        $movie_id = $database->getLastID();
+        
+        
+        // ADDING ACTOR
+        
+       
+        $counter = 1;
+        $movie_actors_query = "INSERT INTO movie_actors (movie_id, actor_id) VALUES ";
+        $values = [];
+        
+        while (isset($_POST['Actor' . $counter])) {
+        	array_push($values, $movie->getMovieID(), $_POST['Actor' . $counter]);
+        	
+        	if ($counter != 1)
+        		$movie_actors_query .= ",";
+        		
+        		$movie_actors_query .= "(? , ?)";
+        		
+        		$counter = $counter + 1;
+        }
+        
+        $database->setData($movie_actors_query, $values);
+        
+        // ADDING DIRECTOR
+        
+       // while (isset($_POST['Director' . $counter])){
+        	$actor_id = $_POST['Director1'];
+        	$movie_id = $database->getLastID();
+        	$movie_directors_query = "INSERT INTO movie_directors (director_id, movie_id) VALUES ('?','?')";
+        	$array = array($movie_id,$actor_id);
+        	$database->setData($movie_directors_query, $array);
+        //	$counter = $counter +1;
+  //      }
+        
+        
+		
+        
+       
 
         //ADDING INSERT INTO movie_actors (movie_id, actor_id) VALUES (2,3);
+        
+        //while (isset($_POST["director" . $counter]))
+       /* while (isset($_POST['Actor' . $counter])){
+        	$actor_id = $_POST['Actor' . $counter];
+        	$movie_id = $movie->getMovieID();
+        	$movie_actors_query = "INSERT INTO movie_actors (movie_id, actor_id) VALUES ('?','?')";
+        	$array = array($movie_id,$actor_id);
+        	$database->setData($movie_actors_query, $array);
+        	$counter = $counter +1;
+        }
 
-        $movie_actors_query = "INSERT INTO movie_actors (movie_id, actor_id) VALUES (' .$movie_id. ',' .$actor_id.')";
+       // $movie_actors_query = "INSERT INTO movie_actors (movie_id, actor_id) VALUES (' .$movie_id. ',' .$actor_id.')";
 
-        $database->setData($movie_actors_query, null);
+        // $database->setData($movie_actors_query, null);
 
         //ADDING INSERT INTO movie_directors (director_id, movie_id) VALUES(2,2);
+        
+        
 
-        $movie_directors_query = "INSERT INTO movie_directors (director_id, movie_id) VALUES (' .$director_id. ',' .$movie_id.')";
+        $movie_directors_query = "INSERT INTO movie_directors (director_id, movie_id) VALUES (' $director_id',' $movie_id')";
 
-        $database->setData($movie_directors_query, null);
+         $database->setData($movie_directors_query, null); */
 
         $database->endTransaction();
 
@@ -152,7 +203,7 @@ if (isset($_POST['movie'])) {
 } else if (isset($_POST['actor'])) {
 
 
-    $actor_id = $_POST['actorID'];
+  //  $actor_id = $_POST['actorID'];
     $actor_fn = $_POST['actorFN'];
     $actor_ln = $_POST['actorLN'];
 
@@ -163,7 +214,7 @@ if (isset($_POST['movie'])) {
     if ($database->connect()) {
 
         //Creating a actor from input
-        $actor = new Actor($actor_id, $actor_fn, $actor_ln, $database);
+        $actor = new Actor(null, $actor_fn, $actor_ln, $database);
 
         //Deleting a movie.
         $actor->post();
@@ -215,12 +266,12 @@ if (isset($_POST['movie'])) {
 
         <form action="<?php echo $_SERVER["PHP_SELF"] . '?page=AddMovie';?>" method="post" name="actor" class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
             <h3>Actor</h3>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+       <!--     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="actorID" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?"
                        id="sample9">
                 <label class="mdl-textfield__label" for="sample9">Actor ID</label>
                 <span class="mdl-textfield__error">Input is not a number!</span>
-            </div>
+            </div> Removing ID --> 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="actorFN" class="mdl-textfield__input" type="text" id="sample10" pattern="^[a-zA-Z]+$">
                 <label class="mdl-textfield__label" for="sample10">First Name</label>
