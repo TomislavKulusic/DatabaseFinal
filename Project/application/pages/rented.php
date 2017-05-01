@@ -17,6 +17,9 @@ if ($database->connect()) {
 
     $movies = $renter->getRentedMovies();
 
+    foreach ($movies as $movie)
+        $movie->setCategories();
+
     $database->close();
 }
 

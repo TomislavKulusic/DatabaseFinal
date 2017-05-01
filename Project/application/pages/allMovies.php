@@ -19,6 +19,9 @@ if ($database->connect()) {
 
     $result = $database->getDataClass("SELECT * FROM movies;", null, "Movie", $classValues);
 
+    foreach ($result as $movie)
+        $movie->setAll();
+
     $database->close();
 }
 

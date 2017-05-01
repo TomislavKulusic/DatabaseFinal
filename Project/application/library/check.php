@@ -3,10 +3,8 @@
 if (isset($_POST['username']) || isset($_POST['register'])) {
     include_once(LIBRARY_PATH . "jwt/JWT.php");
     include_once("Renter.php");
-
-
     include_once(LIBRARY_PATH . "TheDatabase.php");
-} else if (!empty($_GET['movieid'])) {
+} else if (!empty($_POST['review']) || !empty($_GET['movieid'])) {
     include_once("../configs/config.php");
     include_once("jwt/JWT.php");
     include_once("TheDatabase.php");
@@ -27,17 +25,13 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && isset($_POST['lo
 
         $user = new User($username, $password, "", "", $database);
 
-       
-        //$renter->fetchU(getDecodedDataCookie($_GET['cookie'])->data->username);
-        //
-
         if ($user->login()) {
             $tokenId = base64_encode(random_bytes(32));
             $issuedAt = time();
             $notBefore = $issuedAt + 10;  //Adding 10 seconds
             $expire = $notBefore + 7200; // Adding 60 seconds
             $serverName = 'http://localhost/'; /// set your domain name
-           
+
             $renter = new Renter("", "", "", "", "", "", $database);
             $renter->fetchU($user->getUsername());
 
@@ -49,7 +43,6 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && isset($_POST['lo
                 'exp' => $expire,           // Expire
                 'data' => [                 // Data related to the logged user you can set your required data
                     'username' => $user->getUsername(),
-                    'renterid' => $renter->getRenterId(),
                 ]
             ];
 
@@ -119,14 +112,12 @@ function getDecodedData()
 
 function getDecodedDataCookie($cookie)
 {
-    
-        try {
-            $secretKey = base64_decode(SECRET_KEY);
-            return JWT::decode($cookie, $secretKey, array(ALGORITHM));
-        } catch (Exception $e) {
-            //FAILED AUTHORISATION
-        }
-    
+    try {
+        $secretKey = base64_decode(SECRET_KEY);
+        return JWT::decode($cookie, $secretKey, array(ALGORITHM));
+    } catch (Exception $e) {
+        //FAILED AUTHORISATION
+    }
 
     return false;
 }

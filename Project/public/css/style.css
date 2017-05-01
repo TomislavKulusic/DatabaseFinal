@@ -54,6 +54,14 @@ input:focus {
     color: rgba(255, 255, 255, .22);
 }
 
+.mdl-list__item {
+    color: rgba(255, 255, 255, 0.86) !important;
+}
+
+#categoryB {
+    width: 100%;
+}
+
 /**
  * Movie
  */
@@ -405,7 +413,7 @@ img {
 }
 
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
-    color: whitesmoke !important;
+    color: rgba(255, 255, 255, 0.86) !important;
 }
 
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover {

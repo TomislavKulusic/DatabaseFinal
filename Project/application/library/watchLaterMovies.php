@@ -8,8 +8,6 @@
 
 if (isset($_GET['movieid'])) {
 
-    //echo $_GET['cookie'];
-
     include_once("../../application/library/check.php");
     include_once("../../application/library/TheDatabase.php");
     include_once("../../application/configs/config.php");
@@ -17,24 +15,21 @@ if (isset($_GET['movieid'])) {
 
     $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
 
-        if ($database->connect()) {
-        
+    if ($database->connect()) {
+
         $userId = getDecodedDataCookie($_GET['cookie'])->data->renterid;
         $movieId = $_GET['movieid'];
 
-
-$sql = "INSERT INTO watch_later VALUES (?,?)";
-   if($database->setData($sql, array($movieId,$userId))) {
-       echo"Stored";
-   } else {
-       echo "not stored";
-   }
-
+        $sql = "INSERT INTO watch_later VALUES (?,?)";
+        if ($database->setData($sql, array($movieId, $userId))) {
+            echo "Stored";
+        } else {
+            echo "not stored";
+        }
 
     } else {
 
     }
-
 
 }
 

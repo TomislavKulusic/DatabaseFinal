@@ -153,8 +153,6 @@ class Movie implements InterfaceClass
         $array = array("", "");
 
         $this->categories = $database->getDataClass($query, array($this->category_id), 'Category', $array);
-
-        //   $this->categories = $database->getData($query, array($this->category_id)); old code
     }
 
     public function getCategory() {
@@ -216,14 +214,15 @@ class Movie implements InterfaceClass
             $what = "<button class=\"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-button--mini-fab img-button mdl-shadow--8dp\" onclick='addToCart(\"$this->movie_title\")'>" .
                 "<i class=\"material-icons\">add_shopping_cart</i>" .
                 "</button>";
-        else
+        else if($what === 'ren')
             $what = "<button id = \"addWatchLater\" class=\"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-button--mini-fab img-button mdl-shadow--8dp\" name='" . $this->movie_id . "'>" .
                 "<i class=\"material-icons\">watch_later</i>" .
                 "</button>";
+        else
+            $what = "";
 
-        //<img src='img/movie-images/" . preg_replace("/[^ \w]+/", "", $this->movie_title) . "/cover/image-cover-s.jpg'/>
         echo
-            "<div id='test' class=\"mdl-cell mdl-cell--4-col demo-card-image mdl-card mdl-shadow--4dp\" style=\"background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $this->movie_title) . "/cover/image-cover-s.jpg') center / cover;\" >
+            "<div id='test' class=\"mdl-cell mdl-cell--4-col demo-card-image mdl-card mdl-shadow--4dp " . $this->categories[0]->getCategoryNameFormatted() . "\" style=\"background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $this->movie_title) . "/cover/image-cover-s.jpg') center / cover;\" >
                 <a class=\"vignette\" href='index.php?page=Movie&name=" . $this->movie_title . "'></a>
                 <div class=\"mdl-card__title mdl-card--expand\"></div>
                 <div class=\"mdl-card__actions\">

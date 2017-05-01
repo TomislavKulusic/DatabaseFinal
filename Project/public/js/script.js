@@ -62,6 +62,14 @@ $(document).ready(function() {
     });
 });
 
+function toggle(what) {
+    $("#" + what).toggle("drop");
+}
+
+function toggleSpec(what) {
+    $("." + what).toggle("drop");
+}
+
 /*if (document.cookie) {
  $.post('../application/pages/check.php?action=authenticate&' + document.cookie, function (resp) {
  if (resp.done()) {
