@@ -9,7 +9,7 @@ function addSelect(element, what, counter) {
 
     var select = document.createElement("select");
     select.appendChild(new Option("Select " + what));
-    select.name = what + counter;
+    select.name = what + counter1;
 
     label.appendChild(select);
     label.className = "selectors";
@@ -32,6 +32,7 @@ function addSelect(element, what, counter) {
 
     select.innerHTML = options.innerHTML;
 }
+//JUST A TEST
 
 /*if (document.cookie) {
  $.post('../application/pages/check.php?action=authenticate&' + document.cookie, function (resp) {
