@@ -93,7 +93,7 @@ if (isset($_POST['movie'])) {
        // while (isset($_POST['Director' . $counter])){
         	$actor_id = $_POST['Director1'];
         	$movie_id = $database->getLastID();
-        	$movie_directors_query = "INSERT INTO movie_directors (director_id, movie_id) VALUES ('?','?')";
+        	$movie_directors_query = "INSERT INTO movie_directors (director_id, movie_id) VALUES (?,?)";
         	$array = array($movie_id,$actor_id);
         	$database->setData($movie_directors_query, $array);
         //	$counter = $counter +1;
