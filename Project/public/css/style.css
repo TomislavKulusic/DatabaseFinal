@@ -7,6 +7,14 @@ h3 {
     font-weight: 300 !important;
 }
 
+.title {
+    font-family: 'Pacifico', cursive !important;
+}
+
+#text .title {
+    margin-bottom: 11px;
+}
+
 .flex {
     display: flex;
 }
