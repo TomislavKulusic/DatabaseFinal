@@ -61,6 +61,12 @@ $(document).ready(function() {
             location.href = 'index.php?page=Movie&' + $('#searchF').serialize();
         }
     });
+
+    $(".movieC").hover(function () {
+        $(this).toggleClass("mdl-shadow--4dp");
+
+        $(this).toggleClass("mdl-shadow--8dp");
+    });
 });
 
 function toggle(what) {
