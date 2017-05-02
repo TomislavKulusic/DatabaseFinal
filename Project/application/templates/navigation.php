@@ -5,6 +5,32 @@
  * Date: 14. 4. 2017.
  * Time: 11:24 AM
  */
+include_once(LIBRARY_PATH . "User.php");
+
+$database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'],
+    $config['db']['dbName']);
+
+$button = "";
+
+$canDelete = false;
+
+if ($database->connect()) {
+    $user = new User(getDecodedData()->data->username, "", "", "", $database);
+    $user->setRole();
+
+    if ($user->getRole()->checkPrivilege("Add movies"))
+        $button = "<li class=\"mdl-menu__item\"><a href='index.php?page=AddMovie'>Admin Panel</a></li>";
+    else if (!$user->getRole()->checkPrivilege("Add movies") && $page == "AddMovie") {
+        header("location:index.php?page=Login");
+        exit();
+    } else
+        $button = "<li disabled class=\"mdl-menu__item\">Admin Panel</li>";
+
+    if ($page == "AddMovie")
+        $canDelete = $user->getRole()->checkPrivilege("Delete movies");
+
+    $database->close();
+}
 ?>
 
 <div class="demo-layout-transparent mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
@@ -32,10 +58,11 @@
                 </button>
                 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                     for="demo-menu-lower-right">
-                    <li class="mdl-menu__item">Some Action</li>
-                    <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">Another Action</li>
-                    <li disabled class="mdl-menu__item">Disabled Action</li>
-                    <li class="mdl-menu__item">Yet Another Action</li>
+                    <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"><a href="index.php?page=Profile">Profile</a>
+                    </li>
+                    <?php
+                    echo $button;
+                    ?>
                     <li class="mdl-menu__item"><a href="index.php?logout">Log Out</a></li>
                 </ul>
             </nav>
@@ -50,11 +77,8 @@
             <a class="mdl-navigation__link" href="index.php?page=History">History</a>
         </nav>
         <hr style="border-top-color: rgba(255, 255, 255, 0.16);">
-        <?php if ($page != "Movie" && $page != "Cart") {
+        <?php if ($page != "Movie" && $page != "Cart" && $page != "AddMovie") {
             include_once(LIBRARY_PATH . "Categories.php");
-
-            $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'],
-                $config['db']['dbName']);
 
             if ($database->connect()) {
                 $categories = new Categories("", "");
@@ -77,5 +101,14 @@
             }
         }
         ?>
+    </div>
+    <div class="mdl-tooltip" data-mdl-for="categoryB">
+        Filter movies
+    </div>
+    <div class="mdl-tooltip" data-mdl-for="searchB">
+        Search
+    </div>
+    <div class="mdl-tooltip" data-mdl-for="cartN">
+        Cart
     </div>
 

@@ -45,6 +45,9 @@ if ($isLoggedIn)
         case 'History':
             include(PAGES_PATH . 'history.php');
             break;
+        case 'Profile':
+            include(PAGES_PATH . 'profile.php');
+            break;
         default:
             include(PAGES_PATH . 'allMovies.php');
     }

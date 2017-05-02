@@ -74,6 +74,24 @@ input:focus {
     transition: box-shadow 0.3s ease-out;
 }
 
+li a {
+    text-decoration: none;
+    color: #455A64;
+}
+
+/**
+ * Profile
+ */
+
+.profile {
+    background: #E0E0E0 !important;
+    margin: 50px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 323px;
+}
+
 /**
  * Movie
  */

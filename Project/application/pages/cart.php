@@ -1,12 +1,11 @@
 <?php
 
-include(TEMPLATES_PATH . "navigation.php");
+include_once(LIBRARY_PATH . "TheDatabase.php");
 
 $counter = 0;
 
 if (isset($_POST["movie_title$counter"])) {
     include_once(LIBRARY_PATH . "Movie.php");
-    include_once(LIBRARY_PATH . "TheDatabase.php");
     include_once(LIBRARY_PATH . "Renter.php");
 
     $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
@@ -25,6 +24,8 @@ if (isset($_POST["movie_title$counter"])) {
         $database->close();
     }
 }
+
+include(TEMPLATES_PATH . "navigation.php");
 
 ?>
 
