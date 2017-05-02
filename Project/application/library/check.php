@@ -12,8 +12,6 @@ if (isset($_POST['username']) || isset($_POST['register'])) {
 
 $decodedData;
 
-//TODO CHECK IF REGISTER WORKS
-
 echo !empty($_POST['login']) && !empty($_POST['username']) && !empty($_POST['password']);
 
 if (!empty($_POST['username']) && !empty($_POST['password']) && isset($_POST['login']) && !isset($_POST['register'])) {
@@ -62,8 +60,9 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && isset($_POST['lo
 
             header("location:index.php?page=All Movies");
         } else {
-            echo "FAIL LOGIN";
-            //TODO HANDLE
+            echo '<script language="javascript">';
+            echo 'alert("Wrong username or password")';
+            echo '</script>';
         }
 
         $database->close();
@@ -91,8 +90,6 @@ if (isset($_POST['register'])) {
             }
 
             $database->close();
-        } else {
-            //TODO HANDLE
         }
     }
 }

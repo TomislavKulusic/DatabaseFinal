@@ -52,7 +52,7 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && $action === 'log
 
         } else {
             //echo '{"status" : "fail" ,"msg":"Invalid email or passowrd"}';
-            //TODO HANDLE
+
         }
 
         $database->close();

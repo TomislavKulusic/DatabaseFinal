@@ -24,7 +24,7 @@ $(document).ready(function () {
                 $("#rating").val("");
             });
         } else {
-            alert("Please fill all inputs before submitting"); //TODO handle better
+            alert("Please fill all inputs before submitting");
         }
 
     });
