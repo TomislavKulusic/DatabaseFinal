@@ -12,11 +12,23 @@ if ($database->connect()) {
     $rentedMovies = new Movies($database);
 
     $rentedMovies->setRentedMovies();
-
+    $rentedMovies->deleteExpiredMovies();
+    
+    
     $database->close();
+    
 }
 
 include(TEMPLATES_PATH . 'navigation.php');
+
+
+
+
+
+
+
+
+
 ?>
 
 <main class="mdl-layout__content">
