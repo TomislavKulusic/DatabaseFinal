@@ -157,7 +157,7 @@ class Movie implements InterfaceClass
         $database->endTransaction();
     }
     
-    public function removeRented()
+    public function Rented()
     {
     	
     	global $database;
