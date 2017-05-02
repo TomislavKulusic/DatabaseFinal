@@ -38,7 +38,7 @@ class History
 
         $array = array('', '', '', '', '', '', $database);
 
-        $result = $database->getDataClass($query, array($this->renterid), 'Movie', $array);
+        $result = $database->getDataClass($query, array($renterid), 'Movie', $array);
 
         foreach ($result as $movie)
             $movie->setCategories();

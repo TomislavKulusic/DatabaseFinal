@@ -6,6 +6,11 @@
  * Time: 6:22 PM
  */
 
+include("WatchLaterC.php");
+include("TheDatabase.php");
+include("../configs/config.php");
+include("check.php");
+
 if (isset($_GET['movieid'])) {
 
     include_once("../../application/library/check.php");
@@ -16,19 +21,13 @@ if (isset($_GET['movieid'])) {
     $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
 
     if ($database->connect()) {
+        $database->setRootPath("../../data/log/");
 
-        $userId = getDecodedDataCookie($_GET['cookie'])->data->renterid;
-        $movieId = $_GET['movieid'];
+        $watchLater = new WatchLaterC($database);
 
-        $sql = "INSERT INTO watch_later VALUES (?,?)";
-        if ($database->setData($sql, array($movieId, $userId))) {
-            echo "Stored";
-        } else {
-            echo "not stored";
-        }
+        $watchLater->addWatchLater($_GET['movieid'], getDecodedDataCookie($_GET['cookie'])->data->renterid);
 
-    } else {
-
+        $database->close();
     }
 
 }
