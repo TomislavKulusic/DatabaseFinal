@@ -6,6 +6,10 @@ $movieTitle = "";
 
 if (isset($_GET['name']))
     $movieTitle = $_GET['name'];
+else {
+    header("location:index.php?page=Login");
+    exit();
+}
 
 $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'],
     $config['db']['dbName']);
@@ -65,7 +69,7 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
                     <?php
                     $movies->rentOrWatch($movieTitle);
                     ?>
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-shadow--6dp">
+                    <button name="<?php echo $movies->getMovie()->getMovieID(); ?>" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-shadow--6dp addWatchLater">
                         Watch Later
                     </button>
                 </div>
@@ -125,7 +129,11 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
             $("#back").css("height", height);
         });
     </script>
-
+    <div id="watchLaterS" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
+    <script type="text/javascript" src="../public/js/watchLater.js"></script>
     <script type="text/javascript" src="../public/js/addReview.js"></script>
 </main>
 </div>

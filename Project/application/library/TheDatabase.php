@@ -13,6 +13,7 @@ class TheDatabase
     private $DBPassword;
     private $DBName;
     private $connection;
+    private $rootPath;
 
     /**
      * TheDatabase constructor.
@@ -27,6 +28,7 @@ class TheDatabase
         $this->DBUserName = $DBUserName;
         $this->DBPassword = $DBPassword;
         $this->DBName = $DBName;
+        $this->rootPath = "../data/log/";
     }
 
     public function connect()
@@ -39,7 +41,7 @@ class TheDatabase
 
             return true;
         } catch (PDOException $e) {
-            error_log("Error connecting: " . $e->getMessage() . "!\r\n", 3, "../data/log/errors.log");
+            error_log("Error connecting: " . $e->getMessage() . "!\r\n", 3, $this->rootPath . "errors.log");
             return false;
         }
     }
@@ -53,7 +55,7 @@ class TheDatabase
 
             return true;
         } catch (PDOException $e) {
-            error_log("Error closing: " . $e->getMessage() . "!\r\n", 3, "../data/log/errors.log");
+            error_log("Error closing: " . $e->getMessage() . "!\r\n", 3, $this->rootPath . "errors.log");
 
             return false;
         }
@@ -73,7 +75,7 @@ class TheDatabase
 
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            error_log("Error getting data: " . $e->getMessage() . "!\r\n", 3, "../data/log/errors.log");
+            error_log("Error getting data: " . $e->getMessage() . "!\r\n", 3, $this->rootPath . "errors.log");
 
             return false;
         }
@@ -101,7 +103,7 @@ class TheDatabase
             return $statement->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $className, $classValues);
 
         } catch (PDOException $e) {
-            error_log("Error getting data as class: " . $e->getMessage() . "!\r\n", 3, "../data/log/errors.log");
+            error_log("Error getting data as class: " . $e->getMessage() . "!\r\n", 3, $this->rootPath . "errors.log");
 
             return false;
         }
@@ -123,7 +125,7 @@ class TheDatabase
 
             return true;
         } catch (PDOException $e) {
-            error_log("Error setting data: " . $e->getMessage() . "!\r\n", 3, "../data/log/errors.log");
+            error_log("Error setting data: " . $e->getMessage() . "!\r\n", 3, $this->rootPath . "errors.log");
             return false;
         }
     }
@@ -239,5 +241,12 @@ class TheDatabase
         $this->connection = $connection;
     }
 
+    /**
+     * @param string $rootPath
+     */
+    public function setRootPath(string $rootPath)
+    {
+        $this->rootPath = $rootPath;
+    }
 
 }

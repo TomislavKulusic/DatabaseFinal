@@ -20,6 +20,11 @@ function addToCart(movieTitle) {
         var snackbarContainer = document.querySelector('#demo-toast-example');
         var data = {message: movieTitle + ' added to cart!'};
         snackbarContainer.MaterialSnackbar.showSnackbar(data);
+    } else {
+        'use strict';
+        var snackbarContainer = document.querySelector('#demo-toast-example');
+        var data = {message: "It's already in a cart!"};
+        snackbarContainer.MaterialSnackbar.showSnackbar(data);
     }
 }
 

@@ -10,9 +10,9 @@ $database = new TheDatabase($config['db']['host'], $config['db']['username'], $c
 $history = "";
 
 if ($database->connect()) {
-    $history = new History($database, "", getDecodedData()->data->renterid);
+    $history = new History($database, "", "");
 
-    $history->fetch($history ->getRenterid());
+    $history->fetch(getDecodedData()->data->renterid);
 
     $database->close();
 }
