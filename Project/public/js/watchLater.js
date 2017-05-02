@@ -13,25 +13,36 @@ $(document).ready(function () {
         });
     });
 
-    function getCookie(cname) {
-        var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
+});
 
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
+function removeWatchL(id, elem) {
+    $.post('../application/library/watchLater.php?remove&movieid=' + id + '&cookie=' + getCookie("user"), function (resp) {
+        if (resp !== "Movie already removed!")
+            elem.parentNode.remove();
 
-            while (c.charAt(0) == ' ')
-                c = c.substring(1);
+        'use strict';
+        var data = {message: resp};
+        document.querySelector('#watchLaterS').MaterialSnackbar.showSnackbar(data);
+    });
+}
 
-            if (c.indexOf(name) == 0)
-                return c.substring(name.length, c.length);
-        }
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
 
-        return "";
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+
+        while (c.charAt(0) == ' ')
+            c = c.substring(1);
+
+        if (c.indexOf(name) == 0)
+            return c.substring(name.length, c.length);
     }
 
-});
+    return "";
+}
 
 
 

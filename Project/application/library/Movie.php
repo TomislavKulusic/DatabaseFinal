@@ -246,6 +246,10 @@ class Movie implements InterfaceClass
             $what = "<button class=\"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-button--mini-fab img-button mdl-shadow--8dp addWatchLater\" name='" . $this->movie_id . "'>" .
                 "<i class=\"material-icons\">watch_later</i>" .
                 "</button>";
+        else if ($what === 'wl')
+            $what = "<button class=\"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-button--mini-fab img-button mdl-shadow--8dp\" onclick='removeWatchL(\"" . $this->movie_id . "\", this)'>" .
+                "<i class=\"material-icons\">remove</i>" .
+                "</button>";
         else
             $what = "";
 
@@ -284,7 +288,8 @@ class Movie implements InterfaceClass
         return $this->movie_title;
     }
 
-    public function getMovieTitleID($id) {
+    public function getMovieTitleID($id)
+    {
         global $database;
 
         $query = "SELECT movie_title FROM movies WHERE movie_id = ?;";
@@ -425,7 +430,6 @@ class Movie implements InterfaceClass
         $this->movie_link = $movie_link;
     }
     
-
 
 
 

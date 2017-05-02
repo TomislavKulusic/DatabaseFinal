@@ -48,6 +48,9 @@ if ($isLoggedIn)
         case 'Profile':
             include(PAGES_PATH . 'profile.php');
             break;
+        case 'Watch Later':
+            include(PAGES_PATH . 'watchLater.php');
+            break;
         default:
             include(PAGES_PATH . 'allMovies.php');
     }

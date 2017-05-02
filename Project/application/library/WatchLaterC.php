@@ -24,7 +24,7 @@ class WatchLaterC
         $this->database = $database;
     }
 
-    public function addWatchLater($movieId, $userId)
+    public function addWatchLater($movieId, $renterID)
     {
         global $database;
 
@@ -32,16 +32,17 @@ class WatchLaterC
 
         $movie = new Movie("", "", "", "", "", "", $database);
 
-        if ($database->setData($sql, array($movieId, $userId)))
+        if ($database->setData($sql, array($movieId, $renterID)))
             echo $movie->getMovieTitleID($movieId) . " added to watch later!";
         else
             echo "Movie already added!";
     }
 
-    public function fetch($id) {
+    public function fetch($id)
+    {
         global $database;
 
-        $query = "SELECT movie_title, category_id FROM watch_later LEFT JOIN movies ON watch_later.movie_id = movies.movie_id WHERE watch_later.renter_id = ?;";
+        $query = "SELECT movies.movie_id, movie_title, category_id FROM watch_later LEFT JOIN movies ON watch_later.movie_id = movies.movie_id WHERE watch_later.renter_id = ?;";
 
         $array = array('', '', '', '', '', '', $database);
 
@@ -51,5 +52,26 @@ class WatchLaterC
             $movie->setCategories();
 
         $this->movies = $result;
+    }
+
+    public function printAll()
+    {
+        $movies = $this->movies;
+
+        foreach ($movies as $movie)
+            $movie->printMovie('wl');
+    }
+
+    public function removeWatchLater($movieId, $renterID) {
+        global $database;
+
+        $sql = "DELETE FROM watch_later WHERE movie_id = ? AND renter_id = ?;";
+
+        $movie = new Movie("", "", "", "", "", "", $database);
+
+        if ($database->setData($sql, array($movieId, $renterID)))
+            echo $movie->getMovieTitleID($movieId) . " removed from watch later!";
+        else
+            echo "Movie already removed!";
     }
 }

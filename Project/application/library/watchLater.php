@@ -25,7 +25,10 @@ if (isset($_GET['movieid'])) {
 
         $watchLater = new WatchLaterC($database);
 
-        $watchLater->addWatchLater($_GET['movieid'], getDecodedDataCookie($_GET['cookie'])->data->renterid);
+        if (isset($_GET['remove']))
+            $watchLater->removeWatchLater($_GET['movieid'], getDecodedDataCookie($_GET['cookie'])->data->renterid);
+        else
+            $watchLater->addWatchLater($_GET['movieid'], getDecodedDataCookie($_GET['cookie'])->data->renterid);
 
         $database->close();
     }
