@@ -212,5 +212,32 @@ class Movies
     {
         return $this->rentedMovies;
     }
-
+    
+    
+	public function deleteExpiredMovies(){
+		
+		global $database;
+		$renter = new Renter("", getDecodedData()->data->username, "", "", "", "", $database);
+		$renter->fetchU("");
+		$renter->setRentedMovies(false);
+		$movies = $renter->getRentedMovies();
+		
+		
+		$format = "Y-m-d";
+		
+		
+		foreach ($movies as $movie){
+			
+			$dueDate = $movie->getDueDate();
+			$todayDate = date($format);
+			
+			if($todayDate < $dueDate){
+				// echo "There is still time!";
+			}else{
+				$movie->removeRented();
+			}
+		}
+				
+	}
+    
 }

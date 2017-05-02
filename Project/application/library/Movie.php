@@ -2,6 +2,7 @@
 
 include_once('InterfaceClass.php');
 
+
 /**
  * Created by IntelliJ IDEA.
  * User: Frano
@@ -155,6 +156,18 @@ class Movie implements InterfaceClass
 
         $database->endTransaction();
     }
+    
+    public function removeRented()
+    {
+    	
+    	global $database;
+    	
+    	$query = "DELETE FROM movie_renter WHERE movie_id = ? AND renter_id = ?;";
+    	
+    	$database->setData($query, array($this->movie_id, getDecodedData()->data->renterid));
+    	
+    }
+    
 
     public function setCategories()
     {
@@ -411,6 +424,8 @@ class Movie implements InterfaceClass
     {
         $this->movie_link = $movie_link;
     }
+    
+
 
 
 
