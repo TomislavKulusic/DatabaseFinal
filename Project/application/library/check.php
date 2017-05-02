@@ -12,6 +12,8 @@ if (isset($_POST['username']) || isset($_POST['register'])) {
 
 $decodedData;
 
+//TODO CHECK IF REGISTER WORKS
+
 echo !empty($_POST['login']) && !empty($_POST['username']) && !empty($_POST['password']);
 
 if (!empty($_POST['username']) && !empty($_POST['password']) && isset($_POST['login'])) {
@@ -43,6 +45,7 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && isset($_POST['lo
                 'exp' => $expire,           // Expire
                 'data' => [                 // Data related to the logged user you can set your required data
                     'username' => $user->getUsername(),
+                    'renterid' => $renter->getRenterID()
                 ]
             ];
 

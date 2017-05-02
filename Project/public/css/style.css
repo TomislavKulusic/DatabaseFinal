@@ -7,6 +7,14 @@ h3 {
     font-weight: 300 !important;
 }
 
+.title {
+    font-family: 'Pacifico', cursive !important;
+}
+
+#text .title {
+    margin-bottom: 11px;
+}
+
 .flex {
     display: flex;
 }
@@ -62,6 +70,28 @@ input:focus {
     width: 100%;
 }
 
+.movieC {
+    transition: box-shadow 0.3s ease-out;
+}
+
+li a {
+    text-decoration: none;
+    color: #455A64;
+}
+
+/**
+ * Profile
+ */
+
+.profile {
+    background: #E0E0E0 !important;
+    margin: 50px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 323px;
+}
+
 /**
  * Movie
  */
@@ -77,7 +107,6 @@ input:focus {
 #back {
     position: absolute !important;
     width: 78% !important;
-    height: 672px;
     background: #E0E0E0 !important;
     z-index: -1 !important;
     max-width: 1000px;
@@ -212,7 +241,6 @@ input:focus {
 }
 
 #items {
-    height: 500px;
     width: 100%;
     margin-right: 65px;
 }

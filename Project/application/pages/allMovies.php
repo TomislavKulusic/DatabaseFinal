@@ -1,26 +1,18 @@
 <?php
 
 include_once(LIBRARY_PATH . "TheDatabase.php");
-include_once(LIBRARY_PATH . "Renter.php");
+include_once(LIBRARY_PATH . "Movies.php");
 
 $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'],
     $config['db']['dbName']);
 
+$allMovies = "";
+
 if ($database->connect()) {
-    $renter = new Renter("", getDecodedData()->data->username, "", "", "", "", $database);
 
-    $renter->fetchU("");
+    $allMovies = new Movies($database);
 
-    $renter->setRentedMovies(false);
-
-    $movies = $renter->getRentedMovies();
-
-    $classValues = array("", "", "", "", "", "", $database);
-
-    $result = $database->getDataClass("SELECT * FROM movies;", null, "Movie", $classValues);
-
-    foreach ($result as $movie)
-        $movie->setAll();
+    $allMovies->setAllMovies();
 
     $database->close();
 }
@@ -34,8 +26,7 @@ include(TEMPLATES_PATH . "navigation.php");
     <div class="mdl-grid">
         <?php
 
-        foreach ($result as $movie)
-            $movie->printMovie("all");
+        $allMovies->printAllMovies();
 
         ?>
     </div>

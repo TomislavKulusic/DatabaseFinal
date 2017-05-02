@@ -7,11 +7,12 @@ include_once(LIBRARY_PATH . "History.php");
 $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'],
     $config['db']['dbName']);
 
+$history = "";
+
 if ($database->connect()) {
     $history = new History($database, "", getDecodedData()->data->renterid);
 
-    $result = $history->fetch($history ->getRenterid());
-
+    $history->fetch($history ->getRenterid());
 
     $database->close();
 }
@@ -25,8 +26,7 @@ include(TEMPLATES_PATH . "navigation.php");
     <div class="mdl-grid">
         <?php
 
-        foreach ($result as $movie)
-            $movie->printMovie('his');
+        $history->printAll()
 
         ?>
     </div>

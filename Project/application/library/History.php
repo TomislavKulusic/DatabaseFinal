@@ -32,16 +32,50 @@ class History
 
         global $database;
 
-        $query = "SELECT movie_title FROM history LEFT JOIN movies ON history.movie_id = movies.movie_id WHERE history.renter_id = ?;";
+        $query = "SELECT movie_title, category_id FROM history LEFT JOIN movies ON history.movie_id = movies.movie_id WHERE history.renter_id = ?;";
 
-        $result = $database -> getData($query, array($renterid));
+        //$result = $database -> getData($query, array($renterid));
 
         $array = array('', '', '', '', '', '', $database);
 
-        $this->historyMovies = $database->getDataClass($query, array($this->renterid), 'Movie', $array);
+        $result = $database->getDataClass($query, array($this->renterid), 'Movie', $array);
+
+        foreach ($result as $movie)
+            $movie->setCategories();
+
+        $this->historyMovies = $result;
 
         return $this -> historyMovies;
 
+    }
+
+    public function post($movieid, $renterid){
+
+        global $database;
+
+        $query = "SELECT * FROM history WHERE movie_id = ?";
+
+        $result = $database ->getData($query, array($movieid));
+
+        if(empty($result)){
+
+            $query = "INSERT INTO history (movie_id, renter_id) VALUES(?, ?)";
+            $database -> setData($query, array($movieid, $renterid));
+
+        }else{
+
+        }
+
+
+    }
+
+
+
+    public function printAll() {
+        $movies = $this->historyMovies;
+
+        foreach ($movies as $movie)
+            $movie->printMovie('his');
     }
 
 

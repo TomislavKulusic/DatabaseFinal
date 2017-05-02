@@ -2,6 +2,15 @@
 
 session_start();
 
+if (isset($_GET['logout'])) {
+    setcookie("user", "", time()-3600);
+
+    session_destroy();
+
+    header("location:index.php?page=Login");
+    exit();
+}
+
 $isLoggedIn = isset($_SESSION['user']);
 
 if (!$isLoggedIn)
@@ -35,6 +44,9 @@ if ($isLoggedIn)
             break;
         case 'History':
             include(PAGES_PATH . 'history.php');
+            break;
+        case 'Profile':
+            include(PAGES_PATH . 'profile.php');
             break;
         default:
             include(PAGES_PATH . 'allMovies.php');

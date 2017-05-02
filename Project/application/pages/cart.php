@@ -1,33 +1,22 @@
 <?php
 
-include(TEMPLATES_PATH . "navigation.php");
+include_once(LIBRARY_PATH . "TheDatabase.php");
 
 $counter = 0;
 
 if (isset($_POST["movie_title$counter"])) {
     include_once(LIBRARY_PATH . "Movie.php");
-    include_once(LIBRARY_PATH . "TheDatabase.php");
     include_once(LIBRARY_PATH . "Renter.php");
 
     $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
 
     if ($database->connect()) {
+        include_once(LIBRARY_PATH . "Movies.php");
+
+        $movies = new Movies($database);
+
         while (isset($_POST['movie_title' . $counter])) {
-            $movie = new Movie("", $_POST["movie_title$counter"], "", "", "", "", $database);
-
-            $movie->fetchN(null);
-
-            $date = date("Y-m-d");
-
-            $movie->setRentalDate($date);
-
-            $movie->setDueDate(date("Y-m-d", strtotime("$date +7 day")));
-
-            $renter = new Renter("", "", "", "", "", "", $database);
-
-            $renter->fetchU(getDecodedData()->data->username);
-
-            $movie->postMR($renter->getRenterID());
+            $movies->rentMovie($_POST["movie_title$counter"], getDecodedData()->data->renterid);
 
             $counter = $counter + 1;
         }
@@ -35,6 +24,8 @@ if (isset($_POST["movie_title$counter"])) {
         $database->close();
     }
 }
+
+include(TEMPLATES_PATH . "navigation.php");
 
 ?>
 
