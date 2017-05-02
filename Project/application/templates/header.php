@@ -17,8 +17,8 @@
     <link rel="stylesheet" href="css/queries.css">
 
     <!--Favicon-->
-    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 
     <!--Font-->
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">

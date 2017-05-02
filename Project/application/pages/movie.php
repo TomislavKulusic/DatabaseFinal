@@ -23,6 +23,8 @@ if ($database->connect()) {
 
     $movies->setMovie($movieTitle);
 
+    $movies->deleteExpiredMovie(getDecodedData()->data->renterid);
+
     $history = new History($database, $movies->getMovie()->getMovieID(), getDecodedData()->data->renterid);
 
     $history->post($history->getmovieid(), $history->getRenterid());

@@ -7,7 +7,7 @@ include_once(LIBRARY_PATH . 'check.php');
 <div id="box">
     <div id="text">
         <h6>Rent it NOW!!1 (╯°□°）╯︵ /(.□. \)</h6>
-        <h1 class="title">Movie Rental Page</h1>
+        <h1 class="title titleM">Movie Rental Page</h1>
         <div class="flex">
             <hr>
             <p>Lorem ipsum dolor sit amet, enim eiusmod commodo vel metus, vitae nec, tellus eros porta consectetuer.

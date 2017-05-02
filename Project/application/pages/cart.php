@@ -66,7 +66,7 @@ include(TEMPLATES_PATH . "navigation.php");
 
         for (var i = 0; i < movies.length; i++) {
             x += '<div class="item flex" id="' + movies[i] + '">' +
-                '<div class="img img1">' +
+                '<div class="img" style="background: url(\'img/movie-images/' + movies[i].replace(/[^\w\s]/gi, '') + '/cover/image-cover-s.jpg\') center / cover;">' +
                 '</div>' +
                 '<div class="flex spaceBetween"><div class="title">' + movies[i] + '</div>' +
                 '<button class="mdl-button mdl-js-button mdl-button--icon" onclick="removeCart(\'' + movies[i] + '\')">' +

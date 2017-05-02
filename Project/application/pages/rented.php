@@ -13,21 +13,11 @@ if ($database->connect()) {
 
     $rentedMovies->setRentedMovies();
     $rentedMovies->deleteExpiredMovies();
-    
-    
+
     $database->close();
-    
 }
 
 include(TEMPLATES_PATH . 'navigation.php');
-
-
-
-
-
-
-
-
 
 ?>
 

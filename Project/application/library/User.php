@@ -67,9 +67,9 @@ class User
         $result = $database->setData($query, $array);
 
 
-        $query = "INSERT INTO renter (username, email) VALUES(?, ?);";
+        $query = "INSERT INTO renter (username, email, first_name, last_name) VALUES(?, ?, ?, ?);";
 
-        $array = array($this->username, $this->email);
+        $array = array($this->username, $this->email, "", "");
 
         $result = $database->setData($query, $array) && $result;
 
@@ -89,7 +89,7 @@ class User
 
         $database->endTransaction();
 
-        return $result; //TODO ROLLBACK
+        return $result;
     }
 
     /**

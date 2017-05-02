@@ -16,7 +16,7 @@ $decodedData;
 
 echo !empty($_POST['login']) && !empty($_POST['username']) && !empty($_POST['password']);
 
-if (!empty($_POST['username']) && !empty($_POST['password']) && isset($_POST['login'])) {
+if (!empty($_POST['username']) && !empty($_POST['password']) && isset($_POST['login']) && !isset($_POST['register'])) {
 
     $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'],
         $config['db']['dbName']);

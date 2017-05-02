@@ -156,18 +156,27 @@ class Movie implements InterfaceClass
 
         $database->endTransaction();
     }
-    
+
+    public function removeRented()
+    {
+        global $database;
+
+        $query = "DELETE FROM movie_renter WHERE movie_id = ? AND renter_id = ?;";
+
+        $database->setData($query, array($this->movie_id, getDecodedData()->data->renterid));
+    }
+
     public function Rented()
     {
-    	
-    	global $database;
-    	
-    	$query = "DELETE FROM movie_renter WHERE movie_id = ? AND renter_id = ?;";
-    	
-    	$database->setData($query, array($this->movie_id, getDecodedData()->data->renterid));
-    	
+
+        global $database;
+
+        $query = "DELETE FROM movie_renter WHERE movie_id = ? AND renter_id = ?;";
+
+        $database->setData($query, array($this->movie_id, getDecodedData()->data->renterid));
+
     }
-    
+
 
     public function setCategories()
     {
@@ -369,6 +378,12 @@ class Movie implements InterfaceClass
         $this->rental_date = $rental_date;
     }
 
+    public function setDueDateID($id, $idR) {
+        global $database;
+
+        $this->due_date = $database->getData("SELECT due_date FROM movie_renter WHERE movie_id = ? AND renter_id = ?", array($id, $idR))[0]["due_date"];
+    }
+
     /**
      * @return mixed
      */
@@ -429,8 +444,6 @@ class Movie implements InterfaceClass
     {
         $this->movie_link = $movie_link;
     }
-    
-
 
 
 }

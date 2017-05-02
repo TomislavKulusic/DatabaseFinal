@@ -108,18 +108,13 @@ if (isset($_POST['movie'])) {
 
     if ($database->connect()) {
         //Creating a movie with a id from the input
-        if ($user->getRole()->checkPrivilege("Delete movies")) {
+        $movie = new Movie($movie_id, "", "", "", "", "", $database);
 
-            $movie = new Movie($movie_id, "", "", "", "", "", $database);
+        //Deleting a movie.
+        $movie->delete();
 
-            //Deleting a movie.
-            $movie->delete();
+        $database->close();
 
-            $database->close();
-
-        } else {
-            header("location:index.php?page=AddMovie");
-        }
     }
 
 

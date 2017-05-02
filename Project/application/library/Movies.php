@@ -15,6 +15,7 @@ class Movies
     private $rentedMovies;
     private $movie;
     private $rented;
+    private $user;
 
     /**
      * Movies constructor.
@@ -92,7 +93,7 @@ class Movies
         $movie->fetchN(null);
         $movie->setAll();
 
-        $this->movie =  $movie;
+        $this->movie = $movie;
     }
 
     public function printDirectors()
@@ -173,7 +174,8 @@ class Movies
     </script>";
     }
 
-    public function rentMovie($movieTitle, $renterID) {
+    public function rentMovie($movieTitle, $renterID)
+    {
         global $database;
 
         $movie = new Movie("", $movieTitle, "", "", "", "", $database);
@@ -212,32 +214,51 @@ class Movies
     {
         return $this->rentedMovies;
     }
-    
-    
-	public function deleteExpiredMovies(){
-		
-		global $database;
-		$renter = new Renter("", getDecodedData()->data->username, "", "", "", "", $database);
-		$renter->fetchU("");
-		$renter->setRentedMovies(false);
-		$movies = $renter->getRentedMovies();
-		
-		
-		$format = "Y-m-d";
-		
-		
-		foreach ($movies as $movie){
-			
-			$dueDate = $movie->getDueDate();
-			$todayDate = date($format);
-			
-			if($todayDate < $dueDate){
-				// echo "There is still time!";
-			}else{
-				$movie->removeRented();
-			}
-		}
-				
-	}
-    
+
+
+    public function deleteExpiredMovies()
+    {
+        $movies = $this->rentedMovies;
+
+        $format = "Y-m-d";
+
+        $deleted = false;
+
+        foreach ($movies as $movie) {
+            $dueDate = $movie->getDueDate();
+            $todayDate = date($format);
+
+            if ($todayDate < $dueDate) {
+                //echo "There is still time!"; //Test
+            } else {
+                $movie->removeRented();
+                $deleted = true;
+            }
+        }
+
+        if ($deleted)
+            $this->setRentedMovies();
+    }
+
+    public function deleteExpiredMovie($id)
+    {
+        if ($this->rented) {
+            $movie = $this->movie;
+
+            $format = "Y-m-d";
+
+            $movie->setDueDateID($movie->getMovieID(), $id);
+
+            $dueDate = $movie->getDueDate();
+            $todayDate = date($format);
+
+            if ($todayDate < $dueDate) {
+                //echo "There is still time!"; //Test
+            } else {
+                $movie->removeRented();
+                $this->rented = false;
+            }
+        }
+    }
+
 }

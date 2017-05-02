@@ -69,7 +69,7 @@ if ($database->connect()) {
         </div>
     </header>
     <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title title">Movie Renting Page</span>
+        <span class="mdl-layout-title title titleM">Movie Renting Page</span>
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link" href="index.php?page=Rented Movies">Rented Movies</a>
             <a class="mdl-navigation__link" href="index.php?page=All Movies">All Movies</a>
