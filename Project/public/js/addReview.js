@@ -32,7 +32,6 @@ $(document).ready(function () {
 });
 
 function showVal(value) {
-    console.log(value);
     $("#rating").val(value);
 }
 
