@@ -16,13 +16,11 @@ $user = "";
 
 if (isset($_POST['movie'])) {
 
-    //$movie_id = $_POST['movie_id'];
     $movie_title = $_POST['movie_title'];
     $movie_description = $_POST['movie_description'];
     $movie_date = $_POST['movie_date'];
     $category_id = $_POST['category'];
     $director_id = $_POST['Director1'];
-    //$actor_id = $_POST['actor'];
     $movie_link = $_POST['movie_link'];
 
     $movie = new Movie('', $movie_title, $movie_description, $category_id, $movie_date, $movie_link, $database); //Testing with NULL

@@ -378,7 +378,8 @@ class Movie implements InterfaceClass
         $this->rental_date = $rental_date;
     }
 
-    public function setDueDateID($id, $idR) {
+    public function setDueDateID($id, $idR)
+    {
         global $database;
 
         $this->due_date = $database->getData("SELECT due_date FROM movie_renter WHERE movie_id = ? AND renter_id = ?", array($id, $idR))[0]["due_date"];

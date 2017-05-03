@@ -99,11 +99,13 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
                     <textarea class="mdl-textfield__input" type="text" rows="3" id="reviewText"></textarea>
                     <label class="mdl-textfield__label" for="reviewText">Review</label>
                 </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="rating" pattern="^[0-9]{1}$">
+                <div class="mdl-textfield mdl-js-textfield ratingI">
+                    <input class="mdl-textfield__input" style="text-align: center;" type="text" id="rating" pattern="^[0-9]{1}$" value="1" disabled>
                     <label class="mdl-textfield__label" for="rating">Rating</label>
                     <span class="mdl-textfield__error">Input is not one number!</span>
                 </div>
+                <input class="mdl-slider mdl-js-slider" type="range"
+                       min="1" max="9" value="0" step="1" tabindex="0" title="" oninput="showVal(this.value)">
                 <input id="movieId" style="display:none" value="<?php echo $movies->getMovie()->getMovieID(); ?>" title="">
             </form>
 

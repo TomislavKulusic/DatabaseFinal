@@ -96,6 +96,12 @@ li a {
  * Movie
  */
 
+.ratingI {
+    width: 26px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .test, .padd {
     padding: 40px;
 }
