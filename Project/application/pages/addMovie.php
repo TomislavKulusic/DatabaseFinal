@@ -14,23 +14,6 @@ $database = new TheDatabase($config['db']['host'], $config['db']['username'], $c
 
 $user = "";
 
-if ($database->connect()) {
-
-    $queryCategory = "SELECT * FROM Category;";
-    $queryDirector = "SELECT * FROM directors;";
-    $queryActor = "SELECT * FROM Actors;";
-
-    $arrayCat = array("", "");
-    $arrayDir = array("", "", "", "");
-    $arrayAct = array("", "", "", "");
-
-    $resultCategory = $database->getDataClass($queryCategory, null, 'Category', $arrayCat);
-    $resultDirector = $database->getDataClass($queryDirector, null, 'Director', $arrayDir);
-    $resultActor = $database->getDataClass($queryActor, null, 'Actor', $arrayAct);
-
-    $database->close();
-}
-
 if (isset($_POST['movie'])) {
 
     //$movie_id = $_POST['movie_id'];
@@ -42,8 +25,6 @@ if (isset($_POST['movie'])) {
     //$actor_id = $_POST['actor'];
     $movie_link = $_POST['movie_link'];
 
-    //Connecting to a database
-    $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
     $movie = new Movie('', $movie_title, $movie_description, $category_id, $movie_date, $movie_link, $database); //Testing with NULL
 
     if ($database->connect()) {
@@ -78,6 +59,7 @@ if (isset($_POST['movie'])) {
 
         $director_actors_query = "INSERT INTO movie_directors (director_id, movie_id) VALUES ";
         $values = [];
+        $counter = 1;
 
         while (isset($_POST['Director' . $counter])) {
             array_push($values, $_POST['Director' . $counter], $movie_id);
@@ -90,7 +72,7 @@ if (isset($_POST['movie'])) {
             $counter = $counter + 1;
         }
 
-        $database->setData($movie_actors_query, $values);
+        $database->setData($director_actors_query, $values);
 
         $database->endTransaction();
 
@@ -104,7 +86,6 @@ if (isset($_POST['movie'])) {
     $movie_id = $_POST['inputDelete'];
 
     //Connecting to a databasee
-    $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
 
     if ($database->connect()) {
         //Creating a movie with a id from the input
@@ -124,7 +105,6 @@ if (isset($_POST['movie'])) {
     $director_ln = $_POST['directorLN'];
 
     //Connecting to a database
-    $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
 
     if ($database->connect()) {
 
@@ -144,7 +124,6 @@ if (isset($_POST['movie'])) {
     $category_name = $_POST['categoryNAME'];
 
     //Connecting to a databasee
-    $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
 
     if ($database->connect()) {
         //Creating a actor from input
@@ -163,7 +142,6 @@ if (isset($_POST['movie'])) {
     $actor_ln = $_POST['actorLN'];
 
     //Connecting to a database
-    $database = new TheDatabase($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['dbName']);
 
     if ($database->connect()) {
 
@@ -176,6 +154,23 @@ if (isset($_POST['movie'])) {
 
     $database->close();
 
+}
+
+if ($database->connect()) {
+
+    $queryCategory = "SELECT * FROM Category;";
+    $queryDirector = "SELECT * FROM directors;";
+    $queryActor = "SELECT * FROM Actors;";
+
+    $arrayCat = array("", "");
+    $arrayDir = array("", "", "", "");
+    $arrayAct = array("", "", "", "");
+
+    $resultCategory = $database->getDataClass($queryCategory, null, 'Category', $arrayCat);
+    $resultDirector = $database->getDataClass($queryDirector, null, 'Director', $arrayDir);
+    $resultActor = $database->getDataClass($queryActor, null, 'Actor', $arrayAct);
+
+    $database->close();
 }
 
 ?>
@@ -206,8 +201,7 @@ if (isset($_POST['movie'])) {
                   class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
                 <h3>Category</h3>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input name="categoryNAME" class="mdl-textfield__input" type="text" id="sample8"
-                           pattern="[a-zA-Z0-9]+">
+                    <input name="categoryNAME" class="mdl-textfield__input" type="text" id="sample8">
                     <label class="mdl-textfield__label" for="sample8">Category Name</label>
                 </div>
                 <button class="mdl-button mdl-js-button mdl-button--primary" name="category">
@@ -237,8 +231,7 @@ if (isset($_POST['movie'])) {
                   class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--6dp">
                 <h3>Movie</h3>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input name="movie_title" class="mdl-textfield__input" type="text" id="sample2"
-                           pattern="[a-zA-Z0-9]+">
+                    <input name="movie_title" class="mdl-textfield__input" type="text" id="sample2">
                     <label class="mdl-textfield__label" for="sample2">Movie Title</label>
                     <span class="mdl-textfield__error">Input is not valid</span>
                 </div>

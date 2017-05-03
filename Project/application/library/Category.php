@@ -50,9 +50,9 @@ class Category implements InterfaceClass
     {
         global $database;
 
-        $query = "INSERT INTO category (category_id, category_name) VALUE (?, ?);";
+        $query = "INSERT INTO category (category_name) VALUE (?);";
 
-        $database->setData($query, array($this->category_id, $this->category_name));
+        $database->setData($query, array($this->category_name));
     }
 
     public function delete()
