@@ -14,7 +14,7 @@ if (isset($_GET['logout'])) {
 $isLoggedIn = isset($_SESSION['user']);
 
 if (!$isLoggedIn)
-    $page = isset($_GET['page']) ? $_GET['page'] : 'Login';
+    $page = 'Login';
 else
     $page = isset($_GET['page']) ? $_GET['page'] : 'All Movies';
 

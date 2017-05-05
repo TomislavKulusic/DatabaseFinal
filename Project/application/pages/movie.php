@@ -51,19 +51,51 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
             </div>
         </div>
         <div class="mdl-cell--8-col texts" id="infoText">
-            <div class="flex">
+            <div class="flex mDesc">
                 <div class="padd">
-                    <h5>Directors</h5>
+                    <ul class="mdl-list">
+                        <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content movieInfo">
+                                <i class="material-icons mdl-list__item-icon">movie</i>
+                                Directors
+                            </span>
+                        </li>
+                    </ul>
                     <?php
                     $movies->printDirectors();
                     ?>
-                    <h5>Actors</h5>
+                    <ul class="mdl-list">
+                        <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content movieInfo">
+                                <i class="material-icons mdl-list__item-icon">person</i>
+                                Actors
+                            </span>
+                        </li>
+                    </ul>
                     <?php
                     $movies->printActors();
                     ?>
-                    <h5>Category</h5>
+                    <ul class="mdl-list">
+                        <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content movieInfo">
+                                <i class="material-icons mdl-list__item-icon">location_city</i>
+                                Category
+                            </span>
+                        </li>
+                    </ul>
                     <?php
                     $movies->printCategories();
+                    ?>
+                    <ul class="mdl-list">
+                        <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content movieInfo">
+                                <i class="material-icons mdl-list__item-icon">today</i>
+                                Release date
+                            </span>
+                        </li>
+                    </ul>
+                    <?php
+                    $movies->printDate();
                     ?>
 
                 </div>
@@ -71,7 +103,8 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
                     <?php
                     $movies->rentOrWatch($movieTitle);
                     ?>
-                    <button name="<?php echo $movies->getMovie()->getMovieID(); ?>" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-shadow--6dp addWatchLater">
+                    <button name="<?php echo $movies->getMovie()->getMovieID(); ?>"
+                            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-shadow--6dp addWatchLater">
                         Watch Later
                     </button>
                 </div>
@@ -87,7 +120,14 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
              style="<?php echo $path ?>/image-4.jpg') center / cover;"></div>
 
         <div class="mdl-cell--6-col mdl-card mdl-shadow--4dp rews">
-            <h5>Reviews</h5>
+            <ul class="mdl-list">
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content movieInfo">
+                        <i class="material-icons mdl-list__item-icon">rate_review</i>
+                        Reviews
+                    </span>
+                </li>
+            </ul>
             <?php
             $movies->printReviews();
             ?>
@@ -100,13 +140,15 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
                     <label class="mdl-textfield__label" for="reviewText">Review</label>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield ratingI">
-                    <input class="mdl-textfield__input" style="text-align: center;" type="text" id="rating" pattern="^[0-9]{1}$" value="1" disabled>
+                    <input class="mdl-textfield__input" style="text-align: center;" type="text" id="rating"
+                           pattern="^[0-9]{1}$" value="1" disabled>
                     <label class="mdl-textfield__label" for="rating">Rating</label>
                     <span class="mdl-textfield__error">Input is not one number!</span>
                 </div>
                 <input class="mdl-slider mdl-js-slider" type="range"
                        min="1" max="9" value="0" step="1" tabindex="0" title="" oninput="showVal(this.value)">
-                <input id="movieId" style="display:none" value="<?php echo $movies->getMovie()->getMovieID(); ?>" title="">
+                <input id="movieId" style="display:none" value="<?php echo $movies->getMovie()->getMovieID(); ?>"
+                       title="">
             </form>
 
             <button class="subR mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp"
@@ -123,7 +165,7 @@ $path = "background: url('img/movie-images/" . preg_replace("/[^ \w]+/", "", $mo
     </div>
 
     <?php
-        $movies->printMovieVideo();
+    $movies->printMovieVideo();
     ?>
 
     <script>

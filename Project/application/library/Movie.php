@@ -134,10 +134,6 @@ class Movie implements InterfaceClass
 
         $database->startTransaction();
 
-        $query = "DELETE FROM movies WHERE movie_id = ?;";
-
-        $database->setData($query, array($this->movie_id));
-
         $query = "DELETE FROM movie_renter WHERE movie_id = ?;";
 
         $database->setData($query, array($this->movie_id));
@@ -151,6 +147,14 @@ class Movie implements InterfaceClass
         $database->setData($query, array($this->movie_id));
 
         $query = "DELETE FROM movie_directors WHERE movie_id = ?;";
+
+        $database->setData($query, array($this->movie_id));
+
+        $query = "DELETE FROM history WHERE movie_id = ?;";
+
+        $database->setData($query, array($this->movie_id));
+
+        $query = "DELETE FROM movies WHERE movie_id = ?;";
 
         $database->setData($query, array($this->movie_id));
 

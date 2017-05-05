@@ -197,6 +197,34 @@ li a {
 .imgM {
     margin-right: 15px;
     margin-bottom: 15px;
+    height: 270px;
+}
+
+.movieInfo {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: .02em;
+    color: #455A64 !important;
+}
+
+.mDesc {
+    letter-spacing: 1px;
+    word-spacing: 3px;
+    font-size: initial;
+}
+
+.padd .mdl-list .mdl-list__item {
+    padding: 0;
+}
+
+.padd ul {
+    margin: 4px;
+}
+
+.rews b {
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 /**

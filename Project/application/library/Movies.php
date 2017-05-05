@@ -119,6 +119,14 @@ class Movies
         echo $movie->getCategory()[0]->getCategoryName();
     }
 
+    public function printDate()
+    {
+        $movie = $this->movie;
+
+        $date = new DateTime($movie->getReleaseDate());
+        echo $date->format('d. F Y.');
+    }
+
     public function rentOrWatch($name)
     {
         if ($this->rented)

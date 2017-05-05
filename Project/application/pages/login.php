@@ -6,14 +6,13 @@ include_once(LIBRARY_PATH . 'check.php');
 
 <div id="box">
     <div id="text">
-        <h6>Rent it NOW!!1 (╯°□°）╯︵ /(.□. \)</h6>
+        <h6>Quick and easy</h6>
         <h1 class="title titleM">Movie Rental Page</h1>
         <div class="flex">
             <hr>
-            <p>Lorem ipsum dolor sit amet, enim eiusmod commodo vel metus, vitae nec, tellus eros porta consectetuer.
-                Nascetur et rutrum nunc nascetur dictumst est, consequat nulla. Cursus et adipiscing eu, adipiscing
-                proin a ᵔᴥᵔ ut nunc. Wisi risus, eget sed neque libero. Volutpat lorem sed turpis vestibulum, venenatis
-                eu et luctus auctor nulla, sollicitudin orci.</p>
+            <p>Tired of slow hosting websites? Why not just rent the movies from our site and enjoy the best quality
+                movies internet has to offer! Be it old or new you can rent any movie from our collection of 88 movies!
+                After watching a movie you can review it, or see what others have to say about it.</p>
         </div>
     </div>
     <div id="login" class="mdl-card mdl-shadow--6dp">
@@ -66,15 +65,15 @@ include_once(LIBRARY_PATH . 'check.php');
         </div>
     </div>
     <script>
-/*        $("#loginForm").submit(function (e) {
-            e.preventDefault();
-            $.post('../application/pages/check.php?action=login', $("#loginForm").serialize(), function (data) {
-                alert(data);
-                var data = jQuery.parseJSON(data);
-                alert(data);
-                document.cookie = "tokanVal=" + data['resp']['jwt'];
+        /*        $("#loginForm").submit(function (e) {
+         e.preventDefault();
+         $.post('../application/pages/check.php?action=login', $("#loginForm").serialize(), function (data) {
+         alert(data);
+         var data = jQuery.parseJSON(data);
+         alert(data);
+         document.cookie = "tokanVal=" + data['resp']['jwt'];
 
-                window.location.reload(true);
-            });
-        });*/
+         window.location.reload(true);
+         });
+         });*/
     </script>
